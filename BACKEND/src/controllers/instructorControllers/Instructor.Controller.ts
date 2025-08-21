@@ -5,7 +5,7 @@ import { JwtService } from '../../utils/jwt'
 
 import IInstructorController from './interfaces/IInstructorController'
 import IInstructorService from '../../services/instructorServices/interfaces/IInstructorService'
-import IOtpServices from '../../services/instructorServices/interfaces/IOtpService'
+import IOtpServices from '../../services/OtpService/interfaces/IOtpRepository'
 
 import { InstructorErrorMessages, InstructorSuccessMessages } from '../../utils/constants'
 import { Roles, StatusCode } from '../../utils/enums'

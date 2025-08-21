@@ -2,21 +2,32 @@ import { IEmail } from '../types/Email'
 import nodeMailer, { SentMessageInfo } from 'nodemailer'
 import dotenv from 'dotenv'
 
+// Load environment variables from .env file
 dotenv.config()
 
+// Email service class implementing IEmail interface
 export class SendEmail implements IEmail {
+  /**
+   * Send email verification code to user
+   * @param name - Recipient's name
+   * @param email - Recipient's email address
+   * @param verificationCode - Unique verification code for email confirmation
+   */
   async sentEmailVerification(
     name: string,
     email: string,
     verificationCode: string,
   ): Promise<SentMessageInfo> {
+    // Get email credentials from environment variables
     const userEmail = process.env.USER_EMAIL
     const userPassword = process.env.USER_PASSWORD
 
+    // Ensure credentials are available
     if (!userEmail || !userPassword) {
       throw new Error('Email credentials are not set in the environment')
     }
 
+    // Create a reusable transporter object using Gmail service
     const transporter = nodeMailer.createTransport({
       service: 'gmail',
       auth: {
@@ -24,10 +35,11 @@ export class SendEmail implements IEmail {
         pass: userPassword,
       },
       tls: {
-        rejectUnauthorized: false,
+        rejectUnauthorized: false, // Allow self-signed certificates
       },
     })
 
+    // Define the email content and formatting (text + HTML)
     const mailOptions = {
       from: userEmail,
       to: email,
@@ -56,6 +68,7 @@ export class SendEmail implements IEmail {
       `,
     }
 
+    // Try sending the email
     try {
       const info = await transporter.sendMail(mailOptions)
       console.log('Email sent successfully')
@@ -66,6 +79,12 @@ export class SendEmail implements IEmail {
     }
   }
 
+  /**
+   * Send rejection email when instructor verification is denied
+   * @param name - Recipient's name
+   * @param email - Recipient's email address
+   * @param reason - Reason for rejection
+   */
   async sendRejectionEmail(name: string, email: string, reason: string): Promise<SentMessageInfo> {
     const userEmail = process.env.USER_EMAIL
     const userPassword = process.env.USER_PASSWORD
@@ -119,6 +138,11 @@ export class SendEmail implements IEmail {
     }
   }
 
+  /**
+   * Send success email when instructor verification is approved
+   * @param name - Recipient's name
+   * @param email - Recipient's email address
+   */
   async sendVerificationSuccessEmail(name: string, email: string): Promise<SentMessageInfo> {
     const userEmail = process.env.USER_EMAIL
     const userPassword = process.env.USER_PASSWORD
@@ -167,5 +191,4 @@ export class SendEmail implements IEmail {
       throw new Error('Failed to send verification success email')
     }
   }
-
 }

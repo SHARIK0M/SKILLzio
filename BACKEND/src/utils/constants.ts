@@ -1,3 +1,4 @@
+// ====================== ADMIN ERROR MESSAGES ======================
 export const AdminErrorMessages = {
   INVALID_CREDENTIALS: 'Invalid email or password.',
   EMAIL_INCORRECT: 'Incorrect email.',
@@ -7,6 +8,7 @@ export const AdminErrorMessages = {
   INTERNAL_SERVER_ERROR: 'Internal server error.',
 }
 
+// ====================== ADMIN SUCCESS MESSAGES ======================
 export const AdminSuccessMessages = {
   LOGIN_SUCCESS: 'Welcome Admin',
   LOGOUT_SUCCESS: 'Logout successful.',
@@ -14,10 +16,12 @@ export const AdminSuccessMessages = {
   ADMIN_DATA_RETRIEVED: 'Admin data retrieved successfully.',
 }
 
+// ====================== INSTRUCTOR SUCCESS MESSAGES ======================
 export const InstructorSuccessMessages = {
-  //bank
+  // Bank-related messages
   BANK_ACCOUNT_UPDATED: 'bank account details updated successfully',
-  // Auth & Signup
+
+  // Authentication & Signup
   SIGNUP_SUCCESS: 'Signup successful, OTP sent to email.',
   OTP_SENT: 'OTP has been sent to your email successfully!',
   USER_CREATED: 'User created successfully!',
@@ -29,7 +33,7 @@ export const InstructorSuccessMessages = {
   REDIERCTING_OTP_PAGE: 'Rediercting To OTP Page',
   REDIERCTING_PASSWORD_RESET_PAGE: 'Redirecting to Reset Password Page',
 
-  // Account & Profile
+  // Profile & Account
   INSTRUCTOR_CREATED: 'Instructor account created successfully.',
   PROFILE_FETCHED: 'your information is retrieved',
   PROFILE_UPDATED: 'Profile updated successfully.',
@@ -45,20 +49,21 @@ export const InstructorSuccessMessages = {
   INSTRUCTOR_UNBLOCKED: 'Instructor unblocked successfully.',
   FILE_UPLOADED: 'File uploaded successfully.',
 
-  // Fetching Data
+  // Fetching data
   TRANSACTIONS_FETCHED: 'Transactions fetched successfully.',
   MENTORS_FETCHED: 'Mentors fetched successfully.',
   MENTOR_EXPERTISE_FETCHED: 'Mentor expertise fetched successfully.',
   PAGINATED_MENTORS_FETCHED: 'Paginated mentors fetched successfully.',
   INSTRUCTOR_DATA_FETCHED: 'Instructor data fetched successfully.',
 
-  // Requests
+  // Verification requests
   REQUEST_APPROVED: 'Request approved successfully.',
   REQUEST_REJECTED: 'Request rejected successfully.',
 }
 
+// ====================== INSTRUCTOR ERROR MESSAGES ======================
 export const InstructorErrorMessages = {
-  // Auth & Signup
+  // Authentication & Signup
   USER_ALREADY_EXISTS: 'User already exists. Please log in instead.',
   USER_NOT_FOUND: 'No user found with this email.',
   INVALID_CREDENTIALS: 'Invalid email or password.',
@@ -82,22 +87,22 @@ export const InstructorErrorMessages = {
   FILE_UPLOAD_FAILED: 'Failed to upload file. Please try again.',
   INVALID_DATA: 'Invalid data provided. Please check your inputs.',
 
-  // Data Fetch
+  // Data fetching
   TRANSACTIONS_NOT_FOUND: 'No transactions found for the instructor.',
 
   // Common
   INTERNAL_SERVER_ERROR: 'An unexpected error occurred. Please try again later.',
   INSTRUCTOR_BLOCKED: 'you are blocked by admin',
   UNAUTHORIZED: 'you are not verified',
-
   PASSWORD_UPDATE_FAILED: 'password updation failed',
   OTP_EXPIRED: 'otp is expired.Request new One',
   OTP_NOT_FOUND: 'otp is not found',
 
-  //bank
+  // Bank-related
   BANK_ACCOUNT_UPDATE_FAILED: 'bank account updation failed',
 }
 
+// ====================== STUDENT ERROR MESSAGES ======================
 export const StudentErrorMessages = {
   USER_ALREADY_EXISTS: 'User already exists. Please log in instead.',
   USER_NOT_FOUND: 'No user found with this email.',
@@ -117,6 +122,7 @@ export const StudentErrorMessages = {
   OTP_EXPIRED: 'OTP expired. Please request a new one.',
 }
 
+// ====================== STUDENT SUCCESS MESSAGES ======================
 export const StudentSuccessMessages = {
   SIGNUP_SUCCESS: 'Signup successful, OTP sent to email.',
   OTP_SENT: 'OTP has been sent to your email successfully!',
@@ -130,15 +136,18 @@ export const StudentSuccessMessages = {
   REDIERCTING_OTP_PAGE: 'Rediercting To OTP Page',
   REDIERCTING_PASSWORD_RESET_PAGE: 'Redirecting to Reset Password Page',
 
+  // Profile
   PROFILE_FETCHED: 'your profile fecthed successfully',
   PROFILE_UPDATED: 'your profile is updated successfully',
   PASSWORD_UPDATED: 'your password is successfully updated',
 }
 
+// ====================== OTP RESPONSE MESSAGES ======================
 export const OtpResponses = {
   NO_OTP_DATA: 'Retry again Failed To Login!',
 }
 
+// ====================== AUTHENTICATION ERROR MESSAGES ======================
 export const AuthErrorMsg = {
   NO_ACCESS_TOKEN: 'Unauthorized access. Please provide a valid token OR LOGIN',
   NO_REFRESH_TOKEN: 'Unauthorized access. Session verification required.',
@@ -153,6 +162,7 @@ export const AuthErrorMsg = {
   TOKEN_VERIFICATION_ERROR: 'Token is not valid.It is verification error',
 }
 
+// ====================== GENERAL SERVER ERROR MESSAGES ======================
 export const GeneralServerErrorMsg = {
   INTERNAL_SERVER_ERROR: 'Internal server error!',
   DATABASE_ERROR: 'Database operation failed!',
@@ -160,13 +170,15 @@ export const GeneralServerErrorMsg = {
   UNEXPECTED_ERROR: 'An unexpected error occurred!',
 }
 
+// ====================== JWT ERROR MESSAGES ======================
 export const JwtErrorMsg = {
   JWT_NOT_FOUND: 'JWT not found in the cookies',
   INVALID_JWT: 'Invalid JWT',
-  JWT_EXPIRATION: '2h' as const,
-  JWT_REFRESH_EXPIRATION: '6h' as const,
+  JWT_EXPIRATION: '2h' as const, // Access token expiry time
+  JWT_REFRESH_EXPIRATION: '6h' as const, // Refresh token expiry time
 }
 
+// ====================== ENVIRONMENT ERROR MESSAGES ======================
 export const EnvErrorMsg = {
   CONST_ENV: '',
   JWT_NOT_FOUND: 'JWT secret not found in the env',
@@ -174,6 +186,7 @@ export const EnvErrorMsg = {
   ADMIN_NOT_FOUND: 'Environment variables for admin credentials not found',
 }
 
+// ====================== GENERIC RESPONSE ERROR MESSAGES ======================
 export const ResponseError = {
   ACCESS_FORBIDDEN: 'Access Forbidden: No access token provided.',
   INTERNAL_SERVER_ERROR: 'Internal server error.',
@@ -187,19 +200,23 @@ export const ResponseError = {
   NEW_ACCESS_TOKEN_GENERATED: 'New access token generated.',
   NOT_FOUND: 'Resource Not Found',
 
+  // User-related
   USER_NOT_FOUND: 'No user details not found',
   PROFILE_UPDATE: 'Profile Updated Successfully',
   PROFILE_NOT_UPDATE: 'Profile Not updated',
   USERFETCHING_ERROR: 'No users or instructors found',
   FETCH_ERROR: 'An error occcured while fetching',
 
+  // Password-related
   PASSWORD_UPDATED: 'Password Updated Successfully',
   PASSWORD_NOT_UPDATED: 'Password Not Updated',
   CURRENTPASSWORD_WRONG: 'Current Password is Wrong',
 
+  // Account status
   ACCOUNT_BLOCKED: 'Your account has been blocked !',
   ACCOUNT_UNBLOCKED: 'Your account has been Unblocked !',
 
+  // Data fetching
   FETCH_USER: 'Users retrieved successfully',
   FETCH_INSTRUCTOR: 'Instructors retrieved successfully',
   FETCH_ADMIN: 'Admin retrieved successfully',
@@ -207,14 +224,17 @@ export const ResponseError = {
   APPROVE_INSTRUCTOR: 'Instructor Records Approved ',
   REJECT_INSTRUCTOR: 'Instructor Records Rejected ',
 
+  // Banner-related
   BANNER_CREATED: 'Banner added successfully!',
   BANNER_UPDATED: 'Banner updated successfully',
   FETCH_BANNER: 'banners retrieved successfully',
 
+  // Reports
   REPORT_ADDED: 'Report Instructor Successfully',
   FETCH_REPORTS: 'Report Fetched...',
 }
 
+// ====================== S3 BUCKET ERROR MESSAGES ======================
 export const S3BucketErrors = {
   ERROR_GETTING_IMAGE:
     'Error gettting the image from S3 Bucket! or Failed to get the uploaded file URL from s3',
@@ -222,6 +242,7 @@ export const S3BucketErrors = {
   BUCKET_REQUIREMENT_MISSING: 'Missing required AWS s3 environment variables',
 }
 
+// ====================== VERIFICATION ERROR MESSAGES ======================
 export const VerificationErrorMessages = {
   NO_DOCUMENTS_RECEIVED: 'No documents received.',
   DOCUMENTS_MISSING: 'Required documents are missing.',
@@ -235,6 +256,7 @@ export const VerificationErrorMessages = {
   UPLOAD_FAILED: 'Failed to upload documents. Please try again.',
 }
 
+// ====================== VERIFICATION SUCCESS MESSAGES ======================
 export const VerificationSuccessMessages = {
   VERIFICATION_REQUEST_SENT: 'Verification request sent successfully.',
   REVERIFICATION_REQUEST_SENT: 'Re-verification request sent successfully.',

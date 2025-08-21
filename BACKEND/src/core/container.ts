@@ -8,7 +8,7 @@
 // STUDENT MODULE IMPORTS
 // =============================================================================
 import { IStudentRepository } from '../repositories/studentRepository/interfaces/IStudentRepository'
-import { StudentRepository } from '../repositories/studentRepository/studentRepository'
+import { StudentRepository } from '../repositories/studentRepository/student.Repository'
 import IStudentService from '../services/studentServices/interfaces/IStudentService'
 import { StudentServices } from '../services/studentServices/Student.Service'
 import IStudentController from '../controllers/studentControllers/interfaces/IStudentController'
@@ -18,8 +18,8 @@ import { StudentController } from '../controllers/studentControllers/student.Con
 // OTP MODULE IMPORTS
 // =============================================================================
 import IOtpRepository from '../repositories/otpRepository/interfaces/IOtpRepository'
-import { OtpRepository } from '../repositories/otpRepository/OtpRepository'
-import IOtpServices from '../services/instructorServices/interfaces/IOtpService'
+import { OtpRepository } from '../repositories/otpRepository/Otp.Repository'
+import IOtpServices from '../services/OtpService/interfaces/IOtpRepository'
 import { OtpService } from '../services/OtpService/otp.Service'
 
 // =============================================================================
@@ -28,7 +28,7 @@ import { OtpService } from '../services/OtpService/otp.Service'
 import IInstructorController from '../controllers/instructorControllers/interfaces/IInstructorController'
 import { InstructorController } from '../controllers/instructorControllers/Instructor.Controller'
 import IInstructorRepository from '../repositories/instructorRepository/interfaces/IInstructorRepository'
-import InstructorRepository from '../repositories/instructorRepository/instructorRepository'
+import InstructorRepository from '../repositories/instructorRepository/instructor.Repository'
 import IInstructorService from '../services/instructorServices/interfaces/IInstructorService'
 import InstructorService from '../services/instructorServices/Instructor.Service'
 
@@ -60,11 +60,36 @@ import { AdminVerificationController } from '../controllers/adminControllers/adm
 // INSTRUCTOR VERIFICATION MODULE IMPORTS
 // =============================================================================
 import { IInstructorVerificationRepository } from '../repositories/instructorRepository/interfaces/IInstructorVerifcationRepository'
-import { InstructorVerificationRepository } from '../repositories/instructorRepository/instructorVerificationRepository'
+import { InstructorVerificationRepository } from '../repositories/instructorRepository/instructorVerification.Repository'
 import { IInstructorVerificationService } from '../services/instructorServices/interfaces/IInstructorVerificationService'
 import { InstructorVerificationService } from '../services/instructorServices/InstructorVerification.Service'
 import IInstructorVerificationController from '../controllers/instructorControllers/interfaces/IInstructorVerificationController'
 import { InstructorVerificationController } from '../controllers/instructorControllers/instructorVerification.Controller'
+
+
+// =============================================================================
+// STUDENT PROFILE MODULE IMPORTS
+// =============================================================================
+import { studentProfileRepository } from '../repositories/studentRepository/studentProfile.Repository'
+import { IStudentProfileRepository } from '../repositories/studentRepository/interfaces/IStudentProfileRepository'
+import { IStudentProfileService } from '../services/studentServices/interfaces/IStudentProfileService'
+import { StudentProfileService } from '../services/studentServices/StudentProfile.Service'
+import { IStudentProfileController } from '../controllers/studentControllers/interfaces/IStudentProfileController'
+import { StudentProfileController } from '../controllers/studentControllers/studentProfile.Controller'
+
+
+// =============================================================================
+// INSTRUCTOR PROFILE MODULE IMPORTS
+// ===========================================================================
+import { IInstructorProfileRepository } from '../repositories/instructorRepository/interfaces/IInstructorProfileRepository'
+import { InstructorProfileRepository } from '../repositories/instructorRepository/instructorProfile.Repository'
+import { IInstructorProfileService } from '../services/instructorServices/interfaces/IInstructorProfileService'
+import { InstructorProfileService } from '../services/instructorServices/InstructorProfile.Service'
+import { IInstructorProfileController } from '../controllers/instructorControllers/interfaces/IInstructorProfileController'
+import { InstructorProfileController } from '../controllers/instructorControllers/instructorProfile.Controller'
+
+
+
 
 // =============================================================================
 // DEPENDENCY INJECTION SETUP
@@ -136,6 +161,31 @@ const instructorVerificationService: IInstructorVerificationService =
 const instructorVerificationController: IInstructorVerificationController =
   new InstructorVerificationController(instructorVerificationService)
 
+
+
+/**
+ * Step 7: Create STUDENT PROFILE Module
+ * Handles student profile processes
+ */
+const studentProfileRepo: IStudentProfileRepository = new studentProfileRepository();
+const studentProfileService: IStudentProfileService = new StudentProfileService(studentProfileRepo);
+const studentProfileController: IStudentProfileController = new StudentProfileController(studentProfileService);
+
+
+
+
+/**
+ * Step 8: Create INSTRUCTOR PROFILE Module
+ * Handles INSTRUCTOR profile processes
+ */
+const instructorProfileRepo: IInstructorProfileRepository = new InstructorProfileRepository()
+const instructorProfileService: IInstructorProfileService = new InstructorProfileService(instructorProfileRepo)
+const instructorProfileController: IInstructorProfileController = new InstructorProfileController(instructorProfileService)
+
+
+
+
+
 // =============================================================================
 // EXPORTS
 // =============================================================================
@@ -150,4 +200,9 @@ export {
   adminController, // Handles admin-related operations
   adminVerificationController, // Handles admin verification processes
   instructorVerificationController, // Handles instructor verification processes
+  studentProfileController,
+  instructorProfileController,
 }
+
+
+

@@ -1,5 +1,5 @@
 import { IUser } from '../../../models/user.Model'
-import { IGenericRepository } from '../../genericRepo/genericRepository' 
+import { IGenericRepository } from '../../genericRepo/generic.Repository' 
 
 import { Types } from 'mongoose'
 export interface IStudentRepository extends IGenericRepository<IUser> {

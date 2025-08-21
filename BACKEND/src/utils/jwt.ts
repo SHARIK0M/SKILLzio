@@ -2,57 +2,65 @@ import jwt from 'jsonwebtoken'
 import { EnvErrorMsg, JwtErrorMsg } from './constants'
 import dotenv from 'dotenv'
 
-// Load environment variables from .env file
+// Load environment variables from the .env file
 dotenv.config()
 
 export class JwtService {
   /**
    * Create a generic JWT token
-   * @param payload - The data you want to embed in the token (e.g., user id, role)
+   * @param payload - The data to embed inside the token (e.g., user id, role, email, etc.)
    * @returns A signed JWT token string
    */
   async createToken(payload: Object): Promise<string> {
-    const secret = process.env.JWT_SECRET // Get secret key from environment
+    // Get the JWT secret from environment variables
+    const secret = process.env.JWT_SECRET
 
+    // If secret key is missing, throw an error
     if (!secret) {
-      // If no secret found, throw error
       throw new Error(EnvErrorMsg.JWT_NOT_FOUND)
     }
 
-    // Sign the token with payload, secret, and expiration time
+    // Sign the token with the given payload, secret, and expiration time
     const verifyToken = await jwt.sign(payload, secret, {
-      expiresIn: JwtErrorMsg.JWT_EXPIRATION, // e.g., "1h" or "15m"
+      expiresIn: JwtErrorMsg.JWT_EXPIRATION, // Expiration time (example: "1h")
     })
 
-    console.log('payload', payload) // Debug log: show what data is inside token
+    // Debug log: show the payload being signed
+    console.log('payload', payload)
 
+    // Return the generated token
     return verifyToken
   }
 
   /**
-   * Create an Access Token (short-lived)
-   * Used for authenticated API requests
-   * @param payload - Data to store in token (e.g., user details)
+   * Create an Access Token
+   * - Short-lived token
+   * - Used for authenticated API requests
+   * @param payload - The data to embed inside the token
+   * @returns Signed access token string
    */
   async accessToken(payload: Object): Promise<string> {
-    const secret = process.env.JWT_SECRET // Get secret key from environment
+    const secret = process.env.JWT_SECRET
 
     if (!secret) {
       throw new Error(EnvErrorMsg.JWT_NOT_FOUND)
     }
 
-    console.log('accessToken', payload) // Debug log
+    // Debug log: show payload
+    console.log('accessToken', payload)
 
-    // Return short-lived token
+    // Return a signed short-lived token
     return jwt.sign(payload, secret, {
       expiresIn: JwtErrorMsg.JWT_EXPIRATION,
     })
   }
 
   /**
-   * Create a Refresh Token (long-lived)
-   * Used to generate new access tokens without re-login
-   * @param payload - Data to store in token
+   * Create a Refresh Token
+   * - Long-lived token
+   * - Used to generate new access tokens without forcing re-login
+   * @param payload - The data to embed inside the token
+   * @returns Signed refresh token string
    */
   async refreshToken(payload: Object): Promise<string> {
     const secret = process.env.JWT_SECRET
@@ -61,31 +69,34 @@ export class JwtService {
       throw new Error(EnvErrorMsg.JWT_NOT_FOUND)
     }
 
-    // Sign the refresh token with longer expiration
+    // Sign refresh token with a longer expiration time
     const verifyToken = await jwt.sign(payload, secret, {
-      expiresIn: JwtErrorMsg.JWT_REFRESH_EXPIRATION, // e.g., "7d" or "30d"
+      expiresIn: JwtErrorMsg.JWT_REFRESH_EXPIRATION, // Example: "7d"
     })
 
     return verifyToken
   }
 
   /**
-   * Verify if a token is valid and return its payload
+   * Verify a JWT token
+   * - Checks if token is valid
+   * - Returns decoded payload if valid
    * @param token - JWT token string
-   * @returns Decoded token data if valid, else throws error
+   * @returns Decoded token data (payload)
    */
   async verifyToken(token: string): Promise<any> {
     try {
-      // Fallback to 'LIFEISGOOD' if JWT_SECRET not set (not recommended in production)
+      // Get JWT secret from environment, fallback to "LIFEISGOOD" if missing
+      // (fallback should not be used in production)
       const secret = process.env.JWT_SECRET || 'LIFEISGOOD'
 
-      // Verify the token and decode the payload
+      // Verify token and return decoded payload
       const data = await jwt.verify(token, secret)
 
       return data
     } catch (error) {
-      // Log the error if verification fails
-      console.error('❌ Token verification failed:', error)
+      // Log error if token verification fails
+      console.error('Token verification failed:', error)
       throw error
     }
   }

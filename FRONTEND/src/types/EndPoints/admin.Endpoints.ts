@@ -1,15 +1,18 @@
+// Define all API endpoint paths used for admin-related operations
 const AdminRoutersEndPoints = {
-  //user block or unblock
-  adminGetUsers: "/api/admin/getAllUsers",
-  adminBlockUser: "/api/admin/blockUser",
-  //instructor block or unblock
-  adminGetInstructors: "/api/admin/getAllInstructors",
-  adminBlockInstructor: "/api/admin/blockInstructor",
-  //verification
-  adminGetVerifcationsRequest: "/api/admin/requests",
-  adminGetVerificationByEamil: "/api/admin/request",
-  adminApproveVerification: "/api/admin/approveRequest",
+  // User Management
+  adminGetUsers: "/api/admin/getAllUsers", // Fetch all users
+  adminBlockUser: "/api/admin/blockUser", // Block or unblock a specific user
 
+  // Instructor Management
+  adminGetInstructors: "/api/admin/getAllInstructors", // Fetch all instructors
+  adminBlockInstructor: "/api/admin/blockInstructor", // Block or unblock a specific instructor
+
+  // Instructor Verification Management
+  adminGetVerifcationsRequest: "/api/admin/requests", // Fetch all pending verification requests
+  adminGetVerificationByEamil: "/api/admin/request", // Fetch a specific verification request by email
+  adminApproveVerification: "/api/admin/approveRequest", // Approve an instructor’s verification request
 };
 
+// Export so it can be imported and used across the project
 export default AdminRoutersEndPoints;

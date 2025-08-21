@@ -1,5 +1,5 @@
 import { IVerificationModel } from "../../models/verification.Model";
-import { GenericRepository } from "../genericRepo/genericRepository"; 
+import { GenericRepository } from "../genericRepo/generic.Repository"; 
 import VerificationModel from "../../models/verification.Model";
 import { IInstructorVerificationRepository } from "./interfaces/IInstructorVerifcationRepository"; 
 

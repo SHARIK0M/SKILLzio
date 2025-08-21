@@ -29,7 +29,6 @@ app.use("/api/student",studentRoutes)
 app.use("/api/admin",adminRoutes)
 app.use("/api/instructor", instructorRoutes)
 
-// Routes will go here
 
 app.use(errorMiddleware)
 

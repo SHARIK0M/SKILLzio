@@ -3,6 +3,8 @@ import { studentController } from '../core/container'
 import upload from '../utils/multer'
 import authenticateToken from '../middlewares/AuthenticatedRoutes'
 import { isStudent } from '../middlewares/roleAuth'
+import { studentProfileController } from '../core/container'
+
 
 const router = Router()
 
@@ -26,9 +28,30 @@ router.post('/resetPassword', studentController.resetPassword.bind(studentContro
 
 router.post('/googleLogin', studentController.doGoogleLogin.bind(studentController))
 
-//isBlocked checker
 router.get('/statusCheck', studentController.statusCheck.bind(studentController))
 
-/////////////////////student profile controller/////////////////////////////////
+// Student Profile
+
+router.get(
+  '/profile',
+  authenticateToken,
+  isStudent,
+  studentProfileController.getProfile.bind(studentProfileController),
+)
+
+router.put(
+  '/profile',
+  authenticateToken,
+  isStudent,
+  upload.single('profilePic'),
+  studentProfileController.updateProfile.bind(studentProfileController),
+)
+
+router.put(
+  '/profile/password',
+  authenticateToken,
+  isStudent,
+  studentProfileController.updatePassword.bind(studentProfileController),
+)
 
 export default router

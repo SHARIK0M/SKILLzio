@@ -1,6 +1,6 @@
 import { StudentErrorMessages } from '../../utils/constants'
 import UserModel, { IUser, IUserDTO } from '../../models/user.Model'
-import { GenericRepository } from '../genericRepo/genericRepository' 
+import { GenericRepository } from '../genericRepo/generic.Repository' 
 import { IStudentRepository } from './interfaces/IStudentRepository' 
 import bcrypt from 'bcryptjs'
 import { Types } from 'mongoose'

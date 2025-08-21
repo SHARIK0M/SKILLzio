@@ -7,67 +7,51 @@ import {
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-900 text-white pt-16 pb-8 border-t border-gray-800">
-      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-8">
-        {/* Branding & Description */}
-        <div className="space-y-4">
-          <h2 className="text-2xl font-bold text-[#49BBBD] tracking-wide">
-            SKILLzio
-          </h2>
-          <p className="text-sm text-gray-300 leading-relaxed">
-            Explore our wide range of tech courses guided by expert instructors.
-            Whether you're a beginner or looking to upskill, SKILLzio has you
-            covered.
+    <footer className="bg-gray-900 text-white py-10">
+      <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-8">
+        {/* Branding */}
+        <div>
+          <h2 className="text-2xl font-bold text-[#49BBBD]">SKILLzio</h2>
+          <p className="text-sm text-gray-400 mt-2">
+            Learn. Grow. Excel. Expert-led courses for your career success.
           </p>
-          <div className="flex space-x-4 mt-4">
-            <a href="#" className="hover:text-[#49BBBD] transition-colors">
-              <FaFacebookF />
-            </a>
-            <a href="#" className="hover:text-[#49BBBD] transition-colors">
-              <FaTwitter />
-            </a>
-            <a href="#" className="hover:text-[#49BBBD] transition-colors">
-              <FaLinkedinIn />
-            </a>
-            <a href="#" className="hover:text-[#49BBBD] transition-colors">
-              <FaInstagram />
-            </a>
+          <div className="flex space-x-3 mt-4">
+            {[FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram].map(
+              (Icon, i) => (
+                <a
+                  key={i}
+                  href="#"
+                  className="hover:text-[#49BBBD] transition-colors"
+                >
+                  <Icon />
+                </a>
+              )
+            )}
           </div>
         </div>
 
         {/* Quick Links */}
         <div>
-          <h3 className="text-lg font-semibold mb-4 text-gray-200">
-            Quick Links
-          </h3>
-          <ul className="space-y-2 text-gray-400">
+          <h3 className="font-semibold mb-3">Links</h3>
+          <ul className="space-y-2 text-sm text-gray-400">
             <li>
-              <a href="/" className="hover:text-[#49BBBD] transition-colors">
+              <a href="/" className="hover:text-[#49BBBD]">
                 Home
               </a>
             </li>
             <li>
-              <a
-                href="/courses"
-                className="hover:text-[#49BBBD] transition-colors"
-              >
+              <a href="/courses" className="hover:text-[#49BBBD]">
                 Courses
               </a>
             </li>
             <li>
-              <a
-                href="/instructors"
-                className="hover:text-[#49BBBD] transition-colors"
-              >
+              <a href="/instructors" className="hover:text-[#49BBBD]">
                 Instructors
               </a>
             </li>
             <li>
-              <a
-                href="/about"
-                className="hover:text-[#49BBBD] transition-colors"
-              >
-                About Us
+              <a href="/about" className="hover:text-[#49BBBD]">
+                About
               </a>
             </li>
           </ul>
@@ -75,36 +59,25 @@ const Footer = () => {
 
         {/* Resources */}
         <div>
-          <h3 className="text-lg font-semibold mb-4 text-gray-200">
-            Resources
-          </h3>
-          <ul className="space-y-2 text-gray-400">
+          <h3 className="font-semibold mb-3">Resources</h3>
+          <ul className="space-y-2 text-sm text-gray-400">
             <li>
-              <a href="/faq" className="hover:text-[#49BBBD] transition-colors">
+              <a href="/faq" className="hover:text-[#49BBBD]">
                 FAQ
               </a>
             </li>
             <li>
-              <a
-                href="/blog"
-                className="hover:text-[#49BBBD] transition-colors"
-              >
+              <a href="/blog" className="hover:text-[#49BBBD]">
                 Blog
               </a>
             </li>
             <li>
-              <a
-                href="/support"
-                className="hover:text-[#49BBBD] transition-colors"
-              >
+              <a href="/support" className="hover:text-[#49BBBD]">
                 Support
               </a>
             </li>
             <li>
-              <a
-                href="/contact"
-                className="hover:text-[#49BBBD] transition-colors"
-              >
+              <a href="/contact" className="hover:text-[#49BBBD]">
                 Contact
               </a>
             </li>
@@ -113,30 +86,25 @@ const Footer = () => {
 
         {/* Email Box */}
         <div>
-          <h3 className="text-lg font-semibold mb-4 text-gray-200">
-            Contact Us
-          </h3>
-          <p className="text-gray-400 text-sm mb-4">
-            Enter your email and we’ll get back to you shortly.
-          </p>
-          <form className="flex flex-col gap-3">
+          <h3 className="font-semibold mb-3">Stay in Touch</h3>
+          <form className="flex gap-2">
             <input
               type="email"
-              placeholder="Your email"
-              className="px-4 py-2 rounded-xl w-full text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#49BBBD]"
+              placeholder="Email"
+              className="px-3 py-2 rounded-lg w-full text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#49BBBD]"
             />
             <button
               type="submit"
-              className="bg-[#49BBBD] hover:bg-teal-500 text-white px-5 py-2 rounded-xl font-semibold transition-colors"
+              className="bg-[#49BBBD] hover:bg-teal-500 text-white px-4 rounded-lg font-semibold"
             >
-              Send
+              ➤
             </button>
           </form>
         </div>
       </div>
 
-      {/* Divider */}
-      <div className="border-t border-gray-800 mt-12 pt-6 text-center text-gray-400 text-sm">
+      {/* Bottom */}
+      <div className="border-t border-gray-800 mt-8 pt-4 text-center text-sm text-gray-400">
         © {new Date().getFullYear()} SKILLzio. All rights reserved.
       </div>
     </footer>
