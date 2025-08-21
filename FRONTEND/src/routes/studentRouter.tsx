@@ -12,6 +12,11 @@ import ResetPassword from "../pages/student/Auth/ResetPassword";
 import StudentSidebarLayout from "../layouts/StudentSidebarLayout";
 import StudentDashboard from "../pages/student/StudentDashboard";
 import PrivateRoute from '../protector/UserPrivateRoute'
+import StudentProfilePage from "../pages/student/profile/StudentProfilePage";
+import StudentProfileEditPage from "../pages/student/profile/StudentEditProfile";
+
+
+
 
 const StudentRouter = () => {
   return (
@@ -55,10 +60,13 @@ const StudentRouter = () => {
 
       {/* profile management */}
       <Route element={<PrivateRoute />}>
-        <Route element={<StudentSidebarLayout />}>
-          <Route path="/user/dashboard" element={<StudentDashboard />} />
-      
+        <Route path="/user" element={<StudentSidebarLayout />}>
+          <Route path="dashboard" element={<StudentDashboard />} />
+          <Route path="profile" element={<StudentProfilePage />} />
+          <Route path="editProfile" element={<StudentProfileEditPage />} />
+          
         </Route>
+
       </Route>
     </Routes>
   );

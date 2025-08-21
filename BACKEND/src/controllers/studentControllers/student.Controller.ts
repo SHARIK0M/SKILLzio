@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import IStudentController from './interfaces/IStudentController'
 import IStudentServices from '../../services/studentServices/interfaces/IStudentService'
-import IOtpServices from '../../services/instructorServices/interfaces/IOtpService'
+import IOtpServices from '../../services/OtpService/interfaces/IOtpRepository'
 import { OtpGenerate } from '../../utils/otpGenerator'
 import { JwtService } from '../../utils/jwt'
 import bcrypt from 'bcrypt'

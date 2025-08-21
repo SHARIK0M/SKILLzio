@@ -39,3 +39,53 @@ export const getVerificationRequestByemail = async (email: string) => {
     throw error; // Propagate error for handling outside
   }
 };
+
+
+//profile management api call
+
+export const instructorGetProfile = async() =>{
+    try {
+        const response = await API.get(InstructorRouterEndPoints.instructorProfilePage,{
+            withCredentials:true
+        })
+    
+        console.log('instructor profile data response',response.data)
+
+        return response.data
+    } catch (error:any) {
+        if(error.response && error.response.data){
+            return error.response.data
+        }
+    }
+}
+
+export const instructorUpdateProfile = async(formData:FormData):Promise<any> => {
+    try {
+        const response = await API.put(InstructorRouterEndPoints.instructorUpdateProfile,formData,{
+            headers:{"Content-Type":"multipart/form-data"},
+            withCredentials:true
+        })
+
+        console.log('instructor updateprofile response',response.data)
+
+        return response.data
+    } catch (error) {
+        throw error
+    }
+}
+
+export const instructorUpdatePassword = async(data:any):Promise<any>=>{
+    try {
+        const response = await API.put(InstructorRouterEndPoints.instructorUpdatePassword,data,{
+            withCredentials:true
+        })
+
+        console.log('instructor password updation data',response.data)
+
+        return response.data
+    } catch (error:any) {
+        if(error.response && error.response.data){
+            return error.response.data
+        }
+    }
+}

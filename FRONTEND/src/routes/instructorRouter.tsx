@@ -15,6 +15,11 @@ import InstructorSidebarLayout from "../layouts/InstructorSidebarLayout";
 import InstructorDashboard from "../pages/instructor/InstructorDashboard";
 import PrivateRoute from "../protector/InstructorPrivateRoute";
 
+
+import InstructorProfilePage from "../pages/instructor/profile/InstructorProfilePage";
+import InstructorProfileEditPage from "../pages/instructor/profile/InstructorEditProfile";
+
+
 const InstructorRouter = () => {
   return (
     <Routes>
@@ -41,7 +46,8 @@ const InstructorRouter = () => {
       <Route element={<PrivateRoute />}>
         <Route element={<InstructorSidebarLayout />}>
           <Route path="dashboard" element={<InstructorDashboard />} />
-
+          <Route path="profile" element={<InstructorProfilePage />} />
+          <Route path="editProfile" element={<InstructorProfileEditPage />} />
         </Route>
       </Route>
     </Routes>

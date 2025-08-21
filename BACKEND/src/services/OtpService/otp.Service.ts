@@ -1,6 +1,6 @@
 import { IOtp } from "../../models/otp.Model";
 import IOtpRepository from "../../repositories/otpRepository/interfaces/IOtpRepository"; 
-import IOtpServices from "../instructorServices/interfaces/IOtpService"; 
+import IOtpServices from "../OtpService/interfaces/IOtpRepository"; 
 
 export class OtpService implements IOtpServices{
     private otpRepository : IOtpRepository

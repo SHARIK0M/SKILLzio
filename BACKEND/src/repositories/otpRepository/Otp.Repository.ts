@@ -1,6 +1,5 @@
 import otpModel, { IOtp } from "../../models/otp.Model";
-import { GenericRepository } from "../genericRepo/genericRepository"; 
-
+import { GenericRepository } from "../genericRepo/generic.Repository"; 
 import IOtpRepository from "./interfaces/IOtpRepository";
 
 export class OtpRepository extends GenericRepository<IOtp> implements IOtpRepository{

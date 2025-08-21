@@ -1,5 +1,5 @@
 import UserModel, { IUser } from '../../models/user.Model'
-import { GenericRepository } from '../genericRepo/genericRepository'
+import { GenericRepository } from '../genericRepo/generic.Repository'
 import { IAdminUserRepository } from './interfaces/IAdminUserRepository'
 
 export class AdminUserRepository extends GenericRepository<IUser> implements IAdminUserRepository {

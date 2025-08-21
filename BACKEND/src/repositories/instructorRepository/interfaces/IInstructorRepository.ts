@@ -1,5 +1,5 @@
 import { IInstructor } from "../../../models/instructor.Model";
-import { IGenericRepository } from "../../genericRepo/genericRepository";
+import { IGenericRepository } from "../../genericRepo/generic.Repository";
 
 export default interface IInstructorRepository extends IGenericRepository<IInstructor>{
     findByEmail(email:string):Promise<IInstructor | null>

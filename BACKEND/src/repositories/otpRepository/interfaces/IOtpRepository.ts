@@ -1,4 +1,4 @@
-import { IOtp } from "../../models/otpModel";
+import { IOtp } from "../../../models/otp.Model";
 
 export default interface IOtpRepository{
     findOtp(email:string):Promise<IOtp | null>

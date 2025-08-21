@@ -5,14 +5,54 @@ import { clearInstructorDetails } from "../redux/slices/instructorSlice";
 import { logout } from "../api/auth/InstructorAuthentication";
 
 const navItems = [
-  { name: "Dashboard", path: "/instructor/dashboard", icon: "📊" },
-  { name: "Create Course", path: "/instructor/create-course", icon: "📚" },
-  { name: "My Courses", path: "/instructor/courses", icon: "📖" },
-  { name: "Slots", path: "/instructor/slots", icon: "📅" },
-  { name: "Meetings", path: "/instructor/meetings", icon: "🎥" },
-  { name: "Students", path: "/instructor/students", icon: "👥" },
-  { name: "Analytics", path: "/instructor/analytics", icon: "📈" },
-  { name: "Settings", path: "/instructor/profile", icon: "⚙️" },
+  {
+    name: "Dashboard",
+    path: "/instructor/dashboard",
+    icon: "📊",
+    gradient: "from-orange-500 to-orange-600",
+  },
+  {
+    name: "Create Course",
+    path: "/instructor/create-course",
+    icon: "📚",
+    gradient: "from-orange-400 to-orange-500",
+  },
+  {
+    name: "My Courses",
+    path: "/instructor/courses",
+    icon: "📖",
+    gradient: "from-orange-500 to-red-500",
+  },
+  {
+    name: "Slots",
+    path: "/instructor/slots",
+    icon: "📅",
+    gradient: "from-orange-400 to-yellow-500",
+  },
+  {
+    name: "Meetings",
+    path: "/instructor/meetings",
+    icon: "🎥",
+    gradient: "from-orange-500 to-orange-600",
+  },
+  {
+    name: "Students",
+    path: "/instructor/students",
+    icon: "👥",
+    gradient: "from-orange-400 to-orange-500",
+  },
+  {
+    name: "Analytics",
+    path: "/instructor/analytics",
+    icon: "📈",
+    gradient: "from-orange-500 to-red-500",
+  },
+  {
+    name: "Settings",
+    path: "/instructor/profile",
+    icon: "⚙️",
+    gradient: "from-gray-500 to-gray-600",
+  },
 ];
 
 const InstructorSidebarLayout = () => {
@@ -35,70 +75,129 @@ const InstructorSidebarLayout = () => {
   };
 
   return (
-    <div className="flex min-h-screen" style={{ background: "#1D2026" }}>
-      {/* Sidebar */}
-      <aside className="w-72 bg-[#252831] flex flex-col relative border-r border-[#333645] shadow-lg">
-        {/* Brand Header */}
-        <div className="h-20 flex items-center justify-center border-b border-[#333645] bg-[#FF6636]/90">
-          <span className="text-3xl font-extrabold bg-gradient-to-r from-emerald-600 to-cyan-600 bg-clip-text text-transparent tracking-wide">
-            SKILLzio 🎓
-          </span>
-        </div>
+    <div className="flex min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+      {/* Animated background elements */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-orange-500/10 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-orange-400/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+      </div>
 
-        {/* User Profile */}
-        <div className="p-6 border-b border-[#333645]">
-          <div className="flex items-center space-x-4">
-            <div className="w-14 h-14 rounded-full border-4 border-[#FF6636] shadow-md overflow-hidden flex items-center justify-center bg-gray-700">
-              {instructor?.profilePicture ? (
-                <img
-                  src={instructor.profilePicture}
-                  alt="Profile"
-                  className="w-full h-full object-cover"
-                />
-              ) : (
-                <span className="text-2xl text-white">👨‍🏫</span>
-              )}
-            </div>
-            <div>
-              <p className="font-semibold text-white">{username}</p>
-              <p className="text-xs text-gray-400">Instructor</p>
+      {/* Sidebar */}
+      <aside className="w-80 bg-gradient-to-b from-gray-800/95 to-gray-900/95 backdrop-blur-xl flex flex-col relative border-r border-gray-700/50 shadow-2xl z-10">
+        {/* Decorative top bar */}
+        <div className="h-1 bg-gradient-to-r from-orange-400 via-orange-500 to-orange-600"></div>
+
+        {/* Brand Header */}
+        <div className="h-24 flex items-center justify-center border-b border-gray-700/30 relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-r from-orange-500/10 to-orange-600/10"></div>
+          <div className="relative z-10 text-center">
+            <span className="text-4xl font-black bg-gradient-to-r from-orange-400 via-orange-500 to-orange-600 bg-clip-text text-transparent tracking-wide drop-shadow-lg">
+              SKILLzio
+            </span>
+            <div className="text-xs text-orange-300/80 font-medium tracking-widest mt-1">
+              INSTRUCTOR PORTAL
             </div>
           </div>
         </div>
 
+        {/* User Profile */}
+        <div className="p-6 border-b border-gray-700/30">
+          <div className="flex items-center space-x-4">
+            <div className="relative">
+              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-orange-400 to-orange-600 p-1 shadow-lg">
+                <div className="w-full h-full rounded-xl overflow-hidden flex items-center justify-center bg-gray-700">
+                  {instructor?.profilePicture ? (
+                    <img
+                      src={instructor.profilePicture}
+                      alt="Profile"
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <span className="text-3xl">👨‍🏫</span>
+                  )}
+                </div>
+              </div>
+              <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 rounded-full border-2 border-gray-800 flex items-center justify-center">
+                <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+              </div>
+            </div>
+            <div>
+              <p className="font-bold text-white text-lg">{username}</p>
+              <p className="text-sm text-orange-300/80 font-medium">
+                Professional Instructor
+              </p>
+              <div className="flex items-center mt-1">
+                <div className="w-2 h-2 bg-green-400 rounded-full mr-2"></div>
+                <span className="text-xs text-gray-400">Online</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
         {/* Navigation */}
         <div className="flex-1 p-6 overflow-y-auto">
-          <h2 className="text-xs text-gray-400 uppercase mb-6 tracking-widest font-semibold">
-            Menu
-          </h2>
-          <nav className="flex flex-col space-y-2">
-            {navItems.map((item) => (
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-xs text-gray-400 uppercase tracking-widest font-bold">
+              Navigation
+            </h2>
+            <div className="w-8 h-0.5 bg-gradient-to-r from-orange-400 to-orange-600 rounded"></div>
+          </div>
+
+          <nav className="flex flex-col space-y-3">
+            {navItems.map((item, index) => (
               <NavLink
                 key={item.name}
                 to={item.path}
                 className={({ isActive }) =>
-                  `relative group flex items-center space-x-4 px-4 py-3 rounded-xl transition-all duration-200 ease-in-out ${
+                  `relative group flex items-center space-x-4 px-5 py-4 rounded-2xl transition-all duration-300 ease-out transform hover:scale-105 ${
                     isActive
-                      ? "bg-[#FF6636] text-white shadow-lg"
-                      : "text-gray-300 hover:bg-[#FF6636]/20 hover:text-white"
+                      ? `bg-gradient-to-r ${item.gradient} text-white shadow-lg shadow-orange-500/25`
+                      : "text-gray-300 hover:bg-gradient-to-r hover:from-orange-500/10 hover:to-orange-600/10 hover:text-white hover:shadow-lg hover:shadow-orange-500/10"
                   }`
                 }
+                style={{
+                  animationDelay: `${index * 50}ms`,
+                }}
               >
                 {({ isActive }) => (
                   <>
-                    <span
-                      className={`text-xl transition-transform ${
-                        isActive ? "scale-110" : "group-hover:scale-110"
+                    {/* Glow effect for active item */}
+                    {isActive && (
+                      <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-orange-400/20 to-orange-600/20 blur-xl"></div>
+                    )}
+
+                    <div
+                      className={`relative z-10 text-2xl transition-all duration-300 ${
+                        isActive
+                          ? "scale-110 drop-shadow-lg"
+                          : "group-hover:scale-110"
                       }`}
                     >
                       {item.icon}
-                    </span>
-                    <span className="font-medium">{item.name}</span>
+                    </div>
 
-                    {/* Active glowing bar */}
+                    <span className="relative z-10 font-semibold text-sm tracking-wide">
+                      {item.name}
+                    </span>
+
+                    {/* Active indicator */}
                     {isActive && (
-                      <span className="absolute left-0 top-0 h-full w-1.5 bg-[#FF6636] rounded-r-lg shadow-md"></span>
+                      <>
+                        <span className="absolute left-0 top-1/2 transform -translate-y-1/2 h-8 w-1 bg-white rounded-r-full shadow-lg"></span>
+                        <div className="absolute right-4 top-1/2 transform -translate-y-1/2 w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                      </>
                     )}
+
+                    {/* Hover indicator */}
+                    <div
+                      className={`absolute right-4 top-1/2 transform -translate-y-1/2 w-1.5 h-1.5 rounded-full transition-all duration-300 ${
+                        isActive
+                          ? "opacity-0"
+                          : "opacity-0 group-hover:opacity-100 bg-orange-400"
+                      }`}
+                    ></div>
                   </>
                 )}
               </NavLink>
@@ -107,21 +206,58 @@ const InstructorSidebarLayout = () => {
         </div>
 
         {/* Bottom Section */}
-        <div className="p-6 border-t border-[#333645]">
+        <div className="p-6 border-t border-gray-700/30">
+          <div className="mb-4 p-3 bg-gradient-to-r from-orange-500/10 to-orange-600/10 rounded-xl border border-orange-500/20">
+            <div className="flex items-center space-x-2 mb-2">
+              <span className="text-orange-400">💡</span>
+              <span className="text-orange-300 font-semibold text-sm">
+                Quick Tip
+              </span>
+            </div>
+            <p className="text-gray-300 text-xs leading-relaxed">
+              Use analytics to track student engagement and improve your
+              courses!
+            </p>
+          </div>
+
           <button
             onClick={handleLogout}
-            className="w-full flex items-center justify-center space-x-2 text-sm font-semibold text-[#FF6636] bg-[#2C2F3A] hover:bg-[#FF6636]/20 py-2 px-4 rounded-lg transition duration-200"
+            className="w-full flex items-center justify-center space-x-3 text-sm font-bold text-white bg-gradient-to-r from-gray-600 to-gray-700 hover:from-orange-500 hover:to-orange-600 py-4 px-6 rounded-2xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-orange-500/25 group"
           >
-            <span>🚪</span>
-            <span>Logout</span>
+            <span className="text-xl transition-transform group-hover:scale-110">
+              🚪
+            </span>
+            <span className="tracking-wide">LOGOUT</span>
           </button>
         </div>
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 p-8 overflow-auto">
-        <div className="max-w-7xl mx-auto bg-[#2C2F3A] rounded-2xl shadow-lg p-8 min-h-[85vh] text-white">
-          <Outlet />
+      <main className="flex-1 p-8 overflow-auto relative z-10">
+        <div className="max-w-7xl mx-auto">
+          {/* Header Card */}
+          <div className="mb-8 p-6 bg-gradient-to-r from-gray-800/90 to-gray-900/90 backdrop-blur-xl rounded-3xl shadow-2xl border border-gray-700/30">
+            <div className="flex items-center justify-between">
+              <div>
+                <h1 className="text-3xl font-bold bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">
+                  Welcome back, {instructor?.name || "Instructor"}!
+                </h1>
+                <p className="text-gray-400 mt-2">
+                  Ready to inspire and educate today?
+                </p>
+              </div>
+              <div className="flex items-center space-x-4">
+                <div className="w-12 h-12 bg-gradient-to-br from-orange-400 to-orange-600 rounded-2xl flex items-center justify-center shadow-lg">
+                  <span className="text-2xl">🎯</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Content Area */}
+          <div className="bg-gradient-to-br from-gray-800/90 to-gray-900/90 backdrop-blur-xl rounded-3xl shadow-2xl p-8 min-h-[75vh] text-white border border-gray-700/30">
+            <Outlet />
+          </div>
         </div>
       </main>
     </div>
