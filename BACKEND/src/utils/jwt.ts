@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken'
-import { EnvErrorMsg, JwtErrorMsg } from './constants'
+import { EnvErrorMsg, JwtErrorMsg } from '../types/constants'
 import dotenv from 'dotenv'
 
 // Load environment variables from the .env file

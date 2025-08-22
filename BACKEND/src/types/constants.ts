@@ -267,3 +267,25 @@ export const VerificationSuccessMessages = {
   INSTRUCTOR_VERIFIED: 'Instructor verified successfully.',
   DOCUMENTS_UPLOADED: 'Documents uploaded successfully.',
 }
+
+
+export const CategorySuccessMsg = {
+  CATEGORY_ADDED: 'Category added successfully!',
+  CATEGORY_UPDATED: 'Category updated successfully!',
+  CATEGORY_FETCHED: 'Fetched categories successfully!',
+
+  CATEGORY_FOUND: 'Category found successfully!',
+  CATEGORY_LISTED: 'Category listed successfully!',
+  CATEGORY_UNLISTED: 'Category unlisted successfully!',
+}
+
+export const CategoryErrorMsg = {
+  CATEGORY_EXISTS: 'Category already exists!',
+  CATEGORY_NOT_UPDATED: 'Category not updated!',
+
+  CATEGORY_NOT_FOUND: 'Category not found!',
+  CATEGORY_NOT_CREATED: 'Could not create category!',
+  CATEGORY_NOT_FETCHED: 'Could not fetch categories!',
+  CATEGORY_LISTING_FAILED: 'Failed to list/unlist category!',
+  INTERNAL_SERVER_ERROR: 'Internal server error!',
+}

@@ -2,7 +2,7 @@ import { IVerificationModel } from '../../models/verification.Model'
 import { GenericRepository } from '../genericRepo/generic.Repository'
 import VerificationModel from '../../models/verification.Model'
 import { IAdminVerificationRepository } from './interfaces/IAdminVerificationRepository'
-import { InstructorErrorMessages } from '../../utils/constants'
+import { InstructorErrorMessages } from '../../types/constants'
 import type { SortOrder } from 'mongoose'
 
 // Repository class for handling admin-related verification requests

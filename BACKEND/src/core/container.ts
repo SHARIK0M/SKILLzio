@@ -89,6 +89,17 @@ import { IInstructorProfileController } from '../controllers/instructorControlle
 import { InstructorProfileController } from '../controllers/instructorControllers/instructorProfile.Controller'
 
 
+// =============================================================================
+// Admin Category MODULE IMPORTS
+// ===========================================================================
+import { IAdminCategoryRepository } from '../repositories/adminRepository/interfaces/IAdminCategoryRepository'
+import { AdminCategoryRepository } from '../repositories/adminRepository/adminCateogy.Repository'
+import { IAdminCategoryService } from '../services/adminServices/interfaces/IAdminCategoryService'
+import { AdminCategoryService } from '../services/adminServices/AdminCategory.Service'
+import { IAdminCategoryController } from '../controllers/adminControllers/interfaces/IAdminCategoryController'
+import { AdminCategoryContoller } from '../controllers/adminControllers/adminCategory.Controller'
+
+
 
 
 // =============================================================================
@@ -184,6 +195,14 @@ const instructorProfileController: IInstructorProfileController = new Instructor
 
 
 
+/**
+ * Step 9: Create Admin Category Module
+ * Handles Admin Category processes
+ */
+const adminCategoryRepository: IAdminCategoryRepository = new AdminCategoryRepository();
+const adminCategoryServie: IAdminCategoryService = new AdminCategoryService(adminCategoryRepository);
+const adminCategoryController: IAdminCategoryController = new AdminCategoryContoller(adminCategoryServie);
+
 
 
 // =============================================================================
@@ -202,6 +221,7 @@ export {
   instructorVerificationController, // Handles instructor verification processes
   studentProfileController,
   instructorProfileController,
+  adminCategoryController,
 }
 
 

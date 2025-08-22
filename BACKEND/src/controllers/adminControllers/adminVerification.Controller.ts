@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import { IAdminVerificationService } from '../../services/adminServices/interfaces/IAdminVerificationService'
-import { StatusCode } from '../../utils/enums'
-import { ResponseError } from '../../utils/constants'
+import { StatusCode } from '../../types/enums'
+import { ResponseError } from '../../types/constants'
 import { getPresignedUrl } from '../../utils/getPresignedUrl'
 import { SendEmail } from '../../utils/sendOtpEmail'
 

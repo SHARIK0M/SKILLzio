@@ -5,8 +5,8 @@ import { JwtService } from '../../utils/jwt' // Utility class for JWT token hand
 import { uploadToS3Bucket } from '../../utils/s3Bucket' // Utility to upload files to S3
 import { getPresignedUrl } from '../../utils/getPresignedUrl' // Utility to get S3 presigned URL
 import bcrypt from 'bcrypt' // Library to hash and compare passwords
-import { StatusCode } from '../../utils/enums' // Enum for HTTP status codes
-import { InstructorErrorMessages, InstructorSuccessMessages } from '../../utils/constants' // Constants for success and error messages
+import { StatusCode } from '../../types/enums' // Enum for HTTP status codes
+import { InstructorErrorMessages, InstructorSuccessMessages } from '../../types/constants' // Constants for success and error messages
 
 // Controller class implementing instructor profile operations
 export class InstructorProfileController implements IInstructorProfileController {

@@ -1,7 +1,7 @@
-import { Roles, StatusCode } from '../utils/enums'
+import { Roles, StatusCode } from '../types/enums'
 import { JwtService } from '../utils/jwt'
 import { Request, Response, NextFunction } from 'express'
-import { AuthErrorMsg } from '../utils/constants'
+import { AuthErrorMsg } from '../types/constants'
 
 /**
  * Middleware to allow access only for STUDENT users

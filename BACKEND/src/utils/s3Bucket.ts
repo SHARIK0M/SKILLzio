@@ -1,5 +1,5 @@
 import AWS from 'aws-sdk'
-import { S3BucketErrors } from './constants'
+import { S3BucketErrors } from '../types/constants'
 
 // Define the structure for a Multer file object
 export interface IMulterFile {

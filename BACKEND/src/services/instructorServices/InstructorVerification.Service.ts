@@ -1,7 +1,7 @@
 import { IInstructorVerificationService } from './interfaces/IInstructorVerificationService'
 import { IVerificationModel } from '../../models/verification.Model'
 import { IInstructorVerificationRepository } from '../../repositories/instructorRepository/interfaces/IInstructorVerifcationRepository'
-import { VerificationErrorMessages } from '../../utils/constants'
+import { VerificationErrorMessages } from '../../types/constants'
 
 // Service class that handles instructor verification requests
 // This service connects to the InstructorVerificationRepository (DB layer)

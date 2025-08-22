@@ -1,8 +1,8 @@
 import { Request, Response } from 'express'
 import { IInstructorVerificationService } from '../../services/instructorServices/interfaces/IInstructorVerificationService'
 import { uploadToS3Bucket } from '../../utils/s3Bucket'
-import { StatusCode } from '../../utils/enums'
-import { VerificationErrorMessages, VerificationSuccessMessages } from '../../utils/constants'
+import { StatusCode } from '../../types/enums'
+import { VerificationErrorMessages, VerificationSuccessMessages } from '../../types/constants'
 
 export class InstructorVerificationController {
   private verificationService: IInstructorVerificationService

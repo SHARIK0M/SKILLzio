@@ -5,8 +5,8 @@ import IOtpServices from '../../services/OtpService/interfaces/IOtpRepository'
 import { OtpGenerate } from '../../utils/otpGenerator'
 import { JwtService } from '../../utils/jwt'
 import bcrypt from 'bcrypt'
-import { StudentErrorMessages, StudentSuccessMessages } from '../../utils/constants'
-import { Roles, StatusCode } from '../../utils/enums'
+import { StudentErrorMessages, StudentSuccessMessages } from '../../types/constants'
+import { Roles, StatusCode } from '../../types/enums'
 import { SendEmail } from '../../utils/sendOtpEmail'
 
 /**

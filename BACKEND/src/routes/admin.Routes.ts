@@ -2,6 +2,7 @@ import { Router } from 'express'
 import {
   adminController,
   adminVerificationController,
+  adminCategoryController,
 } from '../core/container'
 import authenticateToken from '../middlewares/AuthenticatedRoutes'
 
@@ -58,6 +59,20 @@ router.post(
   isAdmin,
   adminVerificationController.approveRequest.bind(adminVerificationController),
 )
+
+
+// category routes
+
+router.get('/categories',authenticateToken,isAdmin,adminCategoryController.getAllCategory.bind(adminCategoryController))
+
+router.get('/category/:categoryId',authenticateToken,isAdmin,adminCategoryController.findCategoryById.bind(adminCategoryController))
+
+router.put('/categoryListOrUnlist/:id',authenticateToken,isAdmin,adminCategoryController.listOrUnlistCategory.bind(adminCategoryController))
+
+router.post('/category',authenticateToken,isAdmin,adminCategoryController.addCategory.bind(adminCategoryController))
+
+router.put('/category',authenticateToken,isAdmin,adminCategoryController.editCategory.bind(adminCategoryController))
+
 
 
 const adminRoutes = router
