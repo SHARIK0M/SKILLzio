@@ -11,7 +11,9 @@ import InstructorList from "../pages/admin/instructorList/InstructorList";
 import VerificationPage from "../pages/admin/verification/VerificationPage";
 import VerificationDetailsPage from "../pages/admin/verification/VerificationDetailPage";
 
-
+import AdminCategoryListPage from "../pages/admin/category/AdminCategoryList";
+import AddCategoryPage from "../pages/admin/category/AddCategoryPage";
+import EditCategoryPage from "../pages/admin/category/EditCategory";
 
 const AdminRouter = () => {
   return (
@@ -36,6 +38,13 @@ const AdminRouter = () => {
           <Route
             path="verificationDetail/:email"
             element={<VerificationDetailsPage />}
+          />
+          {/* Category Routes */}
+          <Route path="category" element={<AdminCategoryListPage />} />
+          <Route path="addCategory" element={<AddCategoryPage />} />
+          <Route
+            path="category/edit/:categoryId"
+            element={<EditCategoryPage />}
           />
         </Route>
       </Route>

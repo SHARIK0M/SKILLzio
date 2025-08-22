@@ -1,7 +1,7 @@
 import InstructorModel, { IInstructor, IInstructorDTO } from '../../models/instructor.Model'
 import { GenericRepository } from '../genericRepo/generic.Repository'
 import IInstructorRepository from './interfaces/IInstructorRepository'
-import { InstructorErrorMessages } from '../../utils/constants'
+import { InstructorErrorMessages } from '../../types/constants'
 import bcrypt from 'bcryptjs'
 
 // Repository class for Instructor-related database operations

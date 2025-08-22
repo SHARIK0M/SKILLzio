@@ -12,6 +12,13 @@ const AdminRoutersEndPoints = {
   adminGetVerifcationsRequest: "/api/admin/requests", // Fetch all pending verification requests
   adminGetVerificationByEamil: "/api/admin/request", // Fetch a specific verification request by email
   adminApproveVerification: "/api/admin/approveRequest", // Approve an instructor’s verification request
+
+  //category
+  adminGetAllCategories: "/api/admin/categories",
+  adminGetCategoryById: "/api/admin/category",
+  adminListOrUnListCategory: "/api/admin/categoryListOrUnList",
+  adminCreateCategory: "/api/admin/category",
+  adminEditCategory: "/api/admin/category",
 };
 
 // Export so it can be imported and used across the project

@@ -1,4 +1,4 @@
-import { StudentErrorMessages } from '../../utils/constants'
+import { StudentErrorMessages } from '../../types/constants'
 import UserModel, { IUser, IUserDTO } from '../../models/user.Model'
 import { GenericRepository } from '../genericRepo/generic.Repository' 
 import { IStudentRepository } from './interfaces/IStudentRepository' 

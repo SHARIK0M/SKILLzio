@@ -202,3 +202,100 @@ export const updateVerificationStatus = async (
     throw error;
   }
 };
+
+
+
+// Function to fetch all categories with pagination and optional search
+export const getAllCategories = async (
+  page = 1,   // Default page = 1
+  limit = 1,  // Default limit = 1 (number of items per page)
+  search = "" // Default empty search keyword
+): Promise<any> => {
+  try {
+    const response = await API.get(
+      AdminRoutersEndPoints.adminGetAllCategories, // API endpoint for getting all categories
+      {
+        params: { page, limit, search }, // Query parameters for pagination and search
+        headers: { "Content-Type": "application/json" }, // Request headers
+        withCredentials: true, // Send cookies with request for authentication
+      }
+    );
+    return response.data; // Return the response data
+  } catch (error) {
+    throw error; // Throw error if request fails
+  }
+};
+
+// Function to fetch a single category by its ID
+export const getCategoryById = async (categoryId: string): Promise<any> => {
+  try {
+    const response = await API.get(
+      `${AdminRoutersEndPoints.adminGetCategoryById}/${categoryId}`, // Endpoint with dynamic categoryId
+      {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
+      }
+    );
+    console.log("Fetched category by ID:", response.data);
+    return response.data; // Return the category data
+  } catch (error) {
+    throw error;
+  }
+};
+
+// Function to add a new category
+export const addCategory = async (categoryName: string): Promise<any> => {
+  try {
+    const response = await API.post(
+      AdminRoutersEndPoints.adminCreateCategory, // API endpoint to create category
+      { categoryName }, // Request body contains category name
+      {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
+      }
+    );
+    console.log("Category added:", response.data);
+    return response.data; // Return the added category data
+  } catch (error) {
+    throw error;
+  }
+};
+
+// Function to edit an existing category
+export const editCategory = async (
+  id: string,            // Category ID
+  categoryName: string   // Updated category name
+): Promise<any> => {
+  try {
+    const response = await API.put(
+      AdminRoutersEndPoints.adminEditCategory, // API endpoint to edit category
+      { id, categoryName }, // Request body with category ID and new name
+      {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
+      }
+    );
+    console.log("Category edited:", response.data);
+    return response.data; // Return updated category data
+  } catch (error) {
+    throw error;
+  }
+};
+
+// Function to toggle (enable/disable) a category status (list/unlist)
+export const toggleCategoryStatus = async (id: string): Promise<any> => {
+  try {
+    const response = await API.put(
+      `${AdminRoutersEndPoints.adminListOrUnListCategory}/${id}`, // Endpoint with category ID
+      {}, // Empty request body
+      {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
+      }
+    );
+    console.log("Toggled category listing:", response.data);
+    return response.data; // Return updated category status
+  } catch (error) {
+    throw error;
+  }
+};

@@ -1,8 +1,8 @@
 import jwt from 'jsonwebtoken'
 import { Request, Response, NextFunction } from 'express'
 import { JwtService } from '../utils/jwt'
-import { AuthErrorMsg } from '../utils/constants'
-import { StatusCode } from '../utils/enums'
+import { AuthErrorMsg } from '../types/constants'
+import { StatusCode } from '../types/enums'
 import dotenv from 'dotenv'
 
 dotenv.config()

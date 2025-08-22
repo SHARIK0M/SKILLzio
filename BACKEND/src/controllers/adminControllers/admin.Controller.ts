@@ -3,8 +3,8 @@ import { IAdminController } from './interfaces/IAdminController'
 import { IAdminService } from '../../services/adminServices/interfaces/IAdminService' 
 import { JwtService } from '../../utils/jwt'
 import { config } from 'dotenv'
-import { Roles, StatusCode } from '../../utils/enums'
-import { AdminErrorMessages, AdminSuccessMessages, ResponseError } from '../../utils/constants'
+import { Roles, StatusCode } from '../../types/enums'
+import { AdminErrorMessages, AdminSuccessMessages, ResponseError } from '../../types/constants'
 
 config() // Load environment variables from .env file
 
