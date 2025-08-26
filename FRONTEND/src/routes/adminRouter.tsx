@@ -15,6 +15,9 @@ import AdminCategoryListPage from "../pages/admin/category/AdminCategoryList";
 import AddCategoryPage from "../pages/admin/category/AddCategoryPage";
 import EditCategoryPage from "../pages/admin/category/EditCategory";
 
+import AdminCourseManagementPage from "../pages/admin/course/AdminCourseManagementPage";
+import AdminCourseDetailPage from "../pages/admin/course/AdminCourseDetailPage";
+
 const AdminRouter = () => {
   return (
     <Routes>
@@ -46,6 +49,9 @@ const AdminRouter = () => {
             path="category/edit/:categoryId"
             element={<EditCategoryPage />}
           />
+          {/* Course Routes */}
+          <Route path="courses" element={<AdminCourseManagementPage />} />
+          <Route path="courses/:courseId" element={<AdminCourseDetailPage />} />
         </Route>
       </Route>
     </Routes>

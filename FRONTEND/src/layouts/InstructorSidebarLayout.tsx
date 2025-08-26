@@ -13,7 +13,7 @@ const navItems = [
   },
   {
     name: "Create Course",
-    path: "/instructor/create-course",
+    path: "/instructor/createCourse",
     icon: "📚",
     gradient: "from-orange-400 to-orange-500",
   },
