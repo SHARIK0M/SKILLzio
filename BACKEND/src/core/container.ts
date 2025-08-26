@@ -119,105 +119,133 @@ import { AdminCategoryContoller } from '../controllers/adminControllers/adminCat
 // Import components for instructor category fetching functionality
 // =============================================================================
 import { IInstructorCategoryRepository } from '../repositories/instructorRepository/interfaces/IInstructorCategoryRepository'
-import { InstructorCategoryRepository } from '../repositories/instructorRepository/instructorCategoryRepository'
+import { InstructorCategoryRepository } from '../repositories/instructorRepository/instructorCategory.Repository'
 import { IInstructorCategoryService } from '../services/instructorServices/interfaces/IInstructorCategoryService'
-import { InstructorCategoryService } from '../services/instructorServices/InstructorCategoryService'
+import { InstructorCategoryService } from '../services/instructorServices/InstructorCategory.Service'
 import { IInstructorCategoryController } from '../controllers/instructorControllers/interfaces/IInstructorCategoryController'
-import { InstructorCategoryController } from '../controllers/instructorControllers/instructorCategoryController'
+import { InstructorCategoryController } from '../controllers/instructorControllers/instructorCategory.Controller'
 
 // =============================================================================
 // INSTRUCTOR CHAPTER MODULE IMPORTS
 // Import components for instructor chapter management functionality
 // =============================================================================
 import { IInstructorChapterRepository } from '../repositories/instructorRepository/interfaces/IInstructorChapterRepository'
-import { InstructorChapterRepository } from '../repositories/instructorRepository/instructorChapterRepository'
+import { InstructorChapterRepository } from '../repositories/instructorRepository/instructorChapter.Repository'
 import { IInstructorChapterService } from '../services/instructorServices/interfaces/IInstructorChapterService'
-import { InstructorChapterService } from '../services/instructorServices/InstructorChapterService'
+import { InstructorChapterService } from '../services/instructorServices/InstructorChapter.Service'
 import { IInstructorChapterController } from '../controllers/instructorControllers/interfaces/IInstructorChapterController'
-import { InstructorChapterController } from '../controllers/instructorControllers/instructorChapterController'
+import { InstructorChapterController } from '../controllers/instructorControllers/instructorChapter.Controller'
 
 // =============================================================================
 // INSTRUCTOR QUIZ MODULE IMPORTS
 // Import components for instructor quiz management functionality
 // =============================================================================
 import { IInstructorQuizRepository } from '../repositories/instructorRepository/interfaces/IInstructorQuizRepository'
-import { InstructorQuizRepository } from '../repositories/instructorRepository/instructorQuizRepository'
+import { InstructorQuizRepository } from '../repositories/instructorRepository/instructorQuiz.Repository'
 import { IInstructorQuizService } from '../services/instructorServices/interfaces/IInstructorQuizService'
-import { InstructorQuizService } from '../services/instructorServices/InstructorQuizService'
+import { InstructorQuizService } from '../services/instructorServices/InstructorQuiz.Service'
 import { IInstructorQuizController } from '../controllers/instructorControllers/interfaces/IInstructorQuizController'
-import { InstructorQuizController } from '../controllers/instructorControllers/instructorQuizController'
+import { InstructorQuizController } from '../controllers/instructorControllers/instructorQuiz.Controller'
 
 // =============================================================================
 // INSTRUCTOR COURSE MODULE IMPORTS
 // Import components for instructor course management functionality
 // =============================================================================
 import { IInstructorCourseRepository } from '../repositories/instructorRepository/interfaces/IInstructorCourseRepository'
-import { InstructorCourseRepository } from '../repositories/instructorRepository/instructorCourseRepository'
+import { InstructorCourseRepository } from '../repositories/instructorRepository/instructorCourse.Repository'
 import { IInstructorCourseService } from '../services/instructorServices/interfaces/IInstructorCourseService'
-import { InstructorCourseService } from '../services/instructorServices/InstructorCourseService'
+import { InstructorCourseService } from '../services/instructorServices/InstructorCourse.Service'
 import { IInstructorCourseController } from '../controllers/instructorControllers/interfaces/IInstructorCourseController'
-import { InstructorCourseController } from '../controllers/instructorControllers/InstructorCourseController'
+import { InstructorCourseController } from '../controllers/instructorControllers/InstructorCourse.Controller'
 
 // =============================================================================
 // ADMIN COURSE MODULE IMPORTS
 // Import components for admin course management functionality
 // =============================================================================
 import { IAdminCourseRepository } from '../repositories/adminRepository/interfaces/IAdminCourseRepository'
-import { AdminCourseRepository } from '../repositories/adminRepository/adminCourseRepository'
+import { AdminCourseRepository } from '../repositories/adminRepository/adminCourse.Repository'
 import { IAdminCourseService } from '../services/adminServices/interfaces/IAdminCourseService'
-import { AdminCourseService } from '../services/adminServices/AdminCourseService'
+import { AdminCourseService } from '../services/adminServices/AdminCourse.Service'
 import { IAdminCourseController } from '../controllers/adminControllers/interfaces/IAdminCourseControllet'
-import { AdminCourseController } from '../controllers/adminControllers/adminCourseController'
-import { ChapterDetailRepository } from '../repositories/genericRepo/ChapterRepository'
-import { QuizDetailRepository } from '../repositories/genericRepo/QuizRepository'
+import { AdminCourseController } from '../controllers/adminControllers/adminCourse.Controller'
+import { ChapterDetailRepository } from '../repositories/genericRepo/Chapter.Repository'
+import { QuizDetailRepository } from '../repositories/genericRepo/Quiz.Repository'
 
 // =============================================================================
 // STUDENT COURSE MODULE IMPORTS
 // Import components for student course viewing and interaction functionality
 // =============================================================================
 import { IChapterReadOnlyRepository } from '../repositories/studentRepository/interfaces/IChapterReadOnlyRepository'
-import { ChapterReadOnlyRepository } from '../repositories/studentRepository/chapterReadOnlyRepository'
+import { ChapterReadOnlyRepository } from '../repositories/studentRepository/chapterReadOnly.Repository'
 import { IQuizReadOnlyRepository } from '../repositories/studentRepository/interfaces/IQuizReadOnlyRepository'
-import { QuizReadOnlyRepository } from '../repositories/studentRepository/quizReadOnlyRepository'
+import { QuizReadOnlyRepository } from '../repositories/studentRepository/quizReadOnly.Repository'
 import { IStudentCourseRepository } from '../repositories/studentRepository/interfaces/IStudentCourseRepository'
-import { StudentCourseRepository } from '../repositories/studentRepository/studentCourseRepository'
+import { StudentCourseRepository } from '../repositories/studentRepository/studentCourse.Repository'
 import { IStudentCourseService } from '../services/studentServices/interfaces/IStudentCourseService'
-import { StudentCourseService } from '../services/studentServices/StudentCourseService'
+import { StudentCourseService } from '../services/studentServices/StudentCourse.Service'
 import { IStudentCourseController } from '../controllers/studentControllers/interfaces/IStudentCourseController'
-import { StudentCourseController } from '../controllers/studentControllers/studentCourseController'
+import { StudentCourseController } from '../controllers/studentControllers/studentCourse.Controller'
 
 // =============================================================================
 // STUDENT CATEGORY READ-ONLY MODULE IMPORTS
 // Import components for student category browsing functionality
 // =============================================================================
 import { ICategoryReadOnlyRepository } from '../repositories/studentRepository/interfaces/ICategoryReadOnlyRepository'
-import { CategoryReadOnlyRepository } from '../repositories/studentRepository/CategoryReadOnlyRepository'
+import { CategoryReadOnlyRepository } from '../repositories/studentRepository/CategoryReadOnly.Repository'
 import { ICategoryReadOnlyService } from '../services/studentServices/interfaces/ICategoryReadOnlyService'
-import { CategoryReadOnlyService } from '../services/studentServices/CategoryReadOnlyService'
+import { CategoryReadOnlyService } from '../services/studentServices/CategoryReadOnly.Service'
 import { ICategoryReadOnlyController } from '../controllers/studentControllers/interfaces/ICategoryReadOnlyController'
-import { CategoryReadOnlyController } from '../controllers/studentControllers/CategoryReadOnlyController'
+import { CategoryReadOnlyController } from '../controllers/studentControllers/CategoryReadOnly.Controller'
 
 // =============================================================================
 // STUDENT CART MODULE IMPORTS
 // Import components for student shopping cart functionality
 // =============================================================================
 import { IStudentCartRepository } from '../repositories/studentRepository/interfaces/IStudentCartRepository'
-import { StudentCartRepository } from '../repositories/studentRepository/studentCartRepository'
+import { StudentCartRepository } from '../repositories/studentRepository/studentCart.Repository'
 import { IStudentCartService } from '../services/studentServices/interfaces/IStudentCartService'
-import { StudentCartService } from '../services/studentServices/StudentCartService'
+import { StudentCartService } from '../services/studentServices/StudentCart.Service'
 import { IStudentCartController } from '../controllers/studentControllers/interfaces/IStudentCartController'
-import { StudentCartController } from '../controllers/studentControllers/studentCartController'
+import { StudentCartController } from '../controllers/studentControllers/studentCart.Controller'
 
 // =============================================================================
 // STUDENT WISHLIST MODULE IMPORTS
 // Import components for student wishlist functionality
 // =============================================================================
 import { IStudentWishlistRepository } from '../repositories/studentRepository/interfaces/IStudentWishlistRepository'
-import { StudentWishlistRepository } from '../repositories/studentRepository/studentWishlistRepository'
+import { StudentWishlistRepository } from '../repositories/studentRepository/studentWishlist.Repository'
 import { IStudentWishlistService } from '../services/studentServices/interfaces/IStudentWishlistService'
-import { StudentWishlistService } from '../services/studentServices/StudentWishlistService'
+import { StudentWishlistService } from '../services/studentServices/StudentWishlist.Service'
 import { IStudentWishlistController } from '../controllers/studentControllers/interfaces/IStudentWishlistController'
-import { StudentWishlistController } from '../controllers/studentControllers/studentWishlistController'
+import { StudentWishlistController } from '../controllers/studentControllers/studentWishlist.Controller'
+
+
+// =============================================================================
+// STUDENT CHECKOUT MANAGEMENT
+// Purpose: Handle checkout process including payments, orders, wallet, and enrollments
+// =============================================================================
+
+import { IStudentCheckoutRepository } from '../repositories/studentRepository/interfaces/IStudentCheckoutRepository'
+import { StudentCheckoutRepository } from '../repositories/studentRepository/studentCheckout.Repository'
+import { IStudentCheckoutService } from '../services/studentServices/interfaces/IStudentCheckoutService'
+import { StudentCheckoutService } from '../services/studentServices/StudentCheckout.Service'
+
+import { IStudentCheckoutController } from '../controllers/studentControllers/interfaces/IStudentCheckoutController'
+import { StudentCheckoutController } from '../controllers/studentControllers/studentCheckout.Controller'
+import { OrderRepository } from '../repositories/genericRepo/Order.Repository'
+import { PaymentRepository } from '../repositories/genericRepo/Payment.Repository'
+import { EnrollmentRepository } from '../repositories/genericRepo/Enrollment.Repository'
+import { CourseRepository } from '../repositories/genericRepo/Course.Repository'
+
+import { IWalletRepository } from '../repositories/genericRepo/interfaces/IWalletRepository'
+import { WalletRepository } from '../repositories/genericRepo/Wallet.Repository'
+
+import { IWalletService } from '../services/genericService/interfaces/IWalletService'
+import { WalletService } from '../services/genericService/wallet.Service' 
+
+
+
+
 
 // =============================================================================
 // DEPENDENCY INJECTION SETUP
@@ -452,6 +480,51 @@ const studentWishlistController: IStudentWishlistController = new StudentWishlis
   studentWishlistService,
 )
 
+
+
+/**
+ * STEP 19: STUDENT CHECKOUT MANAGEMENT
+ * Handle checkout process including payments, orders, wallet, and enrollments
+ */
+
+const walletRepository: IWalletRepository = new WalletRepository();
+const walletService: IWalletService = new WalletService(
+  walletRepository,
+  adminRepository
+);
+
+const studentCheckoutRepository: IStudentCheckoutRepository =
+  new StudentCheckoutRepository(
+    new OrderRepository(),
+    new PaymentRepository(),
+    new EnrollmentRepository(),
+    new CourseRepository()
+  );
+const studentCheckoutService: IStudentCheckoutService =
+  new StudentCheckoutService(
+    studentCheckoutRepository,
+    studentCartRepository,
+    walletService
+  );
+const studentCheckoutController: IStudentCheckoutController =
+  new StudentCheckoutController(studentCheckoutService);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // =============================================================================
 // EXPORTS
 // Export all configured controllers for use in route handlers
@@ -496,4 +569,6 @@ export {
   categoryReadOnlyController, // Handles category browsing by students
   studentCartController, // Handles shopping cart functionality
   studentWishlistController, // Handles wishlist functionality
+  
+  studentCheckoutController,
 }

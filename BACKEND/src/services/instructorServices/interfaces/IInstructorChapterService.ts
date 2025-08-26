@@ -1,4 +1,4 @@
-import { CreateChapterDTO, IChapter } from "../../../models/chapterModel";
+import { CreateChapterDTO, IChapter } from "../../../models/chapter.Model";
 
 export interface IInstructorChapterService {
   createChapter(data: CreateChapterDTO): Promise<IChapter>;

@@ -196,3 +196,67 @@ export const courseAlreadyExistInWishlist = async (courseId: string) => {
     throw error;
   }
 };
+
+//checkout actions
+
+export const initiateCheckout = async (
+  courseIds: string[],
+  totalAmount: number,
+  paymentMethod: "razorpay" | "wallet"
+) => {
+  try {
+    const response = await API.post(UserRouterEndpoints.userInitiateCheckout, {
+      courseIds,
+      totalAmount,
+      paymentMethod,
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const checkoutCompleted = async ({
+  orderId,
+  paymentId,
+  method,
+  amount,
+}: {
+  orderId: string;
+  paymentId: string;
+  method: string;
+  amount: number;
+}) => {
+  try {
+    const response = await API.post(UserRouterEndpoints.userCompleteCheckout, {
+      orderId,
+      paymentId,
+      method,
+      amount,
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+
+
+
+
+
+
+
+
+
+
+// wallet page
+
+export const getWallet = async () => {
+  try {
+    const response = await API.get(UserRouterEndpoints.userGetWallet);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};

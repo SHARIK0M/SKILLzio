@@ -1,5 +1,5 @@
 import { Types } from "mongoose";
-import { IWishlist } from "../../../models/wishlistModel";
+import { IWishlist } from "../../../models/wishlist.Model";
 
 export interface IStudentWishlistService {
   addToWishlist(userId: Types.ObjectId, courseId: Types.ObjectId): Promise<IWishlist>;

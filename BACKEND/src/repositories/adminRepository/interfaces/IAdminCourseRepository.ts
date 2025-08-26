@@ -1,6 +1,6 @@
-import { ICourse } from '../../../models/courseModel'; 
-import { IChapter } from '../../../models/chapterModel'; 
-import { IQuiz } from '../../../models/quizModel'; 
+import { ICourse } from '../../../models/course.Model'; 
+import { IChapter } from '../../../models/chapter.Model'; 
+import { IQuiz } from '../../../models/quiz.Model'; 
 export interface IAdminCourseRepository {
   getAllCourses(
     search?: string,

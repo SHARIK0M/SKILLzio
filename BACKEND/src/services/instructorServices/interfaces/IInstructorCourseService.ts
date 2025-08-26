@@ -1,4 +1,4 @@
-import { ICourse } from "../../../models/courseModel";
+import { ICourse } from "../../../models/course.Model";
 
 export interface IInstructorCourseService {
   createCourse(courseData: ICourse): Promise<ICourse>;
