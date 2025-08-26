@@ -3,6 +3,7 @@ import {
   adminController,
   adminVerificationController,
   adminCategoryController,
+  adminCourseController,
 } from '../core/container'
 import authenticateToken from '../middlewares/AuthenticatedRoutes'
 
@@ -73,6 +74,36 @@ router.post('/category',authenticateToken,isAdmin,adminCategoryController.addCat
 
 router.put('/category',authenticateToken,isAdmin,adminCategoryController.editCategory.bind(adminCategoryController))
 
+//Course management
+//Course management
+
+router.get(
+  "/courses",
+  authenticateToken,
+  isAdmin,
+  adminCourseController.getAllCourses.bind(adminCourseController)
+);
+
+router.get(
+  "/courses/:courseId",
+  authenticateToken,
+  isAdmin,
+  adminCourseController.getCourseDetails.bind(adminCourseController)
+)
+
+router.patch(
+  "/courses/:courseId/listing",
+  authenticateToken,
+  isAdmin,
+  adminCourseController.updateListingStatus.bind(adminCourseController)
+);
+
+router.patch(
+  "/courses/:courseId/verifyCourse",
+  authenticateToken,
+  isAdmin,
+  adminCourseController.toggleVerificationStatus.bind(adminCourseController)
+)
 
 
 const adminRoutes = router

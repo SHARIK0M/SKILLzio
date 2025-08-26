@@ -268,7 +268,6 @@ export const VerificationSuccessMessages = {
   DOCUMENTS_UPLOADED: 'Documents uploaded successfully.',
 }
 
-
 export const CategorySuccessMsg = {
   CATEGORY_ADDED: 'Category added successfully!',
   CATEGORY_UPDATED: 'Category updated successfully!',
@@ -288,4 +287,104 @@ export const CategoryErrorMsg = {
   CATEGORY_NOT_FETCHED: 'Could not fetch categories!',
   CATEGORY_LISTING_FAILED: 'Failed to list/unlist category!',
   INTERNAL_SERVER_ERROR: 'Internal server error!',
+}
+
+export const CourseErrorMessages = {
+  MISSING_FILES: 'Missing files.',
+  COURSE_NOT_FOUND: 'Course not found.',
+  COURSE_ID_NOT_FOUND: 'CourseId not found.',
+  CHAPTERS_NOT_FOUND: 'Chapters not found.',
+  INSTRUCTOR_ID_REQUIRED: 'Instructor ID is required.',
+  INVALID_PAGE_OR_LIMIT: 'Invalid page or limit value.',
+  CHAPTER_ID_REQUIRED: 'ChapterId is not provided in the query.',
+  ADD_QUIZ_TO_PUBLISH: 'Add Quiz to Publish Course!',
+  ADD_CHAPTERS_TO_PUBLISH: 'Add chapters to Publish Course!',
+  NO_COURSE_DATA_FOUND: 'No courseData found.',
+  INTERNAL_ERROR: 'Internal Error.',
+  SOMETHING_WENT_WRONG: 'Something wrong Please try Later!',
+  ERROR_UPDATING_COURSE: 'Error updating Course.',
+}
+
+export const CourseSuccessMessages = {
+  COURSE_CREATED: 'Course created successfully.',
+  COURSE_UPDATED: 'Course updated successfully.',
+  COURSE_ALREADY_PURCHASED: 'Course already purchased!',
+  COURSE_PUBLISHED: 'Course Published',
+  COURSE_UNPUBLISHED: 'Course UnPublished',
+  COURSE_LISTED: 'Course Listed',
+  COURSE_UNLISTED: 'Course unListed',
+  COURSE_DELETED: 'Course Deleted!',
+  COURSES_FETCHED: 'Courses fetched successfully.',
+  COURSE_FETCHED: 'Course fetched successfully.',
+  COURSE_CATEGORIES_FETCHED: 'Fetched course categories!',
+  INSTRUCTOR_COURSES_FETCHED: 'User courses fetched!',
+  COURSES_DATA_FETCHED: 'Fetched courses data successfully',
+  BOUGHT_COURSES_FETCHED: 'Buyed Courses Got Successfully',
+  THANK_YOU_FOR_ENROLLING: 'Thank you for Enrolling!',
+  CHAPTER_COMPLETED: 'Chapter Completed',
+  PLAY_DATA_RETRIEVED: 'Retrieved play data',
+}
+export const QuizErrorMessages = {
+  NO_COURSE_FOUND: 'No course found.',
+  NO_USER_FOUND: 'No user found.',
+  QUIZ_ID_REQUIRED: 'Quiz ID is required.',
+  COURSE_ID_REQUIRED: 'Course ID is required.',
+  INVALID_QUIZ_DATA: 'Invalid quiz data provided.',
+  INTERNAL_SERVER_ERROR: 'Internal server error.',
+  QUIZ_OR_QUESTION_NOT_FOUND: 'Quiz or question not found',
+  QUIZ_ALREAD_CREATED: 'Quiz already exists for this course. Please manage questions instead.',
+  QUIZ_NOT_FOUND: 'Quiz is not found',
+}
+
+export const QuizSuccessMessages = {
+  QUIZ_CREATED: 'Quiz section for this course is created',
+  QUIZ_DELETED: 'Quiz section for this course is deleted',
+  QUESTION_ADDED: 'Question added successfully.',
+  QUESTION_UPDATED: 'Question updated successfully.',
+  QUIZ_FETCHED: 'Quiz fetched successfully.',
+  QUESTION_DELETED: 'question deleted successfully',
+  COURSE_COMPLETED: 'Course completed successfully!',
+  RETRY_QUIZ: 'Retry quiz!',
+}
+
+export const ChapterErrorMessages = {
+  CHAPTER_ALREADY_EXIST: 'Chapter already exists with this title in this course',
+  CHAPTER_REQUIRE_VIDEOFILE: 'Video file is required',
+  CHAPTER_NOT_FOUND: 'chapter not found',
+  CHAPTER_NUMBER_ALREADY_EXIST: 'Chapter with this number already exists in this course',
+}
+
+export const ChapterSuccessMessages = {
+  CHAPTER_CREATED: 'chapter created successfully',
+  CHAPTER_RETRIEVED: 'Course related chapters are retrieved',
+  CHAPTER_UPDATED: 'Chapter is updated successfully',
+  CHAPTER_DELETED: 'Chapter is deleted successfully',
+}
+
+export const CartErrorMessage = {
+  COURSE_ALREADYEXIST_IN_CART: 'course already exist in cart',
+  FAILED_TO_ADD_COURSE_IN_CART: 'Failed to add course to cart',
+  FAILED_TO_REMOVE_COURSE_FROM_CART: 'Failed to remove course from cart',
+  FAILED_TO_CLEAR_CARTDATE: 'Failed to remove cart data',
+}
+
+export const CartSuccessMessage = {
+  CART_DATA_FETCHED: 'Cart fetched successfully',
+  CART_EMPTY: 'Cart is empty',
+  COURSE_ADDED_IN_CART: 'Course added to cart',
+  COURSE_REMOVED_FROM_CART: 'Course removed from cart',
+  CART_DATA_CLEARED: 'Cart cleared',
+}
+
+export const WishlistSuccessMessage = {
+  COURSE_ADDED: 'Course added to wishlist successfully',
+  COURSE_REMOVED: 'Course removed from wishlist successfully',
+  COURSE_LIST_FETCHED: 'Wishlist fetched successfully',
+}
+
+export const WishlistErrorMessage = {
+  COURSE_ALREADY_IN_WISHLIST: 'Course already exists in wishlist',
+  FAILED_TO_REMOVE_COURSE: 'Failed to remove course from wishlist',
+  FAILED_TO_FETCH_LIST: 'Failed to fetch wishlist courses',
+  FAILED_TO_CHECK_EXISTENCE: 'Failed to check if course is in wishlist',
 }

@@ -15,8 +15,11 @@ import PrivateRoute from '../protector/UserPrivateRoute'
 import StudentProfilePage from "../pages/student/profile/StudentProfilePage";
 import StudentProfileEditPage from "../pages/student/profile/StudentEditProfile";
 
+import CourseDetailPage from "../pages/student/course/CourseDetailPage";
+import CourseListPage from "../pages/student/course/CourseListPage";
 
-
+import CartPage from "../pages/student/cart/CartPage";
+import WishlistPage from "../pages/student/wishlist/WishlistPage";
 
 const StudentRouter = () => {
   return (
@@ -49,6 +52,9 @@ const StudentRouter = () => {
           }
         />
 
+        <Route path="/user/course/:courseId" element={<CourseDetailPage />} />
+        <Route path="/user/courses" element={<CourseListPage />} />
+
         {/* reset password in case of forgot password */}
         <Route path="/user/verifyEmail" element={<ForgotPassword />} />
         <Route
@@ -64,9 +70,9 @@ const StudentRouter = () => {
           <Route path="dashboard" element={<StudentDashboard />} />
           <Route path="profile" element={<StudentProfilePage />} />
           <Route path="editProfile" element={<StudentProfileEditPage />} />
-          
+          <Route path="cart" element={<CartPage />} />
+          <Route path="wishlist" element={<WishlistPage />} />
         </Route>
-
       </Route>
     </Routes>
   );

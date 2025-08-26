@@ -23,36 +23,36 @@ const Card: React.FC<CardProps> = ({
   return (
     <div
       className={classNames(
-        // Updated colors & style
-        "bg-gradient-to-br from-white via-slate-50 to-slate-100 rounded-2xl border border-slate-200",
+        // Dark instructor theme
+        "bg-gradient-to-br from-gray-800/90 to-gray-900/90 backdrop-blur-xl border border-gray-700/30 rounded-3xl text-white",
         withShadow &&
-          "shadow-lg hover:shadow-xl transition-shadow duration-300",
+          "shadow-2xl hover:shadow-3xl transition-shadow duration-300",
         "overflow-hidden",
         className
       )}
     >
       {/* Optional Header Section */}
       {header && (
-        <div className="bg-slate-100/60 px-5 py-3 border-b border-slate-200">
+        <div className="bg-gray-800/60 px-6 py-4 border-b border-gray-700/30">
           {header}
         </div>
       )}
 
       {/* Optional Title */}
       {title && (
-        <div className="bg-slate-50 px-5 py-3 border-b border-slate-200">
-          <h2 className="text-lg font-semibold text-slate-800 tracking-tight">
+        <div className="px-6 py-4 border-b border-gray-700/30">
+          <h2 className="text-2xl font-bold text-orange-400 tracking-tight">
             {title}
           </h2>
         </div>
       )}
 
       {/* Main Content */}
-      <div className={classNames(padded ? "p-5" : "p-0")}>{children}</div>
+      <div className={classNames(padded ? "p-6" : "p-0")}>{children}</div>
 
       {/* Optional Footer */}
       {footer && (
-        <div className="bg-slate-50 px-5 py-3 border-t border-slate-200 text-sm text-slate-600">
+        <div className="bg-gray-800/60 px-6 py-4 border-t border-gray-700/30 text-sm text-gray-300">
           {footer}
         </div>
       )}

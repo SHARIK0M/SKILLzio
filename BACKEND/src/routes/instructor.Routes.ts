@@ -3,6 +3,10 @@ import {
   instructorController,
   instructorVerificationController,
   instructorProfileController,
+  instructorCategoryController,
+  instructorChapterController,
+  instructorQuizController,
+  instructorCourseController,
 } from '../core/container'
 import upload from '../utils/multer'
 
@@ -81,6 +85,184 @@ router.put(
   authenticateToken,
   isInstructor,
   instructorProfileController.updatePassword.bind(instructorProfileController)
+);
+
+
+
+//categoryfetch
+
+router.get(
+  "/categories",
+  authenticateToken,
+  isInstructor,
+  instructorCategoryController.getListedCategories.bind(
+    instructorCategoryController
+  )
+);
+
+// Create Course
+router.post(
+  "/course",
+  authenticateToken,
+  isInstructor,
+  upload.fields([
+    { name: "thumbnail", maxCount: 1 },
+    { name: "demoVideos", maxCount: 1 },
+  ]),
+  instructorCourseController.createCourse.bind(instructorCourseController)
+);
+
+// Update Course
+router.put(
+  "/course/:courseId",
+  authenticateToken,
+  isInstructor,
+  upload.fields([
+    { name: "thumbnail", maxCount: 1 },
+    { name: "demoVideos", maxCount: 1 },
+  ]),
+  instructorCourseController.updateCourse.bind(instructorCourseController)
+);
+
+// Delete Course
+router.delete(
+  "/course/:courseId",
+  authenticateToken,
+  isInstructor,
+  instructorCourseController.deleteCourse.bind(instructorCourseController)
+);
+
+// Get Course By ID
+router.get(
+  "/course/:courseId",
+  authenticateToken,
+  isInstructor,
+  instructorCourseController.getCourseById.bind(instructorCourseController)
+);
+
+//instructor created courses visit
+
+router.get(
+  "/courses",
+  authenticateToken,
+  isInstructor,
+  instructorCourseController.getInstructorCourses.bind(
+    instructorCourseController
+  )
+);
+
+//publish course
+
+router.patch(
+  "/course/:courseId/publish",
+  authenticateToken,
+  isInstructor,
+  instructorCourseController.publishCourse.bind(instructorCourseController)
+);
+
+//chapter routes
+
+router.get(
+  "/chapters/:courseId",
+  authenticateToken,
+  isInstructor,
+  instructorChapterController.getChaptersByCourse.bind(
+    instructorChapterController
+  )
+);
+
+router.post(
+  "/chapters/:courseId",
+  authenticateToken,
+  isInstructor,
+  upload.fields([
+    { name: "video", maxCount: 1 },
+    { name: "captions", maxCount: 1 },
+  ]),
+  instructorChapterController.createChapter.bind(instructorChapterController)
+);
+
+router.put(
+  "/chapters/:courseId/:chapterId",
+  upload.fields([
+    { name: "video", maxCount: 1 },
+    { name: "captions", maxCount: 1 },
+  ]),
+  instructorChapterController.updateChapter.bind(instructorChapterController)
+);
+
+router.delete(
+  "/chapters/:courseId/:chapterId",
+  authenticateToken,
+  isInstructor,
+  instructorChapterController.deleteChapter.bind(instructorChapterController)
+);
+
+router.get(
+  "/chapters/:courseId/:chapterId",
+  authenticateToken,
+  isInstructor,
+  instructorChapterController.getChapterById.bind(instructorChapterController)
+);
+
+//quiz routes
+
+router.post(
+  "/quiz",
+  authenticateToken,
+  isInstructor,
+  instructorQuizController.createQuiz.bind(instructorQuizController)
+);
+
+router.delete(
+  "/quiz/:quizId",
+  instructorQuizController.deleteQuiz.bind(instructorQuizController)
+);
+
+router.get(
+  "/quiz/:quizId",
+  authenticateToken,
+  isInstructor,
+  instructorQuizController.getQuizById.bind(instructorQuizController)
+);
+
+router.get(
+  "/quiz/course/:courseId",
+  authenticateToken,
+  isInstructor,
+  instructorQuizController.getQuizByCourseId.bind(instructorQuizController)
+);
+
+//questions-level routes inside a quiz
+
+router.post(
+  "/quiz/:courseId/question",
+  authenticateToken,
+  isInstructor,
+  instructorQuizController.addQuestion.bind(instructorQuizController)
+);
+
+router.put(
+  "/quiz/:quizId/question/:questionId",
+  authenticateToken,
+  isInstructor,
+  instructorQuizController.updateQuestion.bind(instructorQuizController)
+);
+
+router.delete(
+  "/quiz/:quizId/question/:questionId",
+  authenticateToken,
+  isInstructor,
+  instructorQuizController.deleteQuestion.bind(instructorQuizController)
+);
+
+router.get(
+  "/quiz/course/:courseId/paginated",
+  authenticateToken,
+  isInstructor,
+  instructorQuizController.getPaginatedQuestionsByCourseId.bind(
+    instructorQuizController
+  )
 );
 
 

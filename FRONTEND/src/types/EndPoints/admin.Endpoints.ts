@@ -19,6 +19,12 @@ const AdminRoutersEndPoints = {
   adminListOrUnListCategory: "/api/admin/categoryListOrUnList",
   adminCreateCategory: "/api/admin/category",
   adminEditCategory: "/api/admin/category",
+  //course
+  //course
+  adminGetCourses: "/api/admin/courses",
+  adminGetCourseDetail: "/api/admin/courses",
+  adminToggleList: "/api/admin/courses",
+  adminVerifyCourse: "/api/admin/courses",
 };
 
 // Export so it can be imported and used across the project
