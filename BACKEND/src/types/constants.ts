@@ -388,3 +388,14 @@ export const WishlistErrorMessage = {
   FAILED_TO_FETCH_LIST: 'Failed to fetch wishlist courses',
   FAILED_TO_CHECK_EXISTENCE: 'Failed to check if course is in wishlist',
 }
+
+export const CheckoutErrorMessages = {
+  USER_NOT_AUTHENTICATED: 'User not authenticated.',
+  CHECKOUT_FAILED: 'Checkout initiation failed.',
+  PAYMENT_FAILED: 'Checkout completion failed.',
+}
+
+export const CheckoutSuccessMessage = {
+  ORDER_CREATED: 'Order created successfully',
+  PAYMENT_SUCCESS_COURSE_ENROLLED: 'Payment successful and courses enrolled',
+}

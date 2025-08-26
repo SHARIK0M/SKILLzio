@@ -1,5 +1,5 @@
 import { Types } from "mongoose";
-import { ICart } from "../../../models/cartModel"; 
+import { ICart } from "../../../models/cart.Model"; 
 
 export interface IStudentCartRepository {
   findCartByUserId(userId: Types.ObjectId): Promise<ICart | null>;

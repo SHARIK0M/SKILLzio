@@ -9,6 +9,7 @@ import {
   categoryReadOnlyController,
   studentCartController,
   studentWishlistController,
+  studentCheckoutController,
 } from '../core/container'
 
 
@@ -91,6 +92,22 @@ router.delete('/removeWishlistCourse/:courseId',authenticateToken,isStudent,stud
 router.get('/wishlist',authenticateToken,isStudent,studentWishlistController.getWishlistCourses.bind(studentWishlistController))
 
 router.get('/check/:courseId',authenticateToken,isStudent,studentWishlistController.isCourseInWishlist.bind(studentWishlistController))
+
+
+
+router.post(
+  '/checkout',
+  authenticateToken,
+  isStudent,
+  studentCheckoutController.initiateCheckout.bind(studentCheckoutController),
+)
+
+router.post(
+  '/complete',
+  authenticateToken,
+  isStudent,
+  studentCheckoutController.completeCheckout.bind(studentCheckoutController),
+)
 
 
 export default router

@@ -21,6 +21,8 @@ import CourseListPage from "../pages/student/course/CourseListPage";
 import CartPage from "../pages/student/cart/CartPage";
 import WishlistPage from "../pages/student/wishlist/WishlistPage";
 
+import CheckoutPage from "../pages/student/checkout/CheckoutPage";
+
 const StudentRouter = () => {
   return (
     <Routes>
@@ -72,6 +74,7 @@ const StudentRouter = () => {
           <Route path="editProfile" element={<StudentProfileEditPage />} />
           <Route path="cart" element={<CartPage />} />
           <Route path="wishlist" element={<WishlistPage />} />
+          <Route path="checkout" element={<CheckoutPage />} />
         </Route>
       </Route>
     </Routes>

@@ -1,4 +1,4 @@
-import { IQuiz } from "../../../models/quizModel";
+import { IQuiz } from "../../../models/quiz.Model";
 
 export interface IInstructorQuizRepository {
   createQuiz(data: Partial<IQuiz>): Promise<IQuiz>;
