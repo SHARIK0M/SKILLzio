@@ -4,7 +4,7 @@ import {
   type IQuestionPayload,
   type ICreateQuizPayload,
 } from "../../types/interface/IQuiz";
-
+import fileDownload from "js-file-download";
 import { type FetchCoursesParams } from "../../types/interface/IFetchCoursesParam";
 
 
@@ -398,3 +398,184 @@ export const publishCourse = async(courseId:string) => {
     throw error
   }
 }
+
+// ================= Instructor Dashboard API Actions =================
+
+// Fetch overall instructor dashboard data (revenue, enrollments, etc.)
+export const getDashboard = async () => {
+  try {
+    const response = await API.get(
+      InstructorRouterEndPoints.instructorGetDashboard
+    );
+    // Return only the required data part from response
+    return response.data.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// Fetch instructor revenue dashboard report (with filters like daily, weekly, etc.)
+export const getRevenueDashboard = async (
+  range: "daily" | "weekly" | "monthly" | "yearly" | "custom",
+  page: number,
+  limit: number,
+  startDate?: string,
+  endDate?: string
+) => {
+  try {
+    // Build query parameters dynamically
+    const queryParams = new URLSearchParams({
+      range,
+      page: page.toString(),
+      limit: limit.toString(),
+    });
+
+    // If range is custom, include startDate and endDate
+    if (range === "custom" && startDate && endDate) {
+      queryParams.append("startDate", startDate);
+      queryParams.append("endDate", endDate);
+    }
+
+    const endpoint = InstructorRouterEndPoints.instructorGetDashboardReport;
+
+    // Call API with query string
+    const response = await API.get(`${endpoint}?${queryParams.toString()}`);
+
+    // Expected response: { success: true, data: any[], total: number }
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// Export instructor revenue report (in PDF or Excel format)
+export const exportRevenueReport = async (
+  range: "daily" | "weekly" | "monthly" | "yearly" | "custom",
+  format: "pdf" | "excel",
+  startDate?: string,
+  endDate?: string
+): Promise<void> => {
+  try {
+    // Build params object for API request
+    const params: Record<string, any> = { range, format };
+    if (range === "custom") {
+      params.startDate = startDate;
+      params.endDate = endDate;
+    }
+
+    // API request for exporting report (returns blob data)
+    const response = await API.get(
+      "/api/instructor/dashboard/reportRevenueExport",
+      {
+        params,
+        responseType: "blob", // Needed to handle file downloads
+      }
+    );
+
+    // Choose file name based on format
+    const filename =
+      format === "excel"
+        ? "Instructor_Revenue_Report.xlsx"
+        : "Instructor_Revenue_Report.pdf";
+
+    // Download the file
+    fileDownload(response.data, filename);
+  } catch (error) {
+    console.error("Failed to export report", error);
+    throw error;
+  }
+};
+
+// Fetch specific course dashboard details (for a single course)
+export const specificCourseDashboard = async (courseId: string) => {
+  try {
+    const response = await API.get(
+      `${InstructorRouterEndPoints.instructorSpecificCourse}/${courseId}`
+    );
+
+    console.log('specific course', response.data);
+
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// Fetch revenue report for a specific course (with filters)
+export const specificCourseReport = async (
+  courseId: string,
+  range: 'daily' | 'weekly' | 'monthly' | 'yearly' | 'custom',
+  startDate?: string,
+  endDate?: string,
+  page: number = 1,
+  limit: number = 5
+) => {
+  try {
+    // Build query string with filters
+    const queryParams = new URLSearchParams();
+    queryParams.append('range', range);
+    queryParams.append('page', page.toString());
+    queryParams.append('limit', limit.toString());
+
+    if (range === 'custom') {
+      if (startDate) queryParams.append('startDate', startDate);
+      if (endDate) queryParams.append('endDate', endDate);
+    }
+
+    // API request for specific course revenue report
+    const response = await API.get(
+      `${InstructorRouterEndPoints.instructorSpecificCourseReport}/${courseId}/revenueReport?${queryParams.toString()}`
+    );
+
+    console.log('specific course report response:', response);
+
+    // Returning the full response instead of just data for flexibility
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// Export revenue report for a specific course (in PDF or Excel format)
+export const exportSpecificCourseReport = async (
+  courseId: string,
+  filter: 'daily' | 'weekly' | 'monthly' | 'yearly' | 'custom',
+  startDate?: string,
+  endDate?: string,
+  format: 'pdf' | 'excel' = 'pdf'
+): Promise<void> => {
+  try {
+    // Build params object for API request
+    const params: Record<string, string> = {
+      range: filter,
+      format,
+    };
+
+    // Add startDate and endDate if custom filter is used
+    if (filter === 'custom' && startDate && endDate) {
+      params.startDate = startDate;
+      params.endDate = endDate;
+    }
+
+    // API call for downloading the specific course report
+    const response = await API.get(
+      `${InstructorRouterEndPoints.instructorExportSpecificCourseReport}/${courseId}/exportRevenueReport`,
+      {
+        params,
+        responseType: 'blob', // Needed for downloading files
+      }
+    );
+
+    // Choose filename based on format
+    const filename =
+      format === 'excel'
+        ? 'Specific_Course_Revenue_Report.xlsx'
+        : 'Specific_Course_Revenue_Report.pdf';
+
+    // Trigger file download
+    fileDownload(response.data, filename);
+  } catch (error) {
+    console.error('Failed to export specific course report:', error);
+    throw error;
+  }
+};

@@ -513,6 +513,65 @@ const studentCheckoutController: IStudentCheckoutController =
 
 
 
+////////////////////////DASHBOARD MANAGEMENT///////////////////////////////////
+
+import { IInstructorAllCourseDashboardRepository } from '../repositories/instructorRepository/interfaces/IInstructorAllCourseDashboardRepository' 
+import { InstructorAllCourseDashboardRepository } from '../repositories/instructorRepository/instructorAllCourseDashboard.Repository'
+
+import { IInstructorAllCourseDashboardService } from '../services/instructorServices/interfaces/IInstructorAllDashboardService'
+import { InstructorAllCourseDashboardService } from '../services/instructorServices/InstructorAllDashboard.Service' 
+
+import { IInstructorAllDashboardController } from '../controllers/instructorControllers/interfaces/IInstructorAllDashboardController' 
+import { InstructorAllCourseDashboardController } from '../controllers/instructorControllers/instructorAllDashboard.Controller'
+
+import {
+  GenericRepository,
+  IGenericRepository,
+} from "../repositories/genericRepo/generic.Repository";
+import { OrderModel, IOrder } from "../models/order.Model";
+
+const orderRepo: IGenericRepository<IOrder> = new GenericRepository<IOrder>(
+  OrderModel
+);
+
+const instructorDashboardRepo: IInstructorAllCourseDashboardRepository =
+  new InstructorAllCourseDashboardRepository(orderRepo);
+
+const instructorDashboardService: IInstructorAllCourseDashboardService =
+  new InstructorAllCourseDashboardService(instructorDashboardRepo);
+
+const instructorDashboardController: IInstructorAllDashboardController =
+  new InstructorAllCourseDashboardController(instructorDashboardService);
+
+/////////////////////////INSTRUCTOR SPECIFIC COURSE DASHBOARD/////////////////////////////////////////////////////////////////////////////////////////////
+
+import { IInstructorCourseSpecificDashboardRepository } from '../repositories/instructorRepository/interfaces/IInstructorSpecificCourseDashboardRepository' 
+import { InstructorSpecificCourseDashboardRepository } from '../repositories/instructorRepository/instructorSpecificCourse.DashboardRepository' 
+
+import { IInstructorSpecificCourseDashboardService } from '../services/instructorServices/interfaces/IInstructorSpecificCourseService' 
+import { InstructorSpecificCourseDashboardService } from "../services/instructorServices/InstructorSpecificCourse.Service";
+
+import { IInstructorCourseSpecificDashboardController } from '../controllers/instructorControllers/interfaces/IInstructorSpecificCourseController' 
+import { InstructorSpecificCourseDashboardController } from '../controllers/instructorControllers/instructorSpecificCourse.Controller'
+
+const specificCourseDahboardRepository: IInstructorCourseSpecificDashboardRepository =
+  new InstructorSpecificCourseDashboardRepository(
+    new PaymentRepository(),
+    new EnrollmentRepository(),
+    new CourseRepository(),
+    new OrderRepository()
+  );
+
+const specificCourseDashboardService: IInstructorSpecificCourseDashboardService =
+  new InstructorSpecificCourseDashboardService(
+    specificCourseDahboardRepository
+  );
+
+const specificCourseDashboardController: IInstructorCourseSpecificDashboardController =
+  new InstructorSpecificCourseDashboardController(
+    specificCourseDashboardService
+  );
+
 
 
 
@@ -569,6 +628,7 @@ export {
   categoryReadOnlyController, // Handles category browsing by students
   studentCartController, // Handles shopping cart functionality
   studentWishlistController, // Handles wishlist functionality
-  
   studentCheckoutController,
+  instructorDashboardController,
+  specificCourseDashboardController,
 }

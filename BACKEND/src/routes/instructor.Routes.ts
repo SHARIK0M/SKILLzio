@@ -7,6 +7,8 @@ import {
   instructorChapterController,
   instructorQuizController,
   instructorCourseController,
+  instructorDashboardController,
+  specificCourseDashboardController,
 } from '../core/container'
 import upload from '../utils/multer'
 
@@ -265,6 +267,64 @@ router.get(
   )
 );
 
+
+
+/////////////////////////instructor dashboard///////////////////////////////////
+
+router.get(
+  "/dashboard",
+  authenticateToken,
+  isInstructor,
+  instructorDashboardController.getDashboard.bind(instructorDashboardController)
+);
+
+router.get(
+  "/dashboard/report",
+  authenticateToken,
+  isInstructor,
+  instructorDashboardController.getDetailedRevenueReport.bind(
+    instructorDashboardController
+  )
+);
+
+router.get(
+  "/dashboard/reportRevenueExport",
+  authenticateToken,
+  isInstructor,
+  instructorDashboardController.exportRevenueReport.bind(
+    instructorDashboardController
+  )
+);
+
+
+////////////instructor specific course dashboard///////////////////////////
+
+router.get(
+  "/dashboard/specificCourse/:courseId",
+  authenticateToken,
+  isInstructor,
+  specificCourseDashboardController.getCourseDashboard.bind(
+    specificCourseDashboardController
+  )
+);
+
+router.get(
+  "/dashboard/specificCourse/:courseId/revenueReport",
+  authenticateToken,
+  isInstructor,
+  specificCourseDashboardController.getCourseRevenueReport.bind(
+    specificCourseDashboardController
+  )
+);
+
+router.get(
+  "/dashboard/specificCourse/:courseId/exportRevenueReport",
+  authenticateToken,
+  isInstructor,
+  specificCourseDashboardController.exportCourseRevenueReport.bind(
+    specificCourseDashboardController
+  )
+);
 
 const instructorRoutes = router
 
