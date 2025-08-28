@@ -399,3 +399,5 @@ export const CheckoutSuccessMessage = {
   ORDER_CREATED: 'Order created successfully',
   PAYMENT_SUCCESS_COURSE_ENROLLED: 'Payment successful and courses enrolled',
 }
+
+export const INSTRUCTOR_REVENUE_SHARE = 0.9

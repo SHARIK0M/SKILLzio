@@ -38,6 +38,19 @@ const InstructorRouterEndPoints = {
   instructorAddQuestion: "/api/instructor/quiz",
   instructorUpdateQuestion: "/api/instructor/quiz",
   instructorDeleteQuestion: "/api/instructor/quiz",
+
+  //instructorDashboard
+
+  instructorGetDashboard: "/api/instructor/dashboard",
+  instructorGetDashboardReport: "/api/instructor/dashboard/report",
+  instructorReportExport: "/api/instructor/dashboard/reportRevenueExport",
+
+  //specific course dashboard
+
+  instructorSpecificCourse: "/api/instructor/dashboard/specificCourse",
+  instructorSpecificCourseReport: "/api/instructor/dashboard/specificCourse",
+  instructorExportSpecificCourseReport:
+    "/api/instructor/dashboard/specificCourse",
 };
 
 
