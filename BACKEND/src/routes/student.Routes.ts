@@ -10,6 +10,10 @@ import {
   studentCartController,
   studentWishlistController,
   studentCheckoutController,
+  studentEnrollmentController,
+  studentWalletController,
+  studentWalletPaymentController,
+  studentOrderController,
 } from '../core/container'
 
 
@@ -107,6 +111,132 @@ router.post(
   authenticateToken,
   isStudent,
   studentCheckoutController.completeCheckout.bind(studentCheckoutController),
+)
+
+
+//////////BOUGHT COURSE MANAGEMENT/////////////////
+
+router.get(
+  "/enrolled",
+  authenticateToken,
+  isStudent,
+  studentEnrollmentController.getAllEnrolledCourses.bind(
+    studentEnrollmentController
+  )
+);
+
+router.get(
+  "/enrolled/:courseId",
+  authenticateToken,
+  isStudent,
+  studentEnrollmentController.getEnrollmentCourseDetails.bind(
+    studentEnrollmentController
+  )
+);
+
+router.patch(
+  "/enrolled/completeChapter",
+  authenticateToken,
+  isStudent,
+  studentEnrollmentController.completeChapter.bind(studentEnrollmentController)
+);
+
+router.post(
+  "/submitQuiz",
+  authenticateToken,
+  isStudent,
+  studentEnrollmentController.submitQuizResult.bind(studentEnrollmentController)
+);
+
+router.get(
+  "/enrollment/:courseId/allChaptersComplete",
+  authenticateToken,
+  isStudent,
+  studentEnrollmentController.checkAllChaptersCompleted.bind(
+    studentEnrollmentController
+  )
+);
+
+router.get(
+  "/certificate/:courseId",
+  authenticateToken,
+  isStudent,
+  studentEnrollmentController.getCertificateUrl.bind(
+    studentEnrollmentController
+  )
+);
+
+
+
+//wallet related routes
+
+router.get(
+  "/wallet",
+  authenticateToken,
+  isStudent,
+  studentWalletController.getWallet.bind(studentWalletController)
+);
+
+router.post(
+  "/wallet/credit",
+  authenticateToken,
+  isStudent,
+  studentWalletController.creditWallet.bind(studentWalletController)
+);
+
+router.post(
+  "/wallet/debit",
+  authenticateToken,
+  isStudent,
+  studentWalletController.debitWallet.bind(studentWalletController)
+);
+
+router.get(
+  "/wallet/transactions",
+  authenticateToken,
+  isStudent,
+  studentWalletController.getPaginatedTransactions.bind(studentWalletController)
+);
+
+//wallet payment related routes
+
+router.post(
+  "/wallet/payment/createOrder",
+  authenticateToken,
+  isStudent,
+  studentWalletPaymentController.createOrder.bind(
+    studentWalletPaymentController
+  )
+);
+
+router.post(
+  "/wallet/payment/verify",
+  authenticateToken,
+  isStudent,
+  studentWalletPaymentController.verifyPayment.bind(
+    studentWalletPaymentController
+  )
+);
+
+router.get(
+  '/orders',
+  authenticateToken,
+  isStudent,
+  studentOrderController.getOrderHistory.bind(studentOrderController),
+)
+
+router.get(
+  '/orders/:orderId',
+  authenticateToken,
+  isStudent,
+  studentOrderController.getOrderDetails.bind(studentOrderController),
+)
+
+router.get(
+  '/orders/:orderId/invoice',
+  authenticateToken,
+  isStudent,
+  studentOrderController.downloadInvoice.bind(studentOrderController),
 )
 
 

@@ -9,7 +9,6 @@ import {
   FiHome,
   FiBookOpen,
   FiVideo,
-  FiMessageSquare,
   FiHeart,
   FiShoppingCart,
   FiClipboard,
@@ -19,12 +18,11 @@ import {
 
 const navItems = [
   { name: "Dashboard", path: "/user/dashboard", icon: <FiHome /> },
-  { name: "Courses", path: "/user/courses", icon: <FiBookOpen /> },
+  { name: "Courses", path: "/user/enrolled", icon: <FiBookOpen /> },
   { name: "Meetings", path: "/user/meetings", icon: <FiVideo /> },
-  { name: "Message", path: "/user/message", icon: <FiMessageSquare /> },
   { name: "Wishlist", path: "/user/wishlist", icon: <FiHeart /> },
   { name: "Cart", path: "/user/cart", icon: <FiShoppingCart /> },
-  { name: "Purchase History", path: "/user/purchases", icon: <FiClipboard /> },
+  { name: "Purchase History", path: "/user/order", icon: <FiClipboard /> },
   { name: "Wallet", path: "/user/wallet", icon: <FiCreditCard /> },
   { name: "Settings", path: "/user/profile", icon: <FiSettings /> },
 ];

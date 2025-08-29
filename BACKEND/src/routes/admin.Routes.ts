@@ -4,6 +4,9 @@ import {
   adminVerificationController,
   adminCategoryController,
   adminCourseController,
+  adminWalletController,
+  adminWalletPaymentController,
+  adminWithdrawalController,
 } from '../core/container'
 import authenticateToken from '../middlewares/AuthenticatedRoutes'
 
@@ -103,6 +106,85 @@ router.patch(
   authenticateToken,
   isAdmin,
   adminCourseController.toggleVerificationStatus.bind(adminCourseController)
+)
+
+
+
+// wallet related routes
+
+router.get(
+  "/wallet",
+  authenticateToken,
+  isAdmin,
+  adminWalletController.getWallet.bind(adminWalletController)
+);
+
+router.post(
+  "/wallet/credit",
+  authenticateToken,
+  isAdmin,
+  adminWalletController.creditWallet.bind(adminWalletController)
+);
+
+router.post(
+  "/wallet/debit",
+  authenticateToken,
+  isAdmin,
+  adminWalletController.debitWallet.bind(adminWalletController)
+);
+
+router.get(
+  "/wallet/transactions",
+  authenticateToken,
+  isAdmin,
+  adminWalletController.getTransactions.bind(adminWalletController)
+);
+
+// wallet payment related routes
+
+router.post(
+  "/wallet/payment/createOrder",
+  authenticateToken,
+  isAdmin,
+  adminWalletPaymentController.createOrder.bind(adminWalletPaymentController)
+);
+
+router.post(
+  "/wallet/payment/verify",
+  authenticateToken,
+  isAdmin,
+  adminWalletPaymentController.verifyPayment.bind(adminWalletPaymentController)
+);
+
+
+//withdrawal request from admin//
+
+router.get(
+  "/allWithdrawalRequests",
+  authenticateToken,
+  isAdmin,
+  adminWithdrawalController.getAllWithdrawalRequests.bind(adminWithdrawalController)
+)
+
+router.get(
+  "/withdrawalRequest/:requestId",
+  authenticateToken,
+  isAdmin,
+  adminWithdrawalController.getWithdrawalRequestById.bind(adminWithdrawalController)
+)
+
+router.post(
+  "/withdrawalRequestApprove",
+  authenticateToken,
+  isAdmin,
+  adminWithdrawalController.approveWithdrawalRequest.bind(adminWithdrawalController)
+)
+
+router.post(
+  "/withdrawalRequestReject",
+  authenticateToken,
+  isAdmin,
+  adminWithdrawalController.rejectWithdrawalRequest.bind(adminWithdrawalController)
 )
 
 

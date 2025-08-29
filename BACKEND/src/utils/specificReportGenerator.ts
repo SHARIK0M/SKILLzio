@@ -74,7 +74,7 @@ export async function generatePdfReport(data: ReportData[], res: Response): Prom
   doc.pipe(stream);
 
   // Title
-  doc.fontSize(20).text("ULearn", { align: "center" });
+  doc.fontSize(20).text("SKILLZIO", { align: "center" });
   doc.moveDown(1.5);
 
   const headers = [

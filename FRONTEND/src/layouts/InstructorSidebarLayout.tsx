@@ -42,8 +42,8 @@ const navItems = [
     gradient: "from-orange-400 to-orange-500",
   },
   {
-    name: "Analytics",
-    path: "/instructor/analytics",
+    name: "Wallet",
+    path: "/instructor/wallet",
     icon: "📈",
     gradient: "from-orange-500 to-red-500",
   },
