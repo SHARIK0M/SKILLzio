@@ -30,6 +30,8 @@ import QuizManagementPage from "../pages/instructor/quiz/QuizManagementpage";
 import AddQuizPage from "../pages/instructor/quiz/AddQuizPage";
 import EditQuizPage from "../pages/instructor/quiz/EditQuizPage";
 import SpecificDashboardPage from "../pages/instructor/specificDashboard/SpecificDashboardPage";
+import InstructorWalletPage from "../pages/instructor/wallet/InstructorWalletPage";
+
 const InstructorRouter = () => {
   return (
     <Routes>
@@ -94,6 +96,7 @@ const InstructorRouter = () => {
             path="course/:courseId/quiz/edit/:quizId"
             element={<EditQuizPage />}
           />
+          <Route path="wallet" element={<InstructorWalletPage />} />
         </Route>
       </Route>
     </Routes>

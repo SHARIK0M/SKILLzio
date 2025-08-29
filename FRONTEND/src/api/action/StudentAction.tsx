@@ -1,6 +1,6 @@
 import { API } from "../../service/axios";
 import UserRouterEndpoints from "../../types/EndPoints/user.Endpoints"
-
+import type QuizPayload from "../../types/interface/IQuizPayload";
 
 export const getProfile = async () => {
   try {
@@ -241,13 +241,79 @@ export const checkoutCompleted = async ({
 };
 
 
+//boughted courses actions
 
+export const getEnrolledCourses = async () => {
+  try {
+    const response = await API.get(UserRouterEndpoints.userGetEnrolledCourses);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
 
+export const getSpecificCourse = async (courseId: string) => {
+  try {
+    const response = await API.get(
+      `${UserRouterEndpoints.userGetSpecificEnrolledCourses}/${courseId}`
+    );
 
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
 
+export const markChapterAsCompleted = async (
+  courseId: string,
+  chapterId: string
+) => {
+  try {
+    const response = await API.patch("/api/student/enrolled/completeChapter", {
+      courseId,
+      chapterId,
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
 
+export const submitQuiz = async (payload: QuizPayload) => {
+  try {
+    const response = await API.post(
+      UserRouterEndpoints.userSubmitQuiz,
+      payload
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
 
+export const checkChapterCompletedOrNot = async (courseId: string) => {
+  try {
+    const response = await API.get(
+      `${UserRouterEndpoints.userCheckAllChapterCompleted}/${courseId}/allChaptersComplete`
+    );
 
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getCertificate = async (courseId: string) => {
+  try {
+    const response = await API.get(
+      `${UserRouterEndpoints.userGetCertificate}/${courseId}`
+    );
+
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
 
 
 // wallet page
@@ -256,6 +322,121 @@ export const getWallet = async () => {
   try {
     const response = await API.get(UserRouterEndpoints.userGetWallet);
     return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const creditWallet = async (data: {
+  amount: number;
+  description: string;
+  txnId: string;
+}) => {
+  try {
+    const response = await API.post(UserRouterEndpoints.userCreditWallet, data);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const debitWallet = async (data: {
+  amount: number;
+  description: string;
+  txnId: string;
+}) => {
+  try {
+    const response = await API.post(UserRouterEndpoints.userDebitWallet, data);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const createWalletRechargeOrder = async (data: { amount: number }) => {
+  try {
+    const response = await API.post(
+      UserRouterEndpoints.userCreateOrderForWalletCredit,
+      data
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const verifyPayment = async (data: {
+  razorpay_order_id: string;
+  razorpay_payment_id: string;
+  razorpay_signature: string;
+  amount: number;
+}) => {
+  try {
+    const response = await API.post(
+      UserRouterEndpoints.userVerifyPayment,
+      data
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const walletTransactionHistory = async (
+  page: number = 1,
+  limit: number = 5
+) => {
+  try {
+    const response = await API.get(UserRouterEndpoints.userGetTransactions, {
+      params: { page, limit },
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+
+export const allOrder = async (page: number = 1, limit: number = 5) => {
+  try {
+    const response = await API.get(UserRouterEndpoints.userGetOrders, {
+      params: { page, limit },
+    });
+    return response.data; // should return { orders, total }
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const orderDetail = async (orderId: string) => {
+  try {
+    const response = await API.get(
+      `${UserRouterEndpoints.userGetOrderDetail}/${orderId}`
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const downloadInvoice = async (orderId: string) => {
+  try {
+    const response = await API.get(
+      `${UserRouterEndpoints.userDownloadOrderInvoice}/${orderId}/invoice`,
+      {
+        responseType: "blob", // 👈 VERY important for downloading files
+      }
+    );
+
+    const blob = new Blob([response.data], { type: "application/pdf" });
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", `invoice-${orderId}.pdf`);
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    window.URL.revokeObjectURL(url);
   } catch (error) {
     throw error;
   }

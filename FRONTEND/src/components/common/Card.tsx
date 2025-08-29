@@ -41,7 +41,7 @@ const Card: React.FC<CardProps> = ({
       {/* Optional Title */}
       {title && (
         <div className="px-6 py-4 border-b border-gray-700/30">
-          <h2 className="text-2xl font-bold text-orange-400 tracking-tight">
+          <h2 className="text-2xl font-bold text-gray-400 tracking-tight">
             {title}
           </h2>
         </div>

@@ -2,7 +2,7 @@ import { API } from "../../service/axios";
 
 // Importing admin API endpoints
 import AdminRoutersEndPoints from "../../types/EndPoints/admin.Endpoints";
-
+import { type IWithdrawalRequest } from "../../types/interface/IWithdrawalRequest";
 /**
  * Fetch all users with pagination and search filter
  * @param page - current page number (default = 1)
@@ -346,3 +346,157 @@ export const verifyCourse = async(courseId:string)=>{
     throw error
   }
 }
+
+
+export const getWallet = async () => {
+  try {
+    const response = await API.get(AdminRoutersEndPoints.adminGetWallet);
+    console.log("wallet", getWallet);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const creditWallet = async (data: {
+  amount: number;
+  description: string;
+  txnId: string;
+}) => {
+  try {
+    const response = await API.post(
+      AdminRoutersEndPoints.adminCreditWallet,
+      data
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// ✅ Debit wallet
+export const debitWallet = async (data: {
+  amount: number;
+  description: string;
+  txnId: string;
+}) => {
+  try {
+    const response = await API.post(
+      AdminRoutersEndPoints.adminDebitWallet,
+      data
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// ✅ Create Razorpay order for wallet recharge
+export const createWalletRechargeOrder = async (data: { amount: number }) => {
+  try {
+    const response = await API.post(
+      AdminRoutersEndPoints.adminCreateOrderForWalletCredit,
+      data
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// ✅ Verify Razorpay payment and credit wallet
+export const verifyPayment = async (data: {
+  razorpay_order_id: string;
+  razorpay_payment_id: string;
+  razorpay_signature: string;
+  amount: number;
+}) => {
+  try {
+    const response = await API.post(
+      AdminRoutersEndPoints.adminVerifyPayment,
+      data
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const adminWalletTransactionHistory = async (
+  page: number = 1,
+  limit: number = 5
+) => {
+  try {
+    const response = await API.get(
+      AdminRoutersEndPoints.adminWalletTransactions,
+      {
+        params: { page, limit },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+//admin withdrawal status change
+export const adminGetAllWithdrawalRequests = async (
+  page: number,
+  limit: number
+): Promise<{
+  transactions: IWithdrawalRequest[];
+  currentPage: number;
+  totalPages: number;
+  total: number;
+}> => {
+  try {
+    const response = await API.get(`${AdminRoutersEndPoints.adminGetAllWithdrawalRequests}`, {
+      params: { page, limit },
+    });
+    return response.data.data;
+  } catch (error: any) {
+    throw new Error(error.response?.data?.message || "Failed to fetch withdrawal requests");
+  }
+};
+
+export const adminGetWithdrawalRequestById = async(requestId:string)=>{
+  try {
+    const response = await API.get(`${AdminRoutersEndPoints.adminGetRequestDetails}/${requestId}`)
+    return response.data
+  } catch (error) {
+    throw error
+  }
+}
+
+export const adminPendingWithdrawal = async () => {
+  try {
+    const response = await API.get(`${AdminRoutersEndPoints.adminWithdrawalPending}`);
+    return response.data.data; // Extract the data array from the response
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const adminApproveWithdrawal = async (requestId: string, remarks?: string) => {
+  try {
+    const response = await API.post(`${AdminRoutersEndPoints.adminWithdrawalApprove}`, {
+      requestId,
+      remarks
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const adminRejectWithdrawal = async (requestId: string, remarks?: string) => {
+  try {
+    const response = await API.post(`${AdminRoutersEndPoints.adminWithdrawalReject}`, {
+      requestId,
+      remarks
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};

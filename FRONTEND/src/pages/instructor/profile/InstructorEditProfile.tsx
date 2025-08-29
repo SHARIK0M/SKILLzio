@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
-import { Formik, Form, Field } from "formik";
+import { Formik, Form } from "formik";
 import * as Yup from "yup";
+import InputField from "../../../components/common/InputField";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import {
   instructorGetProfile,
   instructorUpdateProfile,
-  instructorUpdatePassword,
 } from "../../../api/action/InstructorActionApi";
 import { useDispatch } from "react-redux";
 import { setInstructor } from "../../../redux/slices/instructorSlice";
@@ -48,28 +48,9 @@ const ProfileSchema = Yup.object().shape({
   ),
 });
 
-const PasswordSchema = Yup.object().shape({
-  currentPassword: Yup.string().required("Current password is required"),
-  newPassword: Yup.string()
-    .required("New password is required")
-    .min(6, "Password must be at least 6 characters")
-    .matches(/[A-Z]/, "Must contain at least one uppercase letter")
-    .matches(/[a-z]/, "Must contain at least one lowercase letter")
-    .matches(/[0-9]/, "Must contain at least one number")
-    .matches(
-      /[!@#$%^&*(),.?":{}|<>]/,
-      "Must contain at least one special character"
-    ),
-  confirmPassword: Yup.string()
-    .oneOf([Yup.ref("newPassword")], "Passwords must match")
-    .required("Confirm your new password"),
-});
-
 const InstructorProfileEditPage = () => {
   const [initialValues, setInitialValues] = useState<any>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
-  const [showPasswordForm, setShowPasswordForm] = useState(false);
-  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -81,7 +62,6 @@ const InstructorProfileEditPage = () => {
           const profile = response.data;
           setInitialValues({
             name: profile.username || "",
-            email: profile.email || "",
             skills: profile.skills?.join(", ") || "",
             expertise: profile.expertise?.join(", ") || "",
             profilePic: null,
@@ -93,15 +73,13 @@ const InstructorProfileEditPage = () => {
       } catch (err) {
         console.error("Error fetching profile", err);
         toast.error("Failed to load profile");
-      } finally {
-        setLoading(false);
       }
     };
 
     fetchProfile();
   }, []);
 
-  const handleProfileSubmit = async (values: any) => {
+  const handleSubmit = async (values: any) => {
     const formData = new FormData();
     formData.append("username", values.name.trim());
     formData.append(
@@ -143,186 +121,208 @@ const InstructorProfileEditPage = () => {
     }
   };
 
-  const handlePasswordSubmit = async (values: any, { resetForm }: any) => {
-    try {
-      const res = await instructorUpdatePassword({
-        currentPassword: values.currentPassword,
-        newPassword: values.newPassword,
-      });
-
-      if (res.success) {
-        toast.success("Password updated successfully");
-        resetForm();
-        setShowPasswordForm(false);
-      } else {
-        toast.error(res.message || "Password update failed");
-      }
-    } catch (error) {
-      toast.error("Something went wrong");
-    }
-  };
-
-  if (loading) {
+  if (!initialValues) {
     return (
-      <div className="flex items-center justify-center min-h-96">
-        <div className="relative">
-          <div className="w-16 h-16 border-4 border-orange-200 border-t-orange-500 rounded-full animate-spin"></div>
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-orange-500 text-sm font-semibold">
-            Loading...
-          </div>
+      <div className="flex items-center justify-center min-h-[50vh]">
+        <div className="text-center">
+          <div className="w-16 h-16 border-4 border-orange-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-orange-300 text-lg font-semibold">
+            Loading Profile...
+          </p>
         </div>
       </div>
     );
   }
 
-  if (!initialValues) return <div className="p-4">Loading...</div>;
-
   return (
-    <div className="max-w-5xl mx-auto space-y-8">
+    <div className="space-y-8">
       <ToastContainer position="top-center" autoClose={2000} hideProgressBar />
 
-      {/* Header Section */}
-      <div className="text-center mb-8">
-        <h1 className="text-4xl font-bold bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent mb-2">
-          Edit Profile
-        </h1>
-        <p className="text-gray-400">
-          Update your professional information and settings
-        </p>
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {/* Profile Form */}
-        <div className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-xl rounded-3xl p-8 border border-gray-700/30 shadow-xl">
-          <div className="flex items-center mb-6">
-            <div className="w-10 h-10 bg-gradient-to-br from-orange-400 to-orange-600 rounded-2xl flex items-center justify-center mr-4">
-              <span className="text-xl">👤</span>
+      {/* Main Edit Form Card */}
+      <div className="bg-gradient-to-br from-gray-800/90 to-gray-900/90 backdrop-blur-xl rounded-3xl shadow-2xl border border-gray-700/30 overflow-hidden">
+        {/* Header */}
+        <div className="bg-gradient-to-r from-orange-500/20 to-orange-600/20 p-6 border-b border-gray-700/30">
+          <div className="flex items-center space-x-3">
+            <div className="w-12 h-12 bg-gradient-to-br from-orange-400 to-orange-600 rounded-2xl flex items-center justify-center shadow-lg">
+              <span className="text-2xl">✏️</span>
             </div>
-            <h2 className="text-xl font-bold text-white">
-              Profile Information
-            </h2>
+            <div>
+              <h2 className="text-2xl font-bold bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">
+                Edit Instructor Profile
+              </h2>
+              <p className="text-gray-400 text-sm">
+                Update your profile information and settings
+              </p>
+            </div>
           </div>
+        </div>
 
+        {/* Form Content */}
+        <div className="p-8">
           <Formik
             initialValues={initialValues}
             validationSchema={ProfileSchema}
-            onSubmit={handleProfileSubmit}
-            enableReinitialize
+            onSubmit={handleSubmit}
           >
-            {({ setFieldValue, values }) => (
-              <Form className="space-y-6">
-                {/* Name Field */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
-                    Name
-                  </label>
-                  <Field
-                    name="name"
-                    className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600/50 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
-                    placeholder="Enter your name"
-                  />
-                </div>
-
-                {/* Email Field (Read-only) */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
-                    Email
-                  </label>
-                  <div className="w-full px-4 py-3 bg-gray-600/30 border border-gray-600/30 rounded-xl text-gray-400 cursor-not-allowed">
-                    {values.email}
-                  </div>
-                  <p className="text-xs text-gray-500 mt-1">
-                    Email cannot be changed
-                  </p>
-                </div>
-
-                {/* Skills Field */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
-                    Skills (comma separated)
-                  </label>
-                  <Field
-                    name="skills"
-                    className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600/50 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
-                    placeholder="e.g. JavaScript, React, Node.js"
-                  />
-                </div>
-
-                {/* Expertise Field */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
-                    Expertise (comma separated)
-                  </label>
-                  <Field
-                    name="expertise"
-                    className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600/50 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
-                    placeholder="e.g. Full Stack Development, MERN Stack"
-                  />
-                </div>
-
-                {/* Profile Picture */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
-                    Profile Picture
-                  </label>
-                  <div className="flex items-center space-x-4">
-                    {previewImage && (
-                      <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-orange-400 to-orange-600 p-0.5">
-                        <img
-                          src={previewImage}
-                          alt="Preview"
-                          className="w-full h-full rounded-2xl object-cover"
+            {({ setFieldValue }) => (
+              <Form className="space-y-8">
+                {/* Profile Picture Section */}
+                <div className="flex flex-col lg:flex-row gap-8 items-start">
+                  <div className="flex-1 space-y-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      {/* Name Field */}
+                      <div className="bg-gradient-to-br from-gray-700/50 to-gray-800/50 p-6 rounded-2xl border border-gray-600/30">
+                        <div className="mb-3">
+                          <h3 className="text-orange-400 font-semibold text-sm uppercase tracking-wider flex items-center">
+                            <span className="mr-2">👤</span>
+                            Full Name
+                          </h3>
+                        </div>
+                        <InputField
+                          name="name"
+                          label=""
+                          type="text"
+                          placeholder="Enter your full name"
                         />
                       </div>
-                    )}
-                    <input
-                      type="file"
-                      accept="image/*"
-                      className="flex-1 px-4 py-3 bg-gray-700/50 border border-gray-600/50 rounded-xl text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-orange-500 file:text-white file:cursor-pointer hover:file:bg-orange-600"
-                      onChange={(event: any) => {
-                        const fileInput = event.currentTarget;
-                        const file = fileInput.files[0];
-                        const allowedTypes = [
-                          "image/jpeg",
-                          "image/png",
-                          "image/jpg",
-                          "image/webp",
-                        ];
 
-                        if (file) {
-                          if (!allowedTypes.includes(file.type)) {
-                            toast.error(
-                              "Only image files (JPG, JPEG, PNG, WebP) are allowed"
-                            );
-                            fileInput.value = "";
-                            return;
-                          }
+                      {/* Skills Field */}
+                      <div className="bg-gradient-to-br from-gray-700/50 to-gray-800/50 p-6 rounded-2xl border border-gray-600/30">
+                        <div className="mb-3">
+                          <h3 className="text-orange-400 font-semibold text-sm uppercase tracking-wider flex items-center">
+                            <span className="mr-2">🛠️</span>
+                            Skills
+                          </h3>
+                          <p className="text-gray-400 text-xs mt-1">
+                            Separate multiple skills with commas
+                          </p>
+                        </div>
+                        <InputField
+                          name="skills"
+                          label=""
+                          type="text"
+                          placeholder="e.g. JavaScript, React, Node.js"
+                        />
+                      </div>
+                    </div>
 
-                          setFieldValue("profilePic", file);
+                    {/* Expertise Field - Full Width */}
+                    <div className="bg-gradient-to-br from-gray-700/50 to-gray-800/50 p-6 rounded-2xl border border-gray-600/30">
+                      <div className="mb-3">
+                        <h3 className="text-orange-400 font-semibold text-sm uppercase tracking-wider flex items-center">
+                          <span className="mr-2">🎯</span>
+                          Areas of Expertise
+                        </h3>
+                        <p className="text-gray-400 text-xs mt-1">
+                          Separate multiple areas with commas
+                        </p>
+                      </div>
+                      <InputField
+                        name="expertise"
+                        label=""
+                        type="text"
+                        placeholder="e.g. Full Stack Development, Mobile Apps, AI/ML"
+                      />
+                    </div>
+                  </div>
 
-                          const reader = new FileReader();
-                          reader.onload = () =>
-                            setPreviewImage(reader.result as string);
-                          reader.readAsDataURL(file);
-                        }
-                      }}
-                    />
+                  {/* Profile Picture Section */}
+                  <div className="lg:w-80">
+                    <div className="bg-gradient-to-br from-gray-700/50 to-gray-800/50 p-6 rounded-2xl border border-gray-600/30 text-center">
+                      <div className="mb-4">
+                        <h3 className="text-orange-400 font-semibold text-sm uppercase tracking-wider flex items-center justify-center">
+                          <span className="mr-2">📸</span>
+                          Profile Picture
+                        </h3>
+                        <p className="text-gray-400 text-xs mt-1">
+                          Upload your profile photo
+                        </p>
+                      </div>
+
+                      {/* Current/Preview Image */}
+                      <div className="mb-6 flex justify-center">
+                        {previewImage ? (
+                          <div className="relative">
+                            <div className="w-32 h-32 rounded-3xl bg-gradient-to-br from-orange-400 to-orange-600 p-1 shadow-lg">
+                              <img
+                                src={previewImage}
+                                alt="Profile Preview"
+                                className="w-full h-full rounded-2xl object-cover"
+                              />
+                            </div>
+                            <div className="absolute -top-2 -right-2 w-8 h-8 bg-green-500 rounded-full border-4 border-gray-800 flex items-center justify-center">
+                              <span className="text-white text-xs">✓</span>
+                            </div>
+                          </div>
+                        ) : (
+                          <div className="w-32 h-32 rounded-3xl bg-gradient-to-br from-gray-600 to-gray-700 flex items-center justify-center border-2 border-gray-500/50">
+                            <span className="text-6xl">👨‍🏫</span>
+                          </div>
+                        )}
+                      </div>
+
+                      {/* File Upload */}
+                      <div className="relative">
+                        <input
+                          type="file"
+                          accept="image/*"
+                          onChange={(event: any) => {
+                            const fileInput = event.currentTarget;
+                            const file = fileInput.files[0];
+                            const allowedTypes = [
+                              "image/jpeg",
+                              "image/png",
+                              "image/jpg",
+                              "image/webp",
+                            ];
+
+                            if (file) {
+                              if (!allowedTypes.includes(file.type)) {
+                                toast.error(
+                                  "Only image files (JPG, JPEG, PNG, WebP) are allowed"
+                                );
+                                fileInput.value = ""; // ❌ Clear the invalid file
+                                return;
+                              }
+
+                              setFieldValue("profilePic", file);
+
+                              const reader = new FileReader();
+                              reader.onload = () =>
+                                setPreviewImage(reader.result as string);
+                              reader.readAsDataURL(file);
+                            }
+                          }}
+                          className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                        />
+                        <div className="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-6 py-3 rounded-2xl font-semibold hover:from-orange-600 hover:to-orange-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-orange-500/25 cursor-pointer">
+                          📷 Choose Photo
+                        </div>
+                      </div>
+
+                      <p className="text-gray-500 text-xs mt-3">
+                        Supported: JPG, JPEG, PNG, WebP
+                      </p>
+                    </div>
                   </div>
                 </div>
 
-                {/* Buttons */}
-                <div className="flex space-x-4 pt-4">
+                {/* Action Buttons */}
+                <div className="flex flex-col sm:flex-row gap-4 justify-between pt-6 border-t border-gray-700/30">
                   <button
                     type="button"
-                    className="flex-1 bg-gray-600 hover:bg-gray-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200"
+                    className="flex-1 sm:flex-none sm:w-32 bg-gradient-to-r from-gray-600 to-gray-700 text-white px-6 py-3 rounded-2xl font-semibold hover:from-gray-700 hover:to-gray-800 transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center justify-center"
                     onClick={() => navigate("/instructor/profile")}
                   >
+                    <span className="mr-2">❌</span>
                     Cancel
                   </button>
+
                   <button
                     type="submit"
-                    className="flex-1 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-400 hover:to-orange-500 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 transform hover:scale-105"
+                    className="flex-1 sm:flex-none sm:w-40 bg-gradient-to-r from-orange-500 to-orange-600 text-white px-6 py-3 rounded-2xl font-semibold hover:from-orange-600 hover:to-orange-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-orange-500/25 flex items-center justify-center"
                   >
+                    <span className="mr-2">💾</span>
                     Save Changes
                   </button>
                 </div>
@@ -330,117 +330,36 @@ const InstructorProfileEditPage = () => {
             )}
           </Formik>
         </div>
+      </div>
 
-        {/* Password Change Section */}
-        <div className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-xl rounded-3xl p-8 border border-gray-700/30 shadow-xl">
-          <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center">
-              <div className="w-10 h-10 bg-gradient-to-br from-orange-400 to-orange-600 rounded-2xl flex items-center justify-center mr-4">
-                <span className="text-xl">🔒</span>
-              </div>
-              <h2 className="text-xl font-bold text-white">
-                Security Settings
-              </h2>
-            </div>
-            <button
-              onClick={() => setShowPasswordForm(!showPasswordForm)}
-              className={`px-4 py-2 rounded-xl font-semibold transition-all duration-200 ${
-                showPasswordForm
-                  ? "bg-gray-600 hover:bg-gray-700 text-white"
-                  : "bg-orange-500 hover:bg-orange-600 text-white"
-              }`}
-            >
-              {showPasswordForm ? "Cancel" : "Change Password"}
-            </button>
+      {/* Help Section */}
+      <div className="bg-gradient-to-br from-gray-800/90 to-gray-900/90 backdrop-blur-xl rounded-3xl shadow-2xl border border-gray-700/30 p-6">
+        <div className="flex items-start space-x-4">
+          <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center shadow-lg flex-shrink-0">
+            <span className="text-2xl">💡</span>
           </div>
-
-          {!showPasswordForm ? (
-            <div className="text-center py-12">
-              <div className="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-orange-500/20 to-orange-600/20 rounded-3xl flex items-center justify-center">
-                <span className="text-4xl">🛡️</span>
-              </div>
-              <h3 className="text-lg font-semibold text-white mb-2">
-                Password Security
-              </h3>
-              <p className="text-gray-400 mb-6">
-                Keep your account secure by updating your password regularly
+          <div>
+            <h3 className="text-lg font-bold text-blue-400 mb-2">
+              Profile Tips
+            </h3>
+            <div className="space-y-2 text-gray-300 text-sm">
+              <p>
+                • Use a clear, professional profile picture to build trust with
+                students
               </p>
-              <button
-                onClick={() => setShowPasswordForm(true)}
-                className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-400 hover:to-orange-500 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 transform hover:scale-105"
-              >
-                Update Password
-              </button>
+              <p>
+                • List specific skills and technologies you're proficient in
+              </p>
+              <p>
+                • Highlight your areas of expertise to attract the right
+                students
+              </p>
+              <p>
+                • Keep your information up-to-date for better course
+                recommendations
+              </p>
             </div>
-          ) : (
-            <Formik
-              initialValues={{
-                currentPassword: "",
-                newPassword: "",
-                confirmPassword: "",
-              }}
-              validationSchema={PasswordSchema}
-              onSubmit={handlePasswordSubmit}
-            >
-              <Form className="space-y-6">
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
-                    Current Password
-                  </label>
-                  <Field
-                    name="currentPassword"
-                    type="password"
-                    className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600/50 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
-                    placeholder="Enter current password"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
-                    New Password
-                  </label>
-                  <Field
-                    name="newPassword"
-                    type="password"
-                    className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600/50 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
-                    placeholder="Enter new password"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
-                    Confirm New Password
-                  </label>
-                  <Field
-                    name="confirmPassword"
-                    type="password"
-                    className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600/50 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
-                    placeholder="Confirm new password"
-                  />
-                </div>
-
-                {/* Password Requirements */}
-                <div className="bg-gray-700/30 rounded-xl p-4 border border-gray-600/30">
-                  <h4 className="text-sm font-semibold text-gray-300 mb-2">
-                    Password Requirements:
-                  </h4>
-                  <ul className="text-xs text-gray-400 space-y-1">
-                    <li>• At least 6 characters long</li>
-                    <li>• Contains uppercase and lowercase letters</li>
-                    <li>• Contains at least one number</li>
-                    <li>• Contains at least one special character</li>
-                  </ul>
-                </div>
-
-                <button
-                  type="submit"
-                  className="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-400 hover:to-orange-500 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 transform hover:scale-105"
-                >
-                  Update Password
-                </button>
-              </Form>
-            </Formik>
-          )}
+          </div>
         </div>
       </div>
     </div>

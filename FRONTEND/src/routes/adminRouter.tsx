@@ -17,6 +17,9 @@ import EditCategoryPage from "../pages/admin/category/EditCategory";
 
 import AdminCourseManagementPage from "../pages/admin/course/AdminCourseManagementPage";
 import AdminCourseDetailPage from "../pages/admin/course/AdminCourseDetailPage";
+import AdminWalletPage from "../pages/admin/wallet/AdminWalletPage";
+import Withdrawal from "../pages/admin/withdrawal/Withdrawal";
+import WithdrawalDetailsPage from "../pages/admin/withdrawal/WithdrawalDetails";
 
 const AdminRouter = () => {
   return (
@@ -52,6 +55,14 @@ const AdminRouter = () => {
           {/* Course Routes */}
           <Route path="courses" element={<AdminCourseManagementPage />} />
           <Route path="courses/:courseId" element={<AdminCourseDetailPage />} />
+          {/* wallet  */}
+          <Route path="wallet" element={<AdminWalletPage />} />
+          {/* withdrawal request */}
+          <Route path="withdrawal" element={<Withdrawal />} />
+          <Route
+            path="withdrawals/:requestId"
+            element={<WithdrawalDetailsPage />}
+          />
         </Route>
       </Route>
     </Routes>

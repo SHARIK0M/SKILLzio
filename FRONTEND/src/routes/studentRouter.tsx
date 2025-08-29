@@ -22,6 +22,12 @@ import CartPage from "../pages/student/cart/CartPage";
 import WishlistPage from "../pages/student/wishlist/WishlistPage";
 
 import CheckoutPage from "../pages/student/checkout/CheckoutPage";
+import EnrolledCoursesPage from "../pages/student/enrollCourses/EnrolledCoursesPage";
+import WalletPage from "../pages/student/wallet/WalletPage";
+import EnrolledCourseDetailPage from "../pages/student/enrollCourses/EnrolledCourseDetailPage.";
+import QuizAttemptPage from "../pages/student/enrollCourses/QuizAttempPage";
+import StudentOrderHistoryPage from "../pages/student/order/StudentOrderHistoryPage";
+import StudentOrderDetailPage from "../pages/student/order/StudentOrderDetailPage";
 
 const StudentRouter = () => {
   return (
@@ -75,6 +81,16 @@ const StudentRouter = () => {
           <Route path="cart" element={<CartPage />} />
           <Route path="wishlist" element={<WishlistPage />} />
           <Route path="checkout" element={<CheckoutPage />} />
+          <Route path="enrolled" element={<EnrolledCoursesPage />} />
+          <Route path="wallet" element={<WalletPage />} />
+          {/* Move these two here */}
+          <Route
+            path="enrolled/:courseId"
+            element={<EnrolledCourseDetailPage />}
+          />
+          <Route path="quiz/:courseId/:quizId" element={<QuizAttemptPage />} />
+          <Route path="order" element={<StudentOrderHistoryPage />} />
+          <Route path="order/:orderId" element={<StudentOrderDetailPage />} />
         </Route>
       </Route>
     </Routes>

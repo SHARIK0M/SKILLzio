@@ -5,7 +5,7 @@ const InstructorRouterEndPoints = {
   instructorProfilePage: "/api/instructor/profile",
   instructorUpdateProfile: "/api/instructor/profile",
   instructorUpdatePassword: "/api/instructor/profile/password",
-
+  instructorUpdateBankDetail: "/api/instructor/profile/updateBank",
   //category fetch
   instructorGetCategory: "/api/instructor/categories",
 
@@ -51,6 +51,21 @@ const InstructorRouterEndPoints = {
   instructorSpecificCourseReport: "/api/instructor/dashboard/specificCourse",
   instructorExportSpecificCourseReport:
     "/api/instructor/dashboard/specificCourse",
+
+  //wallet
+  instructorGetWallet: "/api/instructor/wallet",
+  instructorCreditWallet: "/api/instructor/wallet/credit",
+  instructorDebitWallet: "/api/instructor/wallet/debit",
+  instructorGetTransactions: "/api/instructor/wallet/transactions",
+  instructorCreateOrderForWalletCredit:
+    "/api/instructor/wallet/payment/createOrder",
+  instructorVerifyPayment: "/api/instructor/wallet/payment/verify",
+
+  //instructor withdrawal
+
+  instructorCreateWithdrawalRequest: "/api/instructor/withdrawalRequest",
+  instructorGetWithdrawalRequest: "/api/instructor/withdrawalRequests",
+  instructorWithdrawalRetry: "/api/instructor/withdrawalRequest",
 };
 
 

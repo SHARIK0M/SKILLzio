@@ -9,6 +9,9 @@ import {
   instructorCourseController,
   instructorDashboardController,
   specificCourseDashboardController,
+  instructorWalletController,
+  instructorWalletPaymentController,
+  instructorWithdrawalController,
 } from '../core/container'
 import upload from '../utils/multer'
 
@@ -325,6 +328,88 @@ router.get(
     specificCourseDashboardController
   )
 );
+
+
+//wallet related routes
+
+router.get(
+  "/wallet",
+  authenticateToken,
+  isInstructor,
+  instructorWalletController.getWallet.bind(instructorWalletController)
+);
+
+router.post(
+  "/wallet/credit",
+  authenticateToken,
+  isInstructor,
+  instructorWalletController.creditWallet.bind(instructorWalletController)
+);
+
+router.post(
+  "/wallet/debit",
+  authenticateToken,
+  isInstructor,
+  instructorWalletController.debitWallet.bind(instructorWalletController)
+);
+
+router.get(
+  "/wallet/transactions",
+  authenticateToken,
+  isInstructor,
+  instructorWalletController.getPaginatedTransactions.bind(
+    instructorWalletController
+  )
+);
+
+//wallet payment related routes
+
+router.post(
+  "/wallet/payment/createOrder",
+  authenticateToken,
+  isInstructor,
+  instructorWalletPaymentController.createOrder.bind(
+    instructorWalletPaymentController
+  )
+);
+
+router.post(
+  "/wallet/payment/verify",
+  authenticateToken,
+  isInstructor,
+  instructorWalletPaymentController.verifyPayment.bind(
+    instructorWalletPaymentController
+  )
+);
+
+//////// Instructor withdrawal Request /////////////////
+
+router.post(
+  "/withdrawalRequest",
+  authenticateToken,
+  isInstructor,
+  instructorWithdrawalController.createWithdrawalRequest.bind(
+    instructorWithdrawalController
+  )
+);
+
+router.get(
+  "/withdrawalRequests",
+  authenticateToken,
+  isInstructor,
+  instructorWithdrawalController.getWithdrawalRequestsWithPagination.bind(
+    instructorWithdrawalController
+  )
+);
+
+router.patch(
+  "/withdrawalRequest/:requestId/retry",
+  isInstructor,
+  instructorWithdrawalController.retryWithdrawalRequest.bind(
+    instructorWithdrawalController
+  )
+);
+
 
 const instructorRoutes = router
 

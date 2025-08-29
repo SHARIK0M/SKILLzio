@@ -6,7 +6,7 @@ import {
 } from "../../types/interface/IQuiz";
 import fileDownload from "js-file-download";
 import { type FetchCoursesParams } from "../../types/interface/IFetchCoursesParam";
-
+import type { IWithdrawalRequest } from "../../types/interface/IWithdrawalRequest";
 
 // Send a verification request with form data (e.g., documents, info)
 export const sendVerification = async (formData: FormData) => {
@@ -96,6 +96,18 @@ export const instructorUpdatePassword = async(data:any):Promise<any>=>{
         }
     }
 }
+
+export const instructorUpdateBankDetail = async (data: any) => {
+  try {
+    const response = await API.post(
+      `${InstructorRouterEndPoints.instructorUpdateBankDetail}`,
+      data
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
 
 
 //FETCH CATEGORY
@@ -576,6 +588,143 @@ export const exportSpecificCourseReport = async (
     fileDownload(response.data, filename);
   } catch (error) {
     console.error('Failed to export specific course report:', error);
+    throw error;
+  }
+};
+
+
+
+// wallet page
+
+export const instructorGetWallet = async () => {
+  try {
+    const response = await API.get(
+      InstructorRouterEndPoints.instructorGetWallet
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const instructorCreditWallet = async (data: {
+  amount: number;
+  description: string;
+  txnId: string;
+}) => {
+  try {
+    const response = await API.post(
+      InstructorRouterEndPoints.instructorCreditWallet,
+      data
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// ✅ Debit wallet
+export const instructorDebitWallet = async (data: {
+  amount: number;
+  description: string;
+  txnId: string;
+}) => {
+  try {
+    const response = await API.post(
+      InstructorRouterEndPoints.instructorDebitWallet,
+      data
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// ✅ Create Razorpay order for wallet recharge
+export const instructorCreateWalletRechargeOrder = async (data: {
+  amount: number;
+}) => {
+  try {
+    const response = await API.post(
+      InstructorRouterEndPoints.instructorCreateOrderForWalletCredit,
+      data
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// ✅ Verify Razorpay payment and credit wallet
+export const instructorVerifyPayment = async (data: {
+  razorpay_order_id: string;
+  razorpay_payment_id: string;
+  razorpay_signature: string;
+  amount: number;
+}) => {
+  try {
+    const response = await API.post(
+      InstructorRouterEndPoints.instructorVerifyPayment,
+      data
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const instructorWalletTransactionHistory = async (
+  page: number = 1,
+  limit: number = 5
+) => {
+  try {
+    const response = await API.get(
+      InstructorRouterEndPoints.instructorGetTransactions,
+      {
+        params: { page, limit },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+
+
+// instructor withdrawal request
+
+export const instructorCreateWithdrawal = async(amount:number)=>{
+  try {
+    const response = await API.post(`${InstructorRouterEndPoints.instructorCreateWithdrawalRequest}`,{amount})
+    return response.data
+  } catch (error) {
+    throw error
+  }
+}
+
+export const instructorGetWithdrawal = async (
+  page: number,
+  limit: number
+): Promise<{ transactions: IWithdrawalRequest[], currentPage: number, totalPages: number, total: number }> => {
+  try {
+    const response = await API.get(`${InstructorRouterEndPoints.instructorGetWithdrawalRequest}`, {
+      params: { page, limit },
+    });
+    return response.data.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const retryWithdrawal = async (requestId: string, amount?: number) => {
+  try {
+    const response = await API.patch(
+      `${InstructorRouterEndPoints.instructorWithdrawalRetry}/${requestId}/retry`,
+      { amount }
+    );
+    return response.data;
+  } catch (error) {
     throw error;
   }
 };

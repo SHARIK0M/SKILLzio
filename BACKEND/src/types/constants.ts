@@ -401,3 +401,13 @@ export const CheckoutSuccessMessage = {
 }
 
 export const INSTRUCTOR_REVENUE_SHARE = 0.9
+
+export const EnrolledErrorMessage = {
+  FAILED_TO_FETCH_ENROLLED_COURSES: 'Failed to fetch enrolled courses',
+  FAILED_TO_FETCH_PARTICULAR_COURSE: 'Failed to fetch enrollment details',
+  FAILED_TO_MARK_CHAPTER_COMPLETED: 'Failed to mark chapter as completed',
+}
+
+export const EnrolledSuccessMessage = {
+  CHAPTER_COMPLETED: 'Chapter marked as completed',
+}
