@@ -763,6 +763,123 @@ const studentOrderController: IStudentOrderController = new StudentOrderControll
   studentOrderService,
 )
 
+
+
+
+
+
+  
+/////////ADMIN MEMEBERSHIP MANAGEMENT///////////////////////////////////////////
+
+import { IAdminMembershipRepository } from '../repositories/adminRepository/interfaces/IAdminMembershipRepository'
+import { AdminMembershipRepository } from '../repositories/adminRepository/adminMembership.Repository' 
+import { IAdminMembershipService } from '../services/adminServices/interfaces/IAdminMembershipService'
+import { AdminMembershipService } from "../services/adminServices/AdminMembership.Service";
+import { IAdminMembershipController } from '../controllers/adminControllers/interfaces/IAdminMembershipController'
+import { AdminMembershipController } from '../controllers/adminControllers/adminMembership.Controller' 
+
+const adminMembershipRepository: IAdminMembershipRepository =
+  new AdminMembershipRepository();
+
+const adminMembershipService: IAdminMembershipService =
+  new AdminMembershipService(adminMembershipRepository);
+
+const adminMembershipController: IAdminMembershipController =
+  new AdminMembershipController(adminMembershipService);
+
+////////////instructor membership page/////////////////////////////////////////////
+
+import { IInstructorMembershipRepository } from '../repositories/instructorRepository/interfaces/IInstructorMembershipRepository' 
+import { InstructorMembershipRepository } from '../repositories/instructorRepository/instructorMembership.Repository' 
+
+import { IInstructorMembershipService } from '../services/instructorServices/interfaces/IInstructorMembershipService' 
+import { InstructorMembershipService } from "../services/instructorServices/InstructorMembership.Service";
+
+import { IInstructorMembershipController } from '../controllers/instructorControllers/interfaces/IInstructorMembershipController' 
+import { InstructorMembershipController } from '../controllers/instructorControllers/instructorMembership.Controller' 
+
+const instructorMembershipRepository: IInstructorMembershipRepository =
+  new InstructorMembershipRepository();
+
+const instructorMembershipService: IInstructorMembershipService =
+  new InstructorMembershipService(
+    instructorMembershipRepository,
+    instructorRepository
+  );
+
+const instructorMembershipController: IInstructorMembershipController =
+  new InstructorMembershipController(instructorMembershipService);
+
+//buying membership or instructor checkout
+
+import { IInstructorMembershipOrderRepository } from '../repositories/instructorRepository/interfaces/IInstructorMembershipOrderRepository' 
+import { InstructorMembershipOrderRepository } from '../repositories/instructorRepository/instructorMembershipOrder.Repository' 
+
+import { IInstructorMembershipOrderService } from '../services/instructorServices/interfaces/IInstructorMembershipOrderService' 
+import { InstructorMembershipOrderService } from '../services/instructorServices/InstructorMembershipOrder.Service' 
+
+import { IInstructorMembershipOrderController } from '../controllers/instructorControllers/interfaces/IInstructorMembershipOrderController'
+import { InstructorMembershipOrderController } from '../controllers/instructorControllers/instructorMembershipOrder.Controller'
+import { razorpay } from "../utils/razorpay";
+import { SendEmail } from "../utils/sendOtpEmail";
+import { IEmail } from "../types/Email";
+
+const emailService: IEmail = new SendEmail();
+const instructorMembershipOrderRepository: IInstructorMembershipOrderRepository =
+  new InstructorMembershipOrderRepository();
+
+const instructorMembershipOrderService: IInstructorMembershipOrderService =
+  new InstructorMembershipOrderService(
+    instructorMembershipOrderRepository,
+    instructorMembershipRepository,
+    instructorRepository,
+    razorpay,
+    walletService,
+    emailService
+  );
+
+const instructorMembershipOrderController: IInstructorMembershipOrderController =
+  new InstructorMembershipOrderController(
+    instructorMembershipOrderService,
+    instructorMembershipService
+  );
+
+/////////////////////ADMIN MEMBERSHIP ORDER MANAGEMENT/////////////////////////////////////
+
+import { IAdminMembershipOrderRepository } from '../repositories/adminRepository/interfaces/IAdminMembershipOrderRepository' 
+import { AdminMembershipOrderRepository } from "../repositories/adminRepository/adminMembershipOrder.Repository";
+
+import { IAdminMembershipOrderService } from '../services/adminServices/interfaces/IAdminMembershipOrderService' 
+import { AdminMembershipOrderService } from '../services/adminServices/AdminMembershipOrder.Service' 
+
+import { IAdminMembershipOrderController } from '../controllers/adminControllers/interfaces/IAdminMembershipOrderController' 
+import { AdminMembershipOrderController } from "../controllers/adminControllers/adminMembershipOrder.Controller";
+
+const adminMembershipOrderRepository: IAdminMembershipOrderRepository =
+  new AdminMembershipOrderRepository();
+
+const adminMembershipOrderService: IAdminMembershipOrderService =
+  new AdminMembershipOrderService(adminMembershipOrderRepository);
+
+const adminMembershipOrderController: IAdminMembershipOrderController =
+  new AdminMembershipOrderController(adminMembershipOrderService);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // =============================================================================
 // CONTROLLER EXPORTS
 // Export all configured controllers for use in route handlers throughout the application
@@ -830,4 +947,8 @@ export {
   // Withdrawal Management Controllers - Handle instructor earnings withdrawal workflow
   instructorWithdrawalController, // Instructor withdrawal requests: submit and track withdrawal requests
   adminWithdrawalController, // Admin withdrawal processing: review, approve, or reject withdrawal requests
+  adminMembershipController,
+  instructorMembershipController,
+  instructorMembershipOrderController,
+  adminMembershipOrderController,
 }

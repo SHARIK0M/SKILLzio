@@ -32,12 +32,12 @@ const AdminLayout = () => {
     { name: "Dashboard", icon: <LayoutDashboard />, path: "dashboard" },
     { name: "Users", icon: <Users />, path: "users" },
     { name: "Instructors", icon: <GraduationCap />, path: "instructors" },
-    { name: "Courses", icon: <BookOpen />, path: "courses" },
-    { name: "Category", icon: <TreePine />, path: "category" },
     { name: "Verification", icon: <ShieldCheck />, path: "verification" },
+    { name: "Category", icon: <TreePine />, path: "category" },
+    { name: "Courses", icon: <BookOpen />, path: "courses" },
+    { name: "Membership", icon: <Crown />, path: "membership" },
     { name: "Order Management", icon: <ShoppingCart />, path: "orders" },
     { name: "Wallet", icon: <CreditCard />, path: "wallet" },
-    { name: "Membership", icon: <Crown />, path: "membership" },
     { name: "Withdrawal", icon: <BadgePercent />, path: "withdrawal" },
   ];
 

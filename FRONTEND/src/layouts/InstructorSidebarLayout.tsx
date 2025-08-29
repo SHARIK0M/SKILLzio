@@ -30,15 +30,15 @@ const navItems = [
     gradient: "from-orange-400 to-yellow-500",
   },
   {
-    name: "Meetings",
-    path: "/instructor/meetings",
-    icon: "🎥",
+    name: "Memberships",
+    path: "/instructor/membership",
+    icon: "👥",
     gradient: "from-orange-500 to-orange-600",
   },
   {
-    name: "Students",
-    path: "/instructor/students",
-    icon: "👥",
+    name: "PurchaseHistory",
+    path: "/instructor/purchaseHistory",
+    icon: "🧾",
     gradient: "from-orange-400 to-orange-500",
   },
   {

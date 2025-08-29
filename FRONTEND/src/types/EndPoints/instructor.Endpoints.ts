@@ -66,6 +66,27 @@ const InstructorRouterEndPoints = {
   instructorCreateWithdrawalRequest: "/api/instructor/withdrawalRequest",
   instructorGetWithdrawalRequest: "/api/instructor/withdrawalRequests",
   instructorWithdrawalRetry: "/api/instructor/withdrawalRequest",
+
+  //membership
+
+  instructorViewMembership: "/api/instructor/membershipPlans",
+  instructorMentorOrNot: "/api/instructor/isMentor",
+  instructorCheckActiveMembership: "/api/instructor/membership/active",
+
+  //purchase membership
+
+  instructorInitiateCheckout: "/api/instructor/checkout",
+  instructorVerifyMembership: "/api/instructor/verify",
+  instructorPurcahseMembershipWithWallet:
+    "/api/instructor/membership/purchaseWallet",
+
+  //purchase history
+
+  instructorMembershipPurchaseHistory: "/api/instructor/membershipOrders",
+  instructorMembershipDetails: "/api/instructor/membershipOrder",
+  instructorDownloadReceiptForMembership: "/api/instructor/membershipOrder",
+
+  
 };
 
 

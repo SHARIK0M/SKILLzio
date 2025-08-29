@@ -32,6 +32,11 @@ import EditQuizPage from "../pages/instructor/quiz/EditQuizPage";
 import SpecificDashboardPage from "../pages/instructor/specificDashboard/SpecificDashboardPage";
 import InstructorWalletPage from "../pages/instructor/wallet/InstructorWalletPage";
 
+import Membership from "../pages/instructor/membership/Membership";
+import MembershipCheckoutPage from "../pages/instructor/membership/MembershipCheckoutPage";
+import Orders from "../pages/instructor/purchaseHistory/Orders";
+import MembershipOrderDetail from "../pages/instructor/purchaseHistory/MembershipOrderDetail";
+
 const InstructorRouter = () => {
   return (
     <Routes>
@@ -97,6 +102,16 @@ const InstructorRouter = () => {
             element={<EditQuizPage />}
           />
           <Route path="wallet" element={<InstructorWalletPage />} />
+          <Route path="membership" element={<Membership />} />
+          <Route
+            path="membership/checkout/:planId"
+            element={<MembershipCheckoutPage />}
+          />
+          <Route path="purchaseHistory" element={<Orders />} />
+          <Route
+            path="membershipOrders/:txnId"
+            element={<MembershipOrderDetail />}
+          />
         </Route>
       </Route>
     </Routes>

@@ -728,3 +728,119 @@ export const retryWithdrawal = async (requestId: string, amount?: number) => {
     throw error;
   }
 };
+
+//membership
+export const instructorViewMemberships = async () => {
+  try {
+    const response = await API.get(
+      `${InstructorRouterEndPoints.instructorViewMembership}`
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const isMentorOrNot = async () => {
+  try {
+    const response = await API.get(
+      `${InstructorRouterEndPoints.instructorMentorOrNot}`
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const membershipInitiateCheckout = async (planId: string) => {
+  try {
+    const response = await API.post(
+      `${InstructorRouterEndPoints.instructorInitiateCheckout}/${planId}`
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// 🔧 Update this function to accept payload
+export const verifyMembershipPurchase = async (payload: {
+  razorpayOrderId: string;
+  paymentId: string;
+  signature: string;
+  planId: string;
+}) => {
+  try {
+    const response = await API.post(
+      InstructorRouterEndPoints.instructorVerifyMembership,
+      payload
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const retrieveActiveMembershipPlan = async () => {
+  try {
+    const response = await API.get(
+      `${InstructorRouterEndPoints.instructorCheckActiveMembership}`
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const purchaseMembershipWithWallet = async (planId: string) => {
+  try {
+    const response = await API.post(
+      `${InstructorRouterEndPoints.instructorPurcahseMembershipWithWallet}/${planId}`
+    );
+
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const membershipPurchaseHistory = async (page = 1, limit = 10) => {
+  try {
+    const response = await API.get(
+      InstructorRouterEndPoints.instructorMembershipPurchaseHistory,
+      {
+        params: { page, limit },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const membershipDetail = async (txnId: string) => {
+  try {
+    const response = await API.get(
+      `${InstructorRouterEndPoints.instructorMembershipDetails}/${txnId}`
+    );
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const downloadReceiptForMembership = async (txnId: string) => {
+  try {
+    const response = await API.get(
+      `${InstructorRouterEndPoints.instructorDownloadReceiptForMembership}/${txnId}/receipt`,
+      {
+        responseType: "blob",
+      }
+    );
+    fileDownload(response.data, `Membership_Receipt_${txnId}.pdf`);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};

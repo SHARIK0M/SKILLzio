@@ -7,6 +7,8 @@ import {
   adminWalletController,
   adminWalletPaymentController,
   adminWithdrawalController,
+  adminMembershipController,
+  adminMembershipOrderController,
 } from '../core/container'
 import authenticateToken from '../middlewares/AuthenticatedRoutes'
 
@@ -186,6 +188,70 @@ router.post(
   isAdmin,
   adminWithdrawalController.rejectWithdrawalRequest.bind(adminWithdrawalController)
 )
+
+
+//member management route
+
+router.post(
+  "/membershipPlan",
+  authenticateToken,
+  isAdmin,
+  adminMembershipController.createPlan.bind(adminMembershipController)
+);
+
+router.put(
+  "/membershipPlan/:membershipId",
+  authenticateToken,
+  isAdmin,
+  adminMembershipController.updatePlan.bind(adminMembershipController)
+);
+
+router.delete(
+  "/membershipPlan/:membershipId",
+  authenticateToken,
+  isAdmin,
+  adminMembershipController.deletePlan.bind(adminMembershipController)
+);
+
+router.get(
+  "/membershipPlan/:membershipId",
+  authenticateToken,
+  isAdmin,
+  adminMembershipController.getPlanById.bind(adminMembershipController)
+);
+
+router.get(
+  "/membershipPlans",
+  authenticateToken,
+  isAdmin,
+  adminMembershipController.getAllPlans.bind(adminMembershipController)
+);
+
+router.patch(
+  "/membershipPlan/:membershipId/toggleStatus",
+  adminMembershipController.toggleStatus.bind(adminMembershipController)
+);
+
+///membership purchase history management
+
+router.get(
+  "/membershipPurchaseHistory",
+  authenticateToken,
+  isAdmin,
+  adminMembershipOrderController.getAllOrders.bind(
+    adminMembershipOrderController
+  )
+);
+
+router.get(
+  "/membershipPurchaseHistory/:txnId",
+  authenticateToken,
+  isAdmin,
+  adminMembershipOrderController.getOrderDetail.bind(
+    adminMembershipOrderController
+  )
+);
+
 
 
 const adminRoutes = router
