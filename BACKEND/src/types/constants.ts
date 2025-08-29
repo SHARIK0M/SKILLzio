@@ -411,3 +411,28 @@ export const EnrolledErrorMessage = {
 export const EnrolledSuccessMessage = {
   CHAPTER_COMPLETED: 'Chapter marked as completed',
 }
+
+
+export const MembershipMessages = {
+  CREATE_SUCCESS: 'Membership plan created successfully.',
+  CREATE_FAILURE: 'Failed to create membership plan.',
+  UPDATE_SUCCESS: 'Membership plan updated successfully.',
+  UPDATE_FAILURE: 'Failed to update membership plan.',
+  DELETE_SUCCESS: 'Membership plan deleted successfully.',
+  DELETE_FAILURE: 'Failed to delete membership plan.',
+  FETCH_ONE_SUCCESS: 'Membership plan fetched successfully.',
+  FETCH_ONE_FAILURE: 'Failed to fetch membership plan.',
+  FETCH_ALL_SUCCESS: 'Membership plans fetched successfully.',
+  FETCH_ALL_FAILURE: 'Failed to fetch membership plans.',
+  NOT_FOUND: 'Membership plan not found.',
+}
+
+export const ResponseMessages = {
+  MISSING_DATA: 'Missing data',
+  INSTRUCTOR_NOT_FOUND: 'Instructor not found',
+  ALREADY_ACTIVE_MEMBERSHIP: 'You already have an active membership plan.',
+  CHECKOUT_FAILED: 'Failed to initiate checkout',
+  MEMBERSHIP_ACTIVATED: 'Membership activated',
+  VERIFICATION_FAILED: 'Verification failed',
+  WALLET_PURCHASE_FAILED: 'Membership Purchasing via wallet is failed',
+}

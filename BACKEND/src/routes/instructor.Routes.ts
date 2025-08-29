@@ -12,6 +12,8 @@ import {
   instructorWalletController,
   instructorWalletPaymentController,
   instructorWithdrawalController,
+  instructorMembershipController,
+  instructorMembershipOrderController,
 } from '../core/container'
 import upload from '../utils/multer'
 
@@ -410,6 +412,88 @@ router.patch(
   )
 );
 
+
+///////instructor membership////////////////////////////
+
+router.get(
+  "/membershipPlans",
+  authenticateToken,
+  isInstructor,
+  instructorMembershipController.getPlans.bind(instructorMembershipController)
+);
+
+router.get(
+  "/isMentor",
+  authenticateToken,
+  isInstructor,
+  instructorMembershipController.getStatus.bind(instructorMembershipController)
+);
+
+router.get(
+  "/membership/active",
+  authenticateToken,
+  isInstructor,
+  instructorMembershipController.getActiveMembership.bind(
+    instructorMembershipController
+  )
+);
+
+//purchase membership
+
+router.post(
+  "/checkout/:planId",
+  authenticateToken,
+  isInstructor,
+  instructorMembershipOrderController.initiateCheckout.bind(
+    instructorMembershipOrderController
+  )
+);
+
+router.post(
+  "/verify",
+  authenticateToken,
+  isInstructor,
+  isInstructor,
+  instructorMembershipOrderController.verifyOrder.bind(
+    instructorMembershipOrderController
+  )
+);
+
+router.post(
+  "/membership/purchaseWallet/:planId",
+  authenticateToken,
+  isInstructor,
+  instructorMembershipOrderController.purchaseWithWallet.bind(
+    instructorMembershipOrderController
+  )
+);
+
+router.get(
+  "/membershipOrders",
+  authenticateToken,
+  isInstructor,
+  instructorMembershipOrderController.getInstructorOrders.bind(
+    instructorMembershipOrderController
+  )
+);
+
+router.get(
+  "/membershipOrder/:txnId",
+  authenticateToken,
+  isInstructor,
+  instructorMembershipOrderController.getMembershipOrderDetail.bind(
+    instructorMembershipOrderController
+  )
+);
+
+router.get(
+  "/membershipOrder/:txnId/receipt",
+  authenticateToken,
+  isInstructor,
+  instructorMembershipOrderController.downloadReceipt.bind(
+    instructorMembershipOrderController
+  )
+);
 
 const instructorRoutes = router
 

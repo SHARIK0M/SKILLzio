@@ -21,6 +21,13 @@ import AdminWalletPage from "../pages/admin/wallet/AdminWalletPage";
 import Withdrawal from "../pages/admin/withdrawal/Withdrawal";
 import WithdrawalDetailsPage from "../pages/admin/withdrawal/WithdrawalDetails";
 
+
+import MembershipPlanPage from "../pages/admin/membership/MembershipPlanPage";
+import AddMembershipPlan from "../pages/admin/membership/AddMembershipPlan";
+import EditMembershipPlanPage from "../pages/admin/membership/EditMembershipPlan";
+import Orders from "../pages/admin/purchaseHistory/Orders";
+import MembershipOrderDetail from "../pages/admin/purchaseHistory/MembershipOrderDetail";
+
 const AdminRouter = () => {
   return (
     <Routes>
@@ -62,6 +69,20 @@ const AdminRouter = () => {
           <Route
             path="withdrawals/:requestId"
             element={<WithdrawalDetailsPage />}
+          />
+          {/* membership */}
+          <Route path="membership" element={<MembershipPlanPage />} />
+          <Route path="membership/add" element={<AddMembershipPlan />} />
+          <Route
+            path="membership/edit/:membershipId"
+            element={<EditMembershipPlanPage />}
+          />
+
+          {/* purchase history */}
+          <Route path="orders" element={<Orders />} />
+          <Route
+            path="membershipPurchase/:txnId"
+            element={<MembershipOrderDetail />}
           />
         </Route>
       </Route>

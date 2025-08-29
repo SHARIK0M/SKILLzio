@@ -42,6 +42,23 @@ const AdminRoutersEndPoints = {
   adminWithdrawalApprove: "/api/admin/withdrawalRequestApprove",
   adminWithdrawalReject: "/api/admin/withdrawalRequestReject",
   adminGetRequestDetails: "/api/admin/withdrawalRequest",
+
+  //membership
+
+  adminAddMembershipPlan: "/api/admin/membershipPlan",
+  adminEditMembershipPlan: "/api/admin/membershipPlan",
+  adminDeleteMembershipPlan: "/api/admin/membershipPlan",
+  adminGetMembershipPlanById: "/api/admin/membershipPlan",
+  adminGetAllMembeshipPlan: "/api/admin/membershipPlans",
+  adminToggleMembershipPlan: "/api/admin/membershipPlan",
+
+  //membership purchase history
+
+  adminGetMembershipPurchaseHistory: "/api/admin/membershipPurchaseHistory",
+  adminViewMembershipPuchaseHistoryDetail:
+    "/api/admin/membershipPurchaseHistory",
+  
+  
 };
 
 // Export so it can be imported and used across the project

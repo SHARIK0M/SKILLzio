@@ -3,6 +3,7 @@ import { API } from "../../service/axios";
 // Importing admin API endpoints
 import AdminRoutersEndPoints from "../../types/EndPoints/admin.Endpoints";
 import { type IWithdrawalRequest } from "../../types/interface/IWithdrawalRequest";
+import { type IMembershipPayload } from "../../types/interface/IMembershipPayload";
 /**
  * Fetch all users with pagination and search filter
  * @param page - current page number (default = 1)
@@ -495,6 +496,109 @@ export const adminRejectWithdrawal = async (requestId: string, remarks?: string)
       requestId,
       remarks
     });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+//membership
+
+export const createMembership = async (payload: IMembershipPayload) => {
+  try {
+    const response = await API.post(
+      AdminRoutersEndPoints.adminAddMembershipPlan,
+      payload
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const editMembership = async (
+  membershipId: string,
+  payload: IMembershipPayload
+) => {
+  try {
+    const response = await API.put(
+      `${AdminRoutersEndPoints.adminEditMembershipPlan}/${membershipId}`,
+      payload
+    );
+
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const deleteMembership = async (membershipId: string) => {
+  try {
+    const response = await API.delete(
+      `${AdminRoutersEndPoints.adminDeleteMembershipPlan}/${membershipId}`
+    );
+
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getMembershipById = async (membershipId: string) => {
+  try {
+    const response = await API.get(
+      `${AdminRoutersEndPoints.adminGetMembershipPlanById}/${membershipId}`
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getAllMembership = async (
+  params: { page?: number; limit?: number; search?: string } = {}
+) => {
+  try {
+    const response = await API.get(
+      `${AdminRoutersEndPoints.adminGetAllMembeshipPlan}`,
+      {
+        params,
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const toggleMembershipStatus = async (membershipId: string) => {
+  try {
+    const response = await API.patch(
+      `${AdminRoutersEndPoints.adminToggleMembershipPlan}/${membershipId}/toggleStatus`
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getMembershipPurchaseHistory = async () => {
+  try {
+    const response = await API.get(
+      `${AdminRoutersEndPoints.adminGetMembershipPurchaseHistory}`
+    );
+
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getMembershipPurchaseHistoryDetail = async (txnId: string) => {
+  try {
+    const response = await API.get(
+      `${AdminRoutersEndPoints.adminViewMembershipPuchaseHistoryDetail}/${txnId}`
+    );
     return response.data;
   } catch (error) {
     throw error;

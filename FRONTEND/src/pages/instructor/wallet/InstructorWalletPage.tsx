@@ -243,15 +243,20 @@ export default function InstructorWalletPage() {
   }, []);
 
 return (
-  <div className="px-6 py-6 space-y-8">
-    <h1 className="text-2xl font-semibold mb-4">Instructor Wallet</h1>
+  <div className="px-6 py-6 space-y-8 bg-[#121a29] min-h-screen">
+    <h1 className="text-2xl font-semibold text-white mb-4">
+      Instructor Wallet
+    </h1>
 
     {/* Wallet Summary + Actions */}
-    <Card padded>
+    <Card
+      padded
+      className="bg-gray-900/80 border border-gray-700 rounded-2xl shadow"
+    >
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
         <div>
-          <p className="text-sm text-gray-500">Current Balance</p>
-          <h2 className="text-3xl font-bold text-green-600">
+          <p className="text-gray-400 text-sm">Current Balance</p>
+          <h2 className="text-3xl font-bold text-green-500">
             ₹{wallet?.balance.toFixed(2) || "0.00"}
           </h2>
         </div>
@@ -266,8 +271,13 @@ return (
               useFormik={false}
               value={rechargeAmount || ""}
               onChange={(e) => setRechargeAmount(Number(e.target.value))}
+           
             />
-            <Button onClick={handleAddMoney} disabled={loading}>
+            <Button
+              onClick={handleAddMoney}
+              disabled={loading}
+              className="bg-blue-600 hover:bg-blue-700"
+            >
               {loading ? "Processing..." : "Add Money"}
             </Button>
           </div>
@@ -281,10 +291,12 @@ return (
               useFormik={false}
               value={withdrawalAmount || ""}
               onChange={(e) => setWithdrawalAmount(Number(e.target.value))}
+             
             />
             <Button
               onClick={handleCreateWithdrawal}
               disabled={withdrawalLoading}
+              className="bg-orange-600 hover:bg-orange-700"
             >
               {withdrawalLoading ? "Processing..." : "Request Withdrawal"}
             </Button>
@@ -296,9 +308,14 @@ return (
     {/* Retry Modal */}
     {showRetryModal.show && (
       <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-        <Card padded className="max-w-md w-full mx-4">
-          <h2 className="text-lg font-semibold mb-4">Retry Withdrawal</h2>
-          <p className="text-sm text-gray-600 mb-4">
+        <Card
+          padded
+          className="max-w-md w-full mx-4 bg-gray-900/90 border border-gray-700 rounded-2xl shadow"
+        >
+          <h2 className="text-lg font-semibold text-white mb-4">
+            Retry Withdrawal
+          </h2>
+          <p className="text-gray-400 mb-4">
             Current amount: ₹{showRetryModal.currentAmount.toFixed(2)}
           </p>
           <InputField
@@ -309,6 +326,7 @@ return (
             useFormik={false}
             value={retryAmount || ""}
             onChange={(e) => setRetryAmount(Number(e.target.value))}
+          
           />
           <div className="flex justify-end gap-2 mt-4">
             <Button onClick={closeRetryModal} variant="secondary">
@@ -326,10 +344,14 @@ return (
     )}
 
     {/* Transaction History */}
-    <Card title="Transaction History" padded>
+    <Card
+      title="Transaction History"
+      padded
+      className="bg-gray-900/80 border border-gray-700 rounded-2xl shadow text-white"
+    >
       <div className="overflow-x-auto">
-        <table className="min-w-full text-sm border rounded-md">
-          <thead className="bg-gray-100 text-gray-700 uppercase text-xs font-semibold">
+        <table className="min-w-full text-sm">
+          <thead className="bg-gray-800 text-gray-300 uppercase text-xs font-semibold">
             <tr>
               <th className="py-3 px-4">Txn ID</th>
               <th className="py-3 px-4">Type</th>
@@ -344,22 +366,22 @@ return (
                 <tr
                   key={idx}
                   className={`border-b ${
-                    idx % 2 === 0 ? "bg-white" : "bg-gray-50"
-                  } hover:bg-indigo-50`}
+                    idx % 2 === 0 ? "bg-gray-900/70" : "bg-gray-800/60"
+                  } hover:bg-indigo-600/20`}
                 >
-                  <td className="py-3 px-4 font-mono text-blue-600 break-all">
+                  <td className="py-3 px-4 font-mono text-blue-400 break-all">
                     {txn.txnId}
                   </td>
                   <td className="py-3 px-4 capitalize">{txn.type}</td>
                   <td
                     className={`py-3 px-4 font-semibold ${
-                      txn.type === "credit" ? "text-green-600" : "text-red-600"
+                      txn.type === "credit" ? "text-green-500" : "text-red-500"
                     }`}
                   >
                     ₹{txn.amount.toFixed(2)}
                   </td>
                   <td className="py-3 px-4">{txn.description}</td>
-                  <td className="py-3 px-4 text-gray-500">
+                  <td className="py-3 px-4 text-gray-400">
                     {formatDate(txn.date)}
                   </td>
                 </tr>
@@ -373,32 +395,36 @@ return (
             )}
           </tbody>
         </table>
-      </div>
 
-      {/* Pagination */}
-      {txnTotalPages > 1 && (
-        <div className="flex justify-center gap-2 mt-4">
-          {Array.from({ length: txnTotalPages }, (_, i) => i + 1).map(
-            (pageNum) => (
-              <Button
-                key={pageNum}
-                onClick={() => fetchTransactions(pageNum)}
-                variant={pageNum === txnPage ? "primary" : "secondary"}
-                className="px-3 py-1 text-xs"
-              >
-                {pageNum}
-              </Button>
-            )
-          )}
-        </div>
-      )}
+        {/* Pagination */}
+        {txnTotalPages > 1 && (
+          <div className="flex justify-center gap-2 mt-4">
+            {Array.from({ length: txnTotalPages }, (_, i) => i + 1).map(
+              (pageNum) => (
+                <Button
+                  key={pageNum}
+                  onClick={() => fetchTransactions(pageNum)}
+                  variant={pageNum === txnPage ? "primary" : "secondary"}
+                  className="px-3 py-1 text-xs"
+                >
+                  {pageNum}
+                </Button>
+              )
+            )}
+          </div>
+        )}
+      </div>
     </Card>
 
     {/* Withdrawal Requests */}
-    <Card title="Withdrawal Requests" padded>
+    <Card
+      title="Withdrawal Requests"
+      padded
+      className="bg-gray-900/80 border border-gray-700 rounded-2xl shadow text-white"
+    >
       <div className="overflow-x-auto">
-        <table className="min-w-full text-sm border rounded-md">
-          <thead className="bg-gray-100 text-gray-700 uppercase text-xs font-semibold">
+        <table className="min-w-full text-sm">
+          <thead className="bg-gray-800 text-gray-300 uppercase text-xs font-semibold">
             <tr>
               <th className="py-3 px-4">Instructor</th>
               <th className="py-3 px-4">Date</th>
@@ -414,16 +440,16 @@ return (
                 <tr
                   key={req._id}
                   className={`border-b ${
-                    idx % 2 === 0 ? "bg-white" : "bg-gray-50"
-                  } hover:bg-indigo-50`}
+                    idx % 2 === 0 ? "bg-gray-900/70" : "bg-gray-800/60"
+                  } hover:bg-indigo-600/20`}
                 >
                   <td className="py-3 px-4 font-medium">
                     {req.instructorId.username}
                   </td>
-                  <td className="py-3 px-4 text-gray-500">
+                  <td className="py-3 px-4 text-gray-400">
                     {formatDate(req.createdAt)}
                   </td>
-                  <td className="py-3 px-4 font-semibold text-green-600">
+                  <td className="py-3 px-4 font-semibold text-green-500">
                     ₹{req.amount.toFixed(2)}
                   </td>
                   <td className="py-3 px-4">{getStatusBadge(req.status)}</td>
@@ -451,25 +477,25 @@ return (
             )}
           </tbody>
         </table>
-      </div>
 
-      {/* Pagination */}
-      {withdrawalTotalPages > 1 && (
-        <div className="flex justify-center gap-2 mt-4">
-          {Array.from({ length: withdrawalTotalPages }, (_, i) => i + 1).map(
-            (pageNum) => (
-              <Button
-                key={pageNum}
-                onClick={() => fetchWithdrawalRequests(pageNum)}
-                variant={pageNum === withdrawalPage ? "primary" : "secondary"}
-                className="px-3 py-1 text-xs"
-              >
-                {pageNum}
-              </Button>
-            )
-          )}
-        </div>
-      )}
+        {/* Pagination */}
+        {withdrawalTotalPages > 1 && (
+          <div className="flex justify-center gap-2 mt-4">
+            {Array.from({ length: withdrawalTotalPages }, (_, i) => i + 1).map(
+              (pageNum) => (
+                <Button
+                  key={pageNum}
+                  onClick={() => fetchWithdrawalRequests(pageNum)}
+                  variant={pageNum === withdrawalPage ? "primary" : "secondary"}
+                  className="px-3 py-1 text-xs"
+                >
+                  {pageNum}
+                </Button>
+              )
+            )}
+          </div>
+        )}
+      </div>
     </Card>
   </div>
 );
