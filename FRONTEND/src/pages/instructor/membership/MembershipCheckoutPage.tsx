@@ -64,7 +64,7 @@ const MembershipCheckoutPage: React.FC = () => {
       key: import.meta.env.VITE_RAZORPAY_KEY_ID,
       amount: orderData.amount * 100,
       currency: orderData.currency,
-      name: "uLearn Membership",
+      name: "SKILZIO Membership",
       description: `Purchase - ${orderData.planName}`,
       order_id: orderData.razorpayOrderId,
       handler: async function (response: any) {

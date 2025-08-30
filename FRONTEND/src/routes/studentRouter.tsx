@@ -29,6 +29,14 @@ import QuizAttemptPage from "../pages/student/enrollCourses/QuizAttempPage";
 import StudentOrderHistoryPage from "../pages/student/order/StudentOrderHistoryPage";
 import StudentOrderDetailPage from "../pages/student/order/StudentOrderDetailPage";
 
+import SlotCheckoutPage from "../pages/student/slotCheckout/SlotCheckoutPage";
+import SlotHistoryPage from "../pages/student/slot/SlotHistoryPage";
+import SlotBookingDetailPage from "../pages/student/slot/SlotBookingDetailpage";
+
+import NotFound from "../components/common/NotFound";
+import InstructorListPage from "../pages/student/instructor/InstructorListPage";
+import InstructorDetailPage from "../pages/student/instructor/InstructorDetailPage";
+import StudentAvailableSlotsPage from "../pages/student/slot/StudentAvailableSlotsPage";
 const StudentRouter = () => {
   return (
     <Routes>
@@ -63,6 +71,16 @@ const StudentRouter = () => {
         <Route path="/user/course/:courseId" element={<CourseDetailPage />} />
         <Route path="/user/courses" element={<CourseListPage />} />
 
+        <Route path="/user/instructors" element={<InstructorListPage />} />
+        <Route
+          path="/user/instructor/:instructorId"
+          element={<InstructorDetailPage />}
+        />
+        <Route
+          path="/user/instructor/:instructorId/slots"
+          element={<StudentAvailableSlotsPage />}
+        />
+
         {/* reset password in case of forgot password */}
         <Route path="/user/verifyEmail" element={<ForgotPassword />} />
         <Route
@@ -91,8 +109,17 @@ const StudentRouter = () => {
           <Route path="quiz/:courseId/:quizId" element={<QuizAttemptPage />} />
           <Route path="order" element={<StudentOrderHistoryPage />} />
           <Route path="order/:orderId" element={<StudentOrderDetailPage />} />
+          <Route path="checkout/:slotId" element={<SlotCheckoutPage />} />
+
+          {/* slot history */}
+          <Route path="slotsHistory" element={<SlotHistoryPage />} />
+          <Route
+            path="slotHistory/:bookingId"
+            element={<SlotBookingDetailPage />}
+          />
         </Route>
       </Route>
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };

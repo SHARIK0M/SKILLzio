@@ -14,38 +14,29 @@ import {
   instructorWithdrawalController,
   instructorMembershipController,
   instructorMembershipOrderController,
+  instructorSlotController,
+  instructorSlotBookingController,
 } from '../core/container'
 import upload from '../utils/multer'
 
 import authenticateToken from '../middlewares/AuthenticatedRoutes'
 import { isInstructor } from '../middlewares/roleAuth'
 
-
-
-
 let router = Router()
 
+// ------------------------- Authentication Routes -------------------------
 router.post('/signUp', instructorController.signUp.bind(instructorController))
-
 router.post('/resendOtp', instructorController.resendOtp.bind(instructorController))
-
 router.post('/createUser', instructorController.createUser.bind(instructorController))
-
 router.post('/login', instructorController.login.bind(instructorController))
-
 router.post('/logout', instructorController.logout.bind(instructorController))
-
 router.post('/verifyEmail', instructorController.verifyEmail.bind(instructorController))
-
 router.post('/verifyResetOtp', instructorController.verifyResetOtp.bind(instructorController))
-
 router.post('/forgotResendOtp', instructorController.forgotResendOtp.bind(instructorController))
-
 router.post('/resetPassword', instructorController.resetPassword.bind(instructorController))
-
 router.post('/googleLogin', instructorController.doGoogleLogin.bind(instructorController))
 
-//verification part
+// ------------------------- Verification Routes -------------------------
 router.post(
   '/verificationRequest',
   upload.fields([
@@ -60,8 +51,7 @@ router.get(
   instructorVerificationController.getRequestByEmail.bind(instructorVerificationController),
 )
 
-//isBlocked check
-
+// ------------------------- Status Check -------------------------
 router.get(
   '/statusCheck',
   authenticateToken,
@@ -69,432 +59,407 @@ router.get(
   instructorController.statusCheck.bind(instructorController),
 )
 
-
-//profile management part
-
+// ------------------------- Profile Management -------------------------
 router.get(
-  "/profile",
+  '/profile',
   authenticateToken,
   isInstructor,
-  instructorProfileController.getProfile.bind(instructorProfileController)
-);
+  instructorProfileController.getProfile.bind(instructorProfileController),
+)
 
 router.put(
-  "/profile",
+  '/profile',
   authenticateToken,
   isInstructor,
-  upload.single("profilePic"),
-  instructorProfileController.updateProfile.bind(instructorProfileController)
-);
+  upload.single('profilePic'),
+  instructorProfileController.updateProfile.bind(instructorProfileController),
+)
 
 router.put(
-  "/profile/password",
+  '/profile/password',
   authenticateToken,
   isInstructor,
-  instructorProfileController.updatePassword.bind(instructorProfileController)
-);
+  instructorProfileController.updatePassword.bind(instructorProfileController),
+)
 
-
-
-//categoryfetch
-
+// ------------------------- Categories -------------------------
 router.get(
-  "/categories",
+  '/categories',
   authenticateToken,
   isInstructor,
-  instructorCategoryController.getListedCategories.bind(
-    instructorCategoryController
-  )
-);
+  instructorCategoryController.getListedCategories.bind(instructorCategoryController),
+)
 
-// Create Course
+// ------------------------- Course Management -------------------------
 router.post(
-  "/course",
+  '/course',
   authenticateToken,
   isInstructor,
   upload.fields([
-    { name: "thumbnail", maxCount: 1 },
-    { name: "demoVideos", maxCount: 1 },
+    { name: 'thumbnail', maxCount: 1 },
+    { name: 'demoVideos', maxCount: 1 },
   ]),
-  instructorCourseController.createCourse.bind(instructorCourseController)
-);
+  instructorCourseController.createCourse.bind(instructorCourseController),
+)
 
-// Update Course
 router.put(
-  "/course/:courseId",
+  '/course/:courseId',
   authenticateToken,
   isInstructor,
   upload.fields([
-    { name: "thumbnail", maxCount: 1 },
-    { name: "demoVideos", maxCount: 1 },
+    { name: 'thumbnail', maxCount: 1 },
+    { name: 'demoVideos', maxCount: 1 },
   ]),
-  instructorCourseController.updateCourse.bind(instructorCourseController)
-);
+  instructorCourseController.updateCourse.bind(instructorCourseController),
+)
 
-// Delete Course
 router.delete(
-  "/course/:courseId",
+  '/course/:courseId',
   authenticateToken,
   isInstructor,
-  instructorCourseController.deleteCourse.bind(instructorCourseController)
-);
-
-// Get Course By ID
-router.get(
-  "/course/:courseId",
-  authenticateToken,
-  isInstructor,
-  instructorCourseController.getCourseById.bind(instructorCourseController)
-);
-
-//instructor created courses visit
+  instructorCourseController.deleteCourse.bind(instructorCourseController),
+)
 
 router.get(
-  "/courses",
+  '/course/:courseId',
   authenticateToken,
   isInstructor,
-  instructorCourseController.getInstructorCourses.bind(
-    instructorCourseController
-  )
-);
+  instructorCourseController.getCourseById.bind(instructorCourseController),
+)
 
-//publish course
+router.get(
+  '/courses',
+  authenticateToken,
+  isInstructor,
+  instructorCourseController.getInstructorCourses.bind(instructorCourseController),
+)
 
 router.patch(
-  "/course/:courseId/publish",
+  '/course/:courseId/publish',
   authenticateToken,
   isInstructor,
-  instructorCourseController.publishCourse.bind(instructorCourseController)
-);
+  instructorCourseController.publishCourse.bind(instructorCourseController),
+)
 
-//chapter routes
-
+// ------------------------- Chapter Management -------------------------
 router.get(
-  "/chapters/:courseId",
+  '/chapters/:courseId',
   authenticateToken,
   isInstructor,
-  instructorChapterController.getChaptersByCourse.bind(
-    instructorChapterController
-  )
-);
+  instructorChapterController.getChaptersByCourse.bind(instructorChapterController),
+)
 
 router.post(
-  "/chapters/:courseId",
+  '/chapters/:courseId',
   authenticateToken,
   isInstructor,
   upload.fields([
-    { name: "video", maxCount: 1 },
-    { name: "captions", maxCount: 1 },
+    { name: 'video', maxCount: 1 },
+    { name: 'captions', maxCount: 1 },
   ]),
-  instructorChapterController.createChapter.bind(instructorChapterController)
-);
+  instructorChapterController.createChapter.bind(instructorChapterController),
+)
 
 router.put(
-  "/chapters/:courseId/:chapterId",
+  '/chapters/:courseId/:chapterId',
   upload.fields([
-    { name: "video", maxCount: 1 },
-    { name: "captions", maxCount: 1 },
+    { name: 'video', maxCount: 1 },
+    { name: 'captions', maxCount: 1 },
   ]),
-  instructorChapterController.updateChapter.bind(instructorChapterController)
-);
+  instructorChapterController.updateChapter.bind(instructorChapterController),
+)
 
 router.delete(
-  "/chapters/:courseId/:chapterId",
+  '/chapters/:courseId/:chapterId',
   authenticateToken,
   isInstructor,
-  instructorChapterController.deleteChapter.bind(instructorChapterController)
-);
+  instructorChapterController.deleteChapter.bind(instructorChapterController),
+)
 
 router.get(
-  "/chapters/:courseId/:chapterId",
+  '/chapters/:courseId/:chapterId',
   authenticateToken,
   isInstructor,
-  instructorChapterController.getChapterById.bind(instructorChapterController)
-);
+  instructorChapterController.getChapterById.bind(instructorChapterController),
+)
 
-//quiz routes
-
+// ------------------------- Quiz Management -------------------------
 router.post(
-  "/quiz",
+  '/quiz',
   authenticateToken,
   isInstructor,
-  instructorQuizController.createQuiz.bind(instructorQuizController)
-);
+  instructorQuizController.createQuiz.bind(instructorQuizController),
+)
 
-router.delete(
-  "/quiz/:quizId",
-  instructorQuizController.deleteQuiz.bind(instructorQuizController)
-);
+router.delete('/quiz/:quizId', instructorQuizController.deleteQuiz.bind(instructorQuizController))
 
 router.get(
-  "/quiz/:quizId",
+  '/quiz/:quizId',
   authenticateToken,
   isInstructor,
-  instructorQuizController.getQuizById.bind(instructorQuizController)
-);
+  instructorQuizController.getQuizById.bind(instructorQuizController),
+)
 
 router.get(
-  "/quiz/course/:courseId",
+  '/quiz/course/:courseId',
   authenticateToken,
   isInstructor,
-  instructorQuizController.getQuizByCourseId.bind(instructorQuizController)
-);
+  instructorQuizController.getQuizByCourseId.bind(instructorQuizController),
+)
 
-//questions-level routes inside a quiz
-
+// Quiz Questions inside Quiz
 router.post(
-  "/quiz/:courseId/question",
+  '/quiz/:courseId/question',
   authenticateToken,
   isInstructor,
-  instructorQuizController.addQuestion.bind(instructorQuizController)
-);
+  instructorQuizController.addQuestion.bind(instructorQuizController),
+)
 
 router.put(
-  "/quiz/:quizId/question/:questionId",
+  '/quiz/:quizId/question/:questionId',
   authenticateToken,
   isInstructor,
-  instructorQuizController.updateQuestion.bind(instructorQuizController)
-);
+  instructorQuizController.updateQuestion.bind(instructorQuizController),
+)
 
 router.delete(
-  "/quiz/:quizId/question/:questionId",
+  '/quiz/:quizId/question/:questionId',
   authenticateToken,
   isInstructor,
-  instructorQuizController.deleteQuestion.bind(instructorQuizController)
-);
+  instructorQuizController.deleteQuestion.bind(instructorQuizController),
+)
 
 router.get(
-  "/quiz/course/:courseId/paginated",
+  '/quiz/course/:courseId/paginated',
   authenticateToken,
   isInstructor,
-  instructorQuizController.getPaginatedQuestionsByCourseId.bind(
-    instructorQuizController
-  )
-);
+  instructorQuizController.getPaginatedQuestionsByCourseId.bind(instructorQuizController),
+)
 
-
-
-/////////////////////////instructor dashboard///////////////////////////////////
-
+// ------------------------- Instructor Dashboard -------------------------
 router.get(
-  "/dashboard",
+  '/dashboard',
   authenticateToken,
   isInstructor,
-  instructorDashboardController.getDashboard.bind(instructorDashboardController)
-);
+  instructorDashboardController.getDashboard.bind(instructorDashboardController),
+)
 
 router.get(
-  "/dashboard/report",
+  '/dashboard/report',
   authenticateToken,
   isInstructor,
-  instructorDashboardController.getDetailedRevenueReport.bind(
-    instructorDashboardController
-  )
-);
+  instructorDashboardController.getDetailedRevenueReport.bind(instructorDashboardController),
+)
 
 router.get(
-  "/dashboard/reportRevenueExport",
+  '/dashboard/reportRevenueExport',
   authenticateToken,
   isInstructor,
-  instructorDashboardController.exportRevenueReport.bind(
-    instructorDashboardController
-  )
-);
+  instructorDashboardController.exportRevenueReport.bind(instructorDashboardController),
+)
 
-
-////////////instructor specific course dashboard///////////////////////////
-
+// ------------------------- Specific Course Dashboard -------------------------
 router.get(
-  "/dashboard/specificCourse/:courseId",
+  '/dashboard/specificCourse/:courseId',
   authenticateToken,
   isInstructor,
-  specificCourseDashboardController.getCourseDashboard.bind(
-    specificCourseDashboardController
-  )
-);
+  specificCourseDashboardController.getCourseDashboard.bind(specificCourseDashboardController),
+)
 
 router.get(
-  "/dashboard/specificCourse/:courseId/revenueReport",
+  '/dashboard/specificCourse/:courseId/revenueReport',
   authenticateToken,
   isInstructor,
-  specificCourseDashboardController.getCourseRevenueReport.bind(
-    specificCourseDashboardController
-  )
-);
+  specificCourseDashboardController.getCourseRevenueReport.bind(specificCourseDashboardController),
+)
 
 router.get(
-  "/dashboard/specificCourse/:courseId/exportRevenueReport",
+  '/dashboard/specificCourse/:courseId/exportRevenueReport',
   authenticateToken,
   isInstructor,
   specificCourseDashboardController.exportCourseRevenueReport.bind(
-    specificCourseDashboardController
-  )
-);
+    specificCourseDashboardController,
+  ),
+)
 
+// ------------------------- Wallet Management -------------------------
+router.get(
+  '/wallet',
+  authenticateToken,
+  isInstructor,
+  instructorWalletController.getWallet.bind(instructorWalletController),
+)
 
-//wallet related routes
+router.post(
+  '/wallet/credit',
+  authenticateToken,
+  isInstructor,
+  instructorWalletController.creditWallet.bind(instructorWalletController),
+)
+
+router.post(
+  '/wallet/debit',
+  authenticateToken,
+  isInstructor,
+  instructorWalletController.debitWallet.bind(instructorWalletController),
+)
 
 router.get(
-  "/wallet",
+  '/wallet/transactions',
   authenticateToken,
   isInstructor,
-  instructorWalletController.getWallet.bind(instructorWalletController)
-);
+  instructorWalletController.getPaginatedTransactions.bind(instructorWalletController),
+)
+
+// ------------------------- Wallet Payment -------------------------
+router.post(
+  '/wallet/payment/createOrder',
+  authenticateToken,
+  isInstructor,
+  instructorWalletPaymentController.createOrder.bind(instructorWalletPaymentController),
+)
 
 router.post(
-  "/wallet/credit",
+  '/wallet/payment/verify',
   authenticateToken,
   isInstructor,
-  instructorWalletController.creditWallet.bind(instructorWalletController)
-);
+  instructorWalletPaymentController.verifyPayment.bind(instructorWalletPaymentController),
+)
 
+// ------------------------- Withdrawal Requests -------------------------
 router.post(
-  "/wallet/debit",
+  '/withdrawalRequest',
   authenticateToken,
   isInstructor,
-  instructorWalletController.debitWallet.bind(instructorWalletController)
-);
+  instructorWithdrawalController.createWithdrawalRequest.bind(instructorWithdrawalController),
+)
 
 router.get(
-  "/wallet/transactions",
-  authenticateToken,
-  isInstructor,
-  instructorWalletController.getPaginatedTransactions.bind(
-    instructorWalletController
-  )
-);
-
-//wallet payment related routes
-
-router.post(
-  "/wallet/payment/createOrder",
-  authenticateToken,
-  isInstructor,
-  instructorWalletPaymentController.createOrder.bind(
-    instructorWalletPaymentController
-  )
-);
-
-router.post(
-  "/wallet/payment/verify",
-  authenticateToken,
-  isInstructor,
-  instructorWalletPaymentController.verifyPayment.bind(
-    instructorWalletPaymentController
-  )
-);
-
-//////// Instructor withdrawal Request /////////////////
-
-router.post(
-  "/withdrawalRequest",
-  authenticateToken,
-  isInstructor,
-  instructorWithdrawalController.createWithdrawalRequest.bind(
-    instructorWithdrawalController
-  )
-);
-
-router.get(
-  "/withdrawalRequests",
+  '/withdrawalRequests',
   authenticateToken,
   isInstructor,
   instructorWithdrawalController.getWithdrawalRequestsWithPagination.bind(
-    instructorWithdrawalController
-  )
-);
+    instructorWithdrawalController,
+  ),
+)
 
 router.patch(
-  "/withdrawalRequest/:requestId/retry",
+  '/withdrawalRequest/:requestId/retry',
   isInstructor,
-  instructorWithdrawalController.retryWithdrawalRequest.bind(
-    instructorWithdrawalController
-  )
-);
+  instructorWithdrawalController.retryWithdrawalRequest.bind(instructorWithdrawalController),
+)
 
-
-///////instructor membership////////////////////////////
-
+// ------------------------- Membership Management -------------------------
 router.get(
-  "/membershipPlans",
+  '/membershipPlans',
   authenticateToken,
   isInstructor,
-  instructorMembershipController.getPlans.bind(instructorMembershipController)
-);
+  instructorMembershipController.getPlans.bind(instructorMembershipController),
+)
 
 router.get(
-  "/isMentor",
+  '/isMentor',
   authenticateToken,
   isInstructor,
-  instructorMembershipController.getStatus.bind(instructorMembershipController)
-);
+  instructorMembershipController.getStatus.bind(instructorMembershipController),
+)
 
 router.get(
-  "/membership/active",
+  '/membership/active',
   authenticateToken,
   isInstructor,
-  instructorMembershipController.getActiveMembership.bind(
-    instructorMembershipController
-  )
-);
+  instructorMembershipController.getActiveMembership.bind(instructorMembershipController),
+)
 
-//purchase membership
+// Membership Purchase
+router.post(
+  '/checkout/:planId',
+  authenticateToken,
+  isInstructor,
+  instructorMembershipOrderController.initiateCheckout.bind(instructorMembershipOrderController),
+)
 
 router.post(
-  "/checkout/:planId",
+  '/verify',
   authenticateToken,
   isInstructor,
-  instructorMembershipOrderController.initiateCheckout.bind(
-    instructorMembershipOrderController
-  )
-);
+  isInstructor,
+  instructorMembershipOrderController.verifyOrder.bind(instructorMembershipOrderController),
+)
 
 router.post(
-  "/verify",
+  '/membership/purchaseWallet/:planId',
   authenticateToken,
   isInstructor,
-  isInstructor,
-  instructorMembershipOrderController.verifyOrder.bind(
-    instructorMembershipOrderController
-  )
-);
-
-router.post(
-  "/membership/purchaseWallet/:planId",
-  authenticateToken,
-  isInstructor,
-  instructorMembershipOrderController.purchaseWithWallet.bind(
-    instructorMembershipOrderController
-  )
-);
+  instructorMembershipOrderController.purchaseWithWallet.bind(instructorMembershipOrderController),
+)
 
 router.get(
-  "/membershipOrders",
+  '/membershipOrders',
   authenticateToken,
   isInstructor,
-  instructorMembershipOrderController.getInstructorOrders.bind(
-    instructorMembershipOrderController
-  )
-);
+  instructorMembershipOrderController.getInstructorOrders.bind(instructorMembershipOrderController),
+)
 
 router.get(
-  "/membershipOrder/:txnId",
+  '/membershipOrder/:txnId',
   authenticateToken,
   isInstructor,
   instructorMembershipOrderController.getMembershipOrderDetail.bind(
-    instructorMembershipOrderController
-  )
-);
+    instructorMembershipOrderController,
+  ),
+)
 
 router.get(
-  "/membershipOrder/:txnId/receipt",
+  '/membershipOrder/:txnId/receipt',
   authenticateToken,
   isInstructor,
-  instructorMembershipOrderController.downloadReceipt.bind(
-    instructorMembershipOrderController
-  )
-);
+  instructorMembershipOrderController.downloadReceipt.bind(instructorMembershipOrderController),
+)
+
+// ------------------------- Slot Management -------------------------
+router.post(
+  '/createSlot',
+  authenticateToken,
+  isInstructor,
+  instructorSlotController.createSlot.bind(instructorSlotController),
+)
+
+router.get(
+  '/slots',
+  authenticateToken,
+  isInstructor,
+  instructorSlotController.listSlots.bind(instructorSlotController),
+)
+
+router.put(
+  '/slot/:slotId',
+  authenticateToken,
+  isInstructor,
+  instructorSlotController.updateSlot.bind(instructorSlotController),
+)
+
+router.delete(
+  '/slot/:slotId',
+  authenticateToken,
+  isInstructor,
+  instructorSlotController.deleteSlot.bind(instructorSlotController),
+)
+
+router.get(
+  '/slotStats',
+  authenticateToken,
+  isInstructor,
+  instructorSlotController.getSlotStatsByMonth.bind(instructorSlotController),
+)
+
+// ------------------------- Slot Booking -------------------------
+router.get(
+  '/slotBooking/:slotId',
+  authenticateToken,
+  isInstructor,
+  instructorSlotBookingController.getBookingDetail.bind(instructorSlotBookingController),
+)
 
 const instructorRoutes = router
-
 export default instructorRoutes
