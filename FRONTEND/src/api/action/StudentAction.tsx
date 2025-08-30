@@ -1,6 +1,9 @@
 import { API } from "../../service/axios";
 import UserRouterEndpoints from "../../types/EndPoints/user.Endpoints"
 import type QuizPayload from "../../types/interface/IQuizPayload";
+import type { ListInstructorParams } from "../../types/interface/ListInstructorParams";
+import fileDownload from "js-file-download";
+
 
 export const getProfile = async () => {
   try {
@@ -438,6 +441,278 @@ export const downloadInvoice = async (orderId: string) => {
     link.remove();
     window.URL.revokeObjectURL(url);
   } catch (error) {
+    throw error;
+  }
+};
+
+
+export const listInstructors = async (params: ListInstructorParams) => {
+  try {
+    const queryParams = new URLSearchParams();
+    Object.entries(params).forEach(([key, value]) => {
+      if (value) queryParams.append(key, value.toString());
+    });
+
+    const response = await API.get(
+      `${UserRouterEndpoints.userSideInstructorLists}?${queryParams.toString()}`
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const instructorDetailsById = async (instructorId: string) => {
+  try {
+    const response = await API.get(
+      `${UserRouterEndpoints.userSideInstructorDetailsById}/${instructorId}`
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getSkillAndExpertise = async () => {
+  try {
+    const response = await API.get(
+      `${UserRouterEndpoints.userGetSkillsAndExpertise}`
+    );
+
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getSlotsOfParticularInstructor = async (instructorId: string) => {
+  try {
+    const response = await API.get(
+      `${UserRouterEndpoints.userViewSlotsParticularInstructor}/${instructorId}`
+    );
+
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const slotCheckout = async (slotId: string) => {
+  try {
+    const response = await API.post(
+      `${UserRouterEndpoints.userSlotInitiateCheckout}/${slotId}`
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const verifySlotPayment = async (
+  slotId: string,
+  razorpay_payment_id: string
+) => {
+  try {
+    const response = await API.post(
+      `${UserRouterEndpoints.userSlotVerifyPayment}`,
+      {
+        slotId,
+        razorpay_payment_id,
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const bookSlotViaWallet = async (slotId: string) => {
+  try {
+    const response = await API.post(
+      `${UserRouterEndpoints.userBookSlotViaWallet}/${slotId}`
+    );
+
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const bookingHistory = async (page = 1, limit = 5) => {
+  try {
+    const response = await API.get(
+      `${UserRouterEndpoints.userGetSlotBookingHistory}?page=${page}&limit=${limit}`
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const bookingDetail = async (bookingId: string) => {
+  try {
+    const response = await API.get(
+      `${UserRouterEndpoints.userGetSpecificSlotDetail}/${bookingId}`
+    );
+
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const slotReceipt = async (bookingId: string) => {
+  try {
+    const response = await API.get(
+      `${UserRouterEndpoints.userDownloadSlotReceipt}/${bookingId}/receipt`,
+      { responseType: "blob" }
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+//dashboard
+
+export const dashboard = async () => {
+  try {
+    const response = await API.get(`${UserRouterEndpoints.userDashboard}`);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const courseReport = async (filter: {
+  type: "daily" | "weekly" | "monthly" | "yearly" | "custom";
+  startDate?: string;
+  endDate?: string;
+  page?: number;
+}) => {
+  try {
+    const response = await API.get(`${UserRouterEndpoints.userCourseReport}`, {
+      params: {
+        filter: filter.type,
+        startDate: filter.startDate,
+        endDate: filter.endDate,
+        page: filter.page,
+        limit: 5, // Fixed limit of 5
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const slotReport = async (filter: {
+  type: "daily" | "weekly" | "monthly" | "yearly" | "custom";
+  startDate?: string;
+  endDate?: string;
+  page?: number;
+}) => {
+  try {
+    const response = await API.get(`${UserRouterEndpoints.userSlotReport}`, {
+      params: {
+        filter: filter.type,
+        startDate: filter.startDate,
+        endDate: filter.endDate,
+        page: filter.page,
+        limit: 5, // Fixed limit of 5
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const exportCourseReport = async (
+  format: "pdf" | "excel",
+  filter?: {
+    type: "daily" | "weekly" | "monthly" | "yearly" | "custom";
+    startDate?: string;
+    endDate?: string;
+    page?: number;
+  },
+  customStartDate?: string, // Add these parameters
+  customEndDate?: string
+) => {
+  try {
+    const params: any = {
+      format,
+      filter: filter?.type || "custom",
+      page: filter?.page,
+      limit: 5,
+    };
+
+    // Include startDate and endDate for custom filter
+    if (filter?.type === "custom" && customStartDate && customEndDate) {
+      params.startDate = new Date(customStartDate).toISOString().split("T")[0];
+      params.endDate = new Date(customEndDate).toISOString().split("T")[0];
+    }
+
+    const response = await API.get(UserRouterEndpoints.userExportCourseReport, {
+      params,
+      responseType: "blob",
+    });
+
+    const filename =
+      format === "pdf" ? "course-report.pdf" : "course-report.xlsx";
+    const blob = new Blob([response.data], {
+      type:
+        format === "pdf"
+          ? "application/pdf"
+          : "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    });
+    fileDownload(blob, filename);
+  } catch (error) {
+    console.error("Error exporting course report:", error);
+    throw error;
+  }
+};
+
+export const exportSlotReport = async (
+  format: "pdf" | "excel",
+  filter?: {
+    type: "daily" | "weekly" | "monthly" | "yearly" | "custom";
+    startDate?: string;
+    endDate?: string;
+    page?: number;
+  },
+  customStartDate?: string, // Add these parameters
+  customEndDate?: string
+) => {
+  try {
+    const params: any = {
+      format,
+      filter: filter?.type || "custom",
+      page: filter?.page,
+      limit: 5,
+    };
+
+    // Include startDate and endDate for custom filter
+    if (filter?.type === "custom" && customStartDate && customEndDate) {
+      params.startDate = new Date(customStartDate).toISOString().split("T")[0];
+      params.endDate = new Date(customEndDate).toISOString().split("T")[0];
+    }
+
+    const response = await API.get(UserRouterEndpoints.userExportSlotReport, {
+      params,
+      responseType: "blob",
+    });
+
+    const filename = format === "pdf" ? "slot-report.pdf" : "slot-report.xlsx";
+    const blob = new Blob([response.data], {
+      type:
+        format === "pdf"
+          ? "application/pdf"
+          : "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    });
+    fileDownload(blob, filename);
+  } catch (error) {
+    console.error("Error exporting slot report:", error);
     throw error;
   }
 };

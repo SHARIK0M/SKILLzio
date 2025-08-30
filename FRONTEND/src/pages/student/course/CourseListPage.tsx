@@ -96,145 +96,231 @@ const CourseListPage = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-10 space-y-10">
-      {/* Header */}
-      <div className="text-center mb-10">
-        <h1 className="text-4xl font-bold bg-gradient-to-r from-emerald-600 to-cyan-500 bg-clip-text text-transparent">
-          Explore Courses
-        </h1>
-        <p className="mt-2 text-gray-600">
-          Discover the best courses for your learning journey
-        </p>
-      </div>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+      {/* Enhanced Header Section */}
+      <div className="relative bg-white shadow-xl border-b border-gray-100 overflow-hidden">
+        {/* Decorative background gradient */}
+        <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/5 via-cyan-500/5 to-blue-500/5"></div>
+        <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-emerald-200/20 to-cyan-200/20 rounded-full blur-3xl transform translate-x-32 -translate-y-32"></div>
+        <div className="absolute bottom-0 left-0 w-48 h-48 bg-gradient-to-tr from-blue-200/20 to-purple-200/20 rounded-full blur-2xl transform -translate-x-24 translate-y-24"></div>
 
-      {/* Search Bar */}
-      <div className="flex justify-center mb-10">
-        <input
-          type="text"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          placeholder="Search for courses..."
-          className="px-4 py-3 w-full sm:w-2/3 md:w-1/2 rounded-2xl shadow-lg border border-gray-200 focus:ring-2 focus:ring-emerald-400 focus:outline-none transition-all duration-300"
-        />
-      </div>
-
-      <div className="flex flex-col lg:flex-row gap-8">
-        {/* Sidebar */}
-        <aside className="w-full lg:w-1/4 space-y-10">
-          {/* Categories */}
-          <div className="bg-white p-6 rounded-3xl shadow-lg border border-gray-100">
-            <h3 className="text-lg font-semibold border-b pb-2 mb-3">
-              Categories
-            </h3>
-            <ul className="space-y-2">
-              {categories.map((cat) => (
-                <li
-                  key={cat._id}
-                  onClick={() => {
-                    setSelectedCategory(cat._id);
-                    setCurrentPage(1);
-                  }}
-                  className={`cursor-pointer px-3 py-2 rounded-xl font-medium transition-all duration-300 ${
-                    selectedCategory === cat._id
-                      ? "bg-emerald-600 text-white shadow-lg"
-                      : "hover:bg-gray-100"
-                  }`}
-                >
-                  {cat.categoryName}
-                </li>
-              ))}
-            </ul>
+        <div className="relative max-w-7xl mx-auto px-6 py-8">
+          <div className="text-center space-y-4">
+            <h1 className="text-4xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent">
+              Explore Amazing Courses 📚
+            </h1>
+            <p className="text-gray-600 font-medium text-lg">
+              Discover the best courses for your learning journey
+            </p>
           </div>
 
-          {/* Sort Options */}
-          <div className="bg-white p-6 rounded-3xl shadow-lg border border-gray-100">
-            <h3 className="text-lg font-semibold border-b pb-2 mb-3">
-              Sort By
-            </h3>
-            <ul className="space-y-2">
-              <li
-                onClick={() => setSortOption("price-asc")}
-                className="cursor-pointer hover:text-emerald-600 hover:underline transition-all duration-300"
-              >
-                Price: Low to High
-              </li>
-              <li
-                onClick={() => setSortOption("price-desc")}
-                className="cursor-pointer hover:text-emerald-600 hover:underline transition-all duration-300"
-              >
-                Price: High to Low
-              </li>
-              <li
-                onClick={() => setSortOption("name-asc")}
-                className="cursor-pointer hover:text-emerald-600 hover:underline transition-all duration-300"
-              >
-                A - Z
-              </li>
-              <li
-                onClick={() => setSortOption("name-desc")}
-                className="cursor-pointer hover:text-emerald-600 hover:underline transition-all duration-300"
-              >
-                Z - A
-              </li>
-            </ul>
-
-            <button
-              onClick={handleClearFilters}
-              className="mt-4 w-full px-4 py-2 text-sm bg-gray-200 hover:bg-gray-300 rounded-2xl shadow transition-all duration-300"
-            >
-              Clear Filters
-            </button>
+          {/* Enhanced Search Section */}
+          <div className="mt-8 flex justify-center">
+            <div className="relative w-full max-w-2xl">
+              <div className="absolute inset-0 bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-2xl blur opacity-20"></div>
+              <input
+                type="text"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                placeholder="Search for courses..."
+                className="relative w-full px-6 py-4 text-lg border-0 rounded-2xl shadow-xl bg-white/90 backdrop-blur-sm focus:outline-none focus:ring-4 focus:ring-emerald-500/20 placeholder-gray-500 font-medium"
+              />
+              <div className="absolute inset-y-0 right-0 flex items-center pr-6">
+                <div className="w-6 h-6 text-gray-400">🔍</div>
+              </div>
+            </div>
           </div>
-        </aside>
+        </div>
+      </div>
 
-        {/* Courses Grid */}
-        <main className="w-full lg:w-3/4 space-y-6">
-          <p className="text-gray-600">
-            Showing <strong>{courses.length}</strong> course
-            {courses.length > 1 ? "s" : ""} for you
-          </p>
+      {/* Main Content */}
+      <div className="max-w-7xl mx-auto px-6 py-8">
+        <div className="flex flex-col lg:flex-row gap-8">
+          {/* Enhanced Filters Sidebar */}
+          <aside className="w-full lg:w-1/4">
+            <div className="relative">
+              {/* Background decoration */}
+              <div className="absolute inset-0 bg-white/40 backdrop-blur-sm rounded-3xl shadow-lg border border-white/20"></div>
+              <div className="relative p-6 space-y-8">
+                <div className="text-center">
+                  <h3 className="text-xl font-bold bg-gradient-to-r from-emerald-600 to-cyan-600 bg-clip-text text-transparent">
+                    Filter Courses
+                  </h3>
+                </div>
 
-          {courses.length === 0 ? (
-            <div className="text-center text-gray-500 py-16 bg-white rounded-3xl shadow-lg">
-              No courses found
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
-              {courses.map(({ course }) => (
-                <CourseCard
-                  key={course._id}
-                  id={course._id}
-                  title={course.courseName}
-                  description={course.description}
-                  price={course.price}
-                  duration={course.duration}
-                  level={course.level}
-                  thumbnailUrl={course.thumbnailUrl}
-                  categoryName={course.category?.categoryName || ""}
-                />
-              ))}
-            </div>
-          )}
+                {/* Categories Filter */}
+                <div>
+                  <h4 className="text-lg font-semibold text-gray-800 mb-4 flex items-center space-x-2">
+                    <span className="w-2 h-2 bg-emerald-500 rounded-full"></span>
+                    <span>Categories</span>
+                  </h4>
+                  <div className="space-y-2">
+                    {categories.map((cat) => (
+                      <button
+                        key={cat._id}
+                        onClick={() => {
+                          setSelectedCategory(cat._id);
+                          setCurrentPage(1);
+                        }}
+                        className={`w-full text-left px-4 py-3 rounded-xl transition-all duration-300 border shadow-md hover:shadow-lg font-medium ${
+                          selectedCategory === cat._id
+                            ? "bg-gradient-to-r from-emerald-500 to-cyan-500 text-white border-emerald-200 shadow-emerald-200/50"
+                            : "bg-white/80 text-gray-700 border-gray-200 hover:bg-emerald-50 hover:text-emerald-600 hover:border-emerald-200"
+                        }`}
+                      >
+                        {cat.categoryName}
+                      </button>
+                    ))}
+                  </div>
+                </div>
 
-          {/* Pagination */}
-          {totalPages > 1 && (
-            <div className="flex justify-center items-center gap-2 flex-wrap mt-6">
-              {Array.from({ length: totalPages }, (_, i) => (
+                {/* Sort Options */}
+                <div>
+                  <h4 className="text-lg font-semibold text-gray-800 mb-4 flex items-center space-x-2">
+                    <span className="w-2 h-2 bg-cyan-500 rounded-full"></span>
+                    <span>Sort By</span>
+                  </h4>
+                  <div className="space-y-2">
+                    <button
+                      onClick={() => setSortOption("price-asc")}
+                      className={`w-full text-left px-4 py-3 rounded-xl transition-all duration-300 border shadow-md hover:shadow-lg font-medium ${
+                        sortOption === "price-asc"
+                          ? "bg-gradient-to-r from-emerald-500 to-cyan-500 text-white border-emerald-200"
+                          : "bg-white/80 text-gray-700 border-gray-200 hover:bg-emerald-50 hover:text-emerald-600"
+                      }`}
+                    >
+                      Price: Low to High
+                    </button>
+                    <button
+                      onClick={() => setSortOption("price-desc")}
+                      className={`w-full text-left px-4 py-3 rounded-xl transition-all duration-300 border shadow-md hover:shadow-lg font-medium ${
+                        sortOption === "price-desc"
+                          ? "bg-gradient-to-r from-emerald-500 to-cyan-500 text-white border-emerald-200"
+                          : "bg-white/80 text-gray-700 border-gray-200 hover:bg-emerald-50 hover:text-emerald-600"
+                      }`}
+                    >
+                      Price: High to Low
+                    </button>
+                    <button
+                      onClick={() => setSortOption("name-asc")}
+                      className={`w-full text-left px-4 py-3 rounded-xl transition-all duration-300 border shadow-md hover:shadow-lg font-medium ${
+                        sortOption === "name-asc"
+                          ? "bg-gradient-to-r from-emerald-500 to-cyan-500 text-white border-emerald-200"
+                          : "bg-white/80 text-gray-700 border-gray-200 hover:bg-emerald-50 hover:text-emerald-600"
+                      }`}
+                    >
+                      A - Z
+                    </button>
+                    <button
+                      onClick={() => setSortOption("name-desc")}
+                      className={`w-full text-left px-4 py-3 rounded-xl transition-all duration-300 border shadow-md hover:shadow-lg font-medium ${
+                        sortOption === "name-desc"
+                          ? "bg-gradient-to-r from-emerald-500 to-cyan-500 text-white border-emerald-200"
+                          : "bg-white/80 text-gray-700 border-gray-200 hover:bg-emerald-50 hover:text-emerald-600"
+                      }`}
+                    >
+                      Z - A
+                    </button>
+                  </div>
+                </div>
+
+                {/* Enhanced Clear Filter Button */}
                 <button
-                  key={i + 1}
-                  onClick={() => setCurrentPage(i + 1)}
-                  className={`px-4 py-2 rounded-xl font-medium border transition-all duration-300 ${
-                    currentPage === i + 1
-                      ? "bg-emerald-600 text-white shadow-lg"
-                      : "bg-white text-gray-700 hover:bg-gray-100"
-                  }`}
+                  onClick={handleClearFilters}
+                  className="w-full px-6 py-3 rounded-xl bg-gradient-to-r from-gray-100 to-gray-50 text-gray-700 font-semibold hover:from-red-50 hover:to-red-100 hover:text-red-600 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 border border-gray-200 hover:border-red-200"
                 >
-                  {i + 1}
+                  Clear All Filters
                 </button>
-              ))}
+              </div>
             </div>
-          )}
-        </main>
+          </aside>
+
+          {/* Enhanced Main Content */}
+          <main className="w-full lg:w-3/4">
+            <div className="relative">
+              {/* Background decoration */}
+              <div className="absolute inset-0 bg-white/40 backdrop-blur-sm rounded-3xl shadow-lg border border-white/20 -m-4"></div>
+              <div className="relative p-6">
+                {/* Results Header */}
+                <div className="mb-8 text-center">
+                  <p className="text-lg font-medium text-gray-700 flex items-center justify-center space-x-2">
+                    <span>📚</span>
+                    <span>
+                      Showing{" "}
+                      <strong className="text-emerald-600">
+                        {courses.length}
+                      </strong>{" "}
+                      amazing course{courses.length !== 1 ? "s" : ""} for you
+                    </span>
+                  </p>
+                </div>
+
+                {courses.length === 0 ? (
+                  <div className="text-center py-16">
+                    <div className="w-24 h-24 mx-auto mb-6 bg-gradient-to-br from-emerald-100 to-cyan-100 rounded-3xl flex items-center justify-center">
+                      <span className="text-4xl">📖</span>
+                    </div>
+                    <h3 className="text-xl font-semibold text-gray-700 mb-2">
+                      No courses found
+                    </h3>
+                    <p className="text-gray-500">
+                      Try adjusting your filters or search terms
+                    </p>
+                  </div>
+                ) : (
+                  <>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+                      {courses.map(({ course }) => (
+                        <div key={course._id} className="relative group">
+                          {/* Course card wrapper with enhanced styling */}
+                          <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/10 to-cyan-500/10 rounded-3xl blur opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                          <div className="relative transform group-hover:scale-105 transition-all duration-300">
+                            <CourseCard
+                              id={course._id}
+                              title={course.courseName}
+                              description={course.description}
+                              price={course.price}
+                              duration={course.duration}
+                              level={course.level}
+                              thumbnailUrl={course.thumbnailUrl}
+                              categoryName={course.category?.categoryName || ""}
+                            />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Enhanced Pagination */}
+                    {totalPages > 1 && (
+                      <div className="mt-12">
+                        <div className="relative">
+                          <div className="absolute inset-0 bg-white/40 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 -m-2"></div>
+                          <div className="relative p-4">
+                            <div className="flex justify-center items-center gap-3 flex-wrap">
+                              {Array.from({ length: totalPages }, (_, i) => (
+                                <button
+                                  key={i + 1}
+                                  onClick={() => setCurrentPage(i + 1)}
+                                  className={`px-4 py-2 rounded-xl font-medium transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg ${
+                                    currentPage === i + 1
+                                      ? "bg-gradient-to-r from-emerald-500 to-cyan-500 text-white border border-emerald-200 shadow-emerald-200/50"
+                                      : "bg-white/80 text-gray-700 border border-gray-200 hover:bg-emerald-50 hover:text-emerald-600 hover:border-emerald-200"
+                                  }`}
+                                >
+                                  {i + 1}
+                                </button>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </>
+                )}
+              </div>
+            </div>
+          </main>
+        </div>
       </div>
     </div>
   );

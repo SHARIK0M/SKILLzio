@@ -26,7 +26,7 @@ const LoginPage = () => {
       if (response.success) {
         localStorage.setItem("admin", JSON.stringify(response.data.email));
         toast.success(response.message);
-        navigate("/admin/home");
+        navigate("/admin/dashboard");
       } else {
         toast.error(response.message);
       }

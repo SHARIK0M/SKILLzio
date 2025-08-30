@@ -1,6 +1,5 @@
 import { Routes, Route } from "react-router-dom";
 import LoginPage from "../pages/admin/Auth/login";
-import Home from "../pages/admin/Home";
 import AdminLayout from "../layouts/AdminLayout";
 import AdminSessionRoute from "../protector/AdminSessionRoute"; 
 import PrivateRoute from "../protector/AdminPrivateRoute";
@@ -28,6 +27,7 @@ import EditMembershipPlanPage from "../pages/admin/membership/EditMembershipPlan
 import Orders from "../pages/admin/purchaseHistory/Orders";
 import MembershipOrderDetail from "../pages/admin/purchaseHistory/MembershipOrderDetail";
 
+import AdminDashboard from "../pages/admin/dashboard/AdminDashboard";
 const AdminRouter = () => {
   return (
     <Routes>
@@ -44,7 +44,7 @@ const AdminRouter = () => {
       {/* Protected routes */}
       <Route element={<PrivateRoute />}>
         <Route element={<AdminLayout />}>
-          <Route path="home" element={<Home />} />
+          <Route path="dashboard" element={<AdminDashboard />} />
           <Route path="users" element={<UserList />} />
           <Route path="instructors" element={<InstructorList />} />
           <Route path="verification" element={<VerificationPage />} />

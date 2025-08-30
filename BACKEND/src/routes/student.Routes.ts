@@ -14,34 +14,29 @@ import {
   studentWalletController,
   studentWalletPaymentController,
   studentOrderController,
+  studentInstructorListingController,
+  studentSlotController,
+  studentSlotBookingController,
+  studentDashboardController,
 } from '../core/container'
-
 
 const router = Router()
 
+// ------------------- Authentication & User Management -------------------
+
 router.post('/signUp', studentController.studentSignUp.bind(studentController))
-
 router.post('/resendOtp', studentController.resendOtp.bind(studentController))
-
 router.post('/createUser', studentController.createUser.bind(studentController))
-
 router.post('/login', studentController.login.bind(studentController))
-
 router.post('/logout', studentController.logout.bind(studentController))
-
 router.post('/verifyEmail', studentController.verifyEmail.bind(studentController))
-
 router.post('/verifyResetOtp', studentController.verifyResetOtp.bind(studentController))
-
 router.post('/forgotResendOtp', studentController.forgotResendOtp.bind(studentController))
-
 router.post('/resetPassword', studentController.resetPassword.bind(studentController))
-
 router.post('/googleLogin', studentController.doGoogleLogin.bind(studentController))
-
 router.get('/statusCheck', studentController.statusCheck.bind(studentController))
 
-// Student Profile
+// ------------------- Student Profile -------------------
 
 router.get(
   '/profile',
@@ -65,39 +60,77 @@ router.put(
   studentProfileController.updatePassword.bind(studentProfileController),
 )
 
+// ------------------- Course & Category Browsing -------------------
 
+router.get('/courses', studentCourseController.getAllCourses.bind(studentCourseController))
+router.get(
+  '/courses/filter',
+  studentCourseController.getFilteredCourses.bind(studentCourseController),
+)
+router.get(
+  '/courses/:courseId',
+  studentCourseController.getCourseDetails.bind(studentCourseController),
+)
+router.get(
+  '/categories',
+  categoryReadOnlyController.getAllCategories.bind(categoryReadOnlyController),
+)
 
-router.get('/courses',studentCourseController.getAllCourses.bind(studentCourseController))
+// ------------------- Cart Management -------------------
 
-router.get('/courses/filter',studentCourseController.getFilteredCourses.bind(studentCourseController))
+router.get(
+  '/cart',
+  authenticateToken,
+  isStudent,
+  studentCartController.getCart.bind(studentCartController),
+)
+router.post(
+  '/addToCart',
+  authenticateToken,
+  isStudent,
+  studentCartController.addToCart.bind(studentCartController),
+)
+router.delete(
+  '/remove/:courseId',
+  authenticateToken,
+  isStudent,
+  studentCartController.removeFromCart.bind(studentCartController),
+)
+router.delete(
+  '/clearCart',
+  authenticateToken,
+  isStudent,
+  studentCartController.clearCart.bind(studentCartController),
+)
 
-router.get('/courses/:courseId',studentCourseController.getCourseDetails.bind(studentCourseController))
+// ------------------- Wishlist Management -------------------
 
-router.get('/categories',categoryReadOnlyController.getAllCategories.bind(categoryReadOnlyController))
+router.post(
+  '/addToWishlist',
+  authenticateToken,
+  isStudent,
+  studentWishlistController.addToWishlist.bind(studentWishlistController),
+)
+router.delete(
+  '/removeWishlistCourse/:courseId',
+  authenticateToken,
+  isStudent,
+  studentWishlistController.removeFromWishlist.bind(studentWishlistController),
+)
+router.get(
+  '/wishlist',
+  authenticateToken,
+  isStudent,
+  studentWishlistController.getWishlistCourses.bind(studentWishlistController),
+)
+router.get(
+  '/check/:courseId',
+  authenticateToken,
+  isStudent,
+  studentWishlistController.isCourseInWishlist.bind(studentWishlistController),
+)
 
-
-
-
-
-router.get("/cart",authenticateToken,isStudent,studentCartController.getCart.bind(studentCartController))
-
-router.post('/addToCart',authenticateToken,isStudent,studentCartController.addToCart.bind(studentCartController))
-
-router.delete('/remove/:courseId',authenticateToken,isStudent,studentCartController.removeFromCart.bind(studentCartController))
-
-router.delete("/clearCart",authenticateToken,isStudent,studentCartController.clearCart.bind(studentCartController))
-
-
-
-router.post('/addToWishlist',authenticateToken,isStudent,studentWishlistController.addToWishlist.bind(studentWishlistController))
-
-router.delete('/removeWishlistCourse/:courseId',authenticateToken,isStudent,studentWishlistController.removeFromWishlist.bind(studentWishlistController))
-
-router.get('/wishlist',authenticateToken,isStudent,studentWishlistController.getWishlistCourses.bind(studentWishlistController))
-
-router.get('/check/:courseId',authenticateToken,isStudent,studentWishlistController.isCourseInWishlist.bind(studentWishlistController))
-
-
+// ------------------- Checkout & Payment -------------------
 
 router.post(
   '/checkout',
@@ -113,110 +146,94 @@ router.post(
   studentCheckoutController.completeCheckout.bind(studentCheckoutController),
 )
 
-
-//////////BOUGHT COURSE MANAGEMENT/////////////////
-
-router.get(
-  "/enrolled",
-  authenticateToken,
-  isStudent,
-  studentEnrollmentController.getAllEnrolledCourses.bind(
-    studentEnrollmentController
-  )
-);
+// ------------------- Enrolled Courses -------------------
 
 router.get(
-  "/enrolled/:courseId",
+  '/enrolled',
   authenticateToken,
   isStudent,
-  studentEnrollmentController.getEnrollmentCourseDetails.bind(
-    studentEnrollmentController
-  )
-);
+  studentEnrollmentController.getAllEnrolledCourses.bind(studentEnrollmentController),
+)
+
+router.get(
+  '/enrolled/:courseId',
+  authenticateToken,
+  isStudent,
+  studentEnrollmentController.getEnrollmentCourseDetails.bind(studentEnrollmentController),
+)
 
 router.patch(
-  "/enrolled/completeChapter",
+  '/enrolled/completeChapter',
   authenticateToken,
   isStudent,
-  studentEnrollmentController.completeChapter.bind(studentEnrollmentController)
-);
+  studentEnrollmentController.completeChapter.bind(studentEnrollmentController),
+)
 
 router.post(
-  "/submitQuiz",
+  '/submitQuiz',
   authenticateToken,
   isStudent,
-  studentEnrollmentController.submitQuizResult.bind(studentEnrollmentController)
-);
+  studentEnrollmentController.submitQuizResult.bind(studentEnrollmentController),
+)
 
 router.get(
-  "/enrollment/:courseId/allChaptersComplete",
+  '/enrollment/:courseId/allChaptersComplete',
   authenticateToken,
   isStudent,
-  studentEnrollmentController.checkAllChaptersCompleted.bind(
-    studentEnrollmentController
-  )
-);
+  studentEnrollmentController.checkAllChaptersCompleted.bind(studentEnrollmentController),
+)
 
 router.get(
-  "/certificate/:courseId",
+  '/certificate/:courseId',
   authenticateToken,
   isStudent,
-  studentEnrollmentController.getCertificateUrl.bind(
-    studentEnrollmentController
-  )
-);
+  studentEnrollmentController.getCertificateUrl.bind(studentEnrollmentController),
+)
 
-
-
-//wallet related routes
+// ------------------- Wallet Management -------------------
 
 router.get(
-  "/wallet",
+  '/wallet',
   authenticateToken,
   isStudent,
-  studentWalletController.getWallet.bind(studentWalletController)
-);
-
+  studentWalletController.getWallet.bind(studentWalletController),
+)
 router.post(
-  "/wallet/credit",
+  '/wallet/credit',
   authenticateToken,
   isStudent,
-  studentWalletController.creditWallet.bind(studentWalletController)
-);
-
+  studentWalletController.creditWallet.bind(studentWalletController),
+)
 router.post(
-  "/wallet/debit",
+  '/wallet/debit',
   authenticateToken,
   isStudent,
-  studentWalletController.debitWallet.bind(studentWalletController)
-);
-
+  studentWalletController.debitWallet.bind(studentWalletController),
+)
 router.get(
-  "/wallet/transactions",
+  '/wallet/transactions',
   authenticateToken,
   isStudent,
-  studentWalletController.getPaginatedTransactions.bind(studentWalletController)
-);
+  studentWalletController.getPaginatedTransactions.bind(studentWalletController),
+)
 
-//wallet payment related routes
-
-router.post(
-  "/wallet/payment/createOrder",
-  authenticateToken,
-  isStudent,
-  studentWalletPaymentController.createOrder.bind(
-    studentWalletPaymentController
-  )
-);
+// ------------------- Wallet Payment -------------------
 
 router.post(
-  "/wallet/payment/verify",
+  '/wallet/payment/createOrder',
   authenticateToken,
   isStudent,
-  studentWalletPaymentController.verifyPayment.bind(
-    studentWalletPaymentController
-  )
-);
+  studentWalletPaymentController.createOrder.bind(studentWalletPaymentController),
+)
+
+router.post(
+  '/wallet/payment/verify',
+  authenticateToken,
+  isStudent,
+  studentWalletPaymentController.verifyPayment.bind(studentWalletPaymentController),
+)
+
+// ------------------- Orders -------------------
 
 router.get(
   '/orders',
@@ -224,14 +241,12 @@ router.get(
   isStudent,
   studentOrderController.getOrderHistory.bind(studentOrderController),
 )
-
 router.get(
   '/orders/:orderId',
   authenticateToken,
   isStudent,
   studentOrderController.getOrderDetails.bind(studentOrderController),
 )
-
 router.get(
   '/orders/:orderId/invoice',
   authenticateToken,
@@ -239,5 +254,100 @@ router.get(
   studentOrderController.downloadInvoice.bind(studentOrderController),
 )
 
+// ------------------- Instructor Listing -------------------
+
+router.get(
+  '/instructors',
+  studentInstructorListingController.listMentors.bind(studentInstructorListingController),
+)
+router.get(
+  '/instructors/filters',
+  studentInstructorListingController.getAvailableFilters.bind(studentInstructorListingController),
+)
+router.get(
+  '/instructors/:instructorId',
+  studentInstructorListingController.getMentorById.bind(studentInstructorListingController),
+)
+router.get(
+  '/slots/:instructorId',
+  studentSlotController.getAvailableSlots.bind(studentSlotController),
+)
+
+// ------------------- Slot Booking -------------------
+
+router.post(
+  '/checkout/:slotId',
+  authenticateToken,
+  isStudent,
+  studentSlotBookingController.initiateCheckout.bind(studentSlotBookingController),
+)
+
+router.post(
+  '/verifySlotPayment',
+  authenticateToken,
+  isStudent,
+  studentSlotBookingController.verifyPayment.bind(studentSlotBookingController),
+)
+
+router.post(
+  '/wallet/:slotId',
+  authenticateToken,
+  isStudent,
+  studentSlotBookingController.bookViaWallet.bind(studentSlotBookingController),
+)
+
+router.get(
+  '/bookingHistory',
+  authenticateToken,
+  isStudent,
+  studentSlotBookingController.getBookingHistory.bind(studentSlotBookingController),
+)
+
+router.get(
+  '/booking/:bookingId',
+  authenticateToken,
+  isStudent,
+  studentSlotBookingController.getBookingDetail.bind(studentSlotBookingController),
+)
+
+router.get(
+  '/booking/:bookingId/receipt',
+  authenticateToken,
+  isStudent,
+  studentSlotBookingController.downloadReceipt.bind(studentSlotBookingController),
+)
+
+// ------------------- Dashboard -------------------
+
+router.get(
+  '/dashboard',
+  authenticateToken,
+  isStudent,
+  studentDashboardController.getDashboardData.bind(studentDashboardController),
+)
+router.get(
+  '/dashboard/courseReport',
+  authenticateToken,
+  isStudent,
+  studentDashboardController.getCourseReport.bind(studentDashboardController),
+)
+router.get(
+  '/dashboard/slotReport',
+  authenticateToken,
+  isStudent,
+  studentDashboardController.getSlotReport.bind(studentDashboardController),
+)
+router.get(
+  '/dashboard/exportCourseReport',
+  authenticateToken,
+  isStudent,
+  studentDashboardController.exportCourseReport.bind(studentDashboardController),
+)
+router.get(
+  '/dashboard/exportSlotReport',
+  authenticateToken,
+  isStudent,
+  studentDashboardController.exportSlotReport.bind(studentDashboardController),
+)
 
 export default router

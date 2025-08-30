@@ -56,6 +56,33 @@ const UserRouterEndpoints = {
   userGetOrders: "/api/student/orders", // Get all orders
   userGetOrderDetail: "/api/student/orders", // Get details of a specific order
   userDownloadOrderInvoice: "/api/student/orders", // Download invoice for a specific order
+
+  //student side instructor listing
+
+  userSideInstructorLists: "/api/student/instructors",
+  userSideInstructorDetailsById: "/api/student/instructors",
+  userGetSkillsAndExpertise: "/api/student/instructors/filters",
+
+  //viewing slots availability for the particular instructor
+
+  userViewSlotsParticularInstructor: "/api/student/slots",
+
+  //slot booking related routes
+
+  userSlotInitiateCheckout: "/api/student/checkout",
+  userSlotVerifyPayment: "/api/student/verifySlotPayment",
+  userBookSlotViaWallet: "/api/student/wallet",
+  userGetSlotBookingHistory: "/api/student/bookingHistory",
+  userGetSpecificSlotDetail: "/api/student/booking",
+  userDownloadSlotReceipt: "/api/student/booking",
+
+  //student dashboard
+
+  userDashboard: "/api/student/dashboard",
+  userCourseReport: "/api/student/dashboard/courseReport",
+  userSlotReport: "/api/student/dashboard/slotReport",
+  userExportCourseReport: "/api/student/dashboard/exportCourseReport",
+  userExportSlotReport: "/api/student/dashboard/exportSlotReport",
 };
 
 export default UserRouterEndpoints;

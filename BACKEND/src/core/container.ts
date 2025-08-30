@@ -39,7 +39,7 @@ import { OtpService } from '../services/OtpService/otp.Service'
 // =============================================================================
 import IInstructorController from '../controllers/instructorControllers/interfaces/IInstructorController'
 import { InstructorController } from '../controllers/instructorControllers/Instructor.Controller'
-import IInstructorRepository from '../repositories/instructorRepository/interfaces/IInstructorRepository'
+import IInstructorRepository from '../repositories/instructorRepository/interfaces/IInstructorRepository' 
 import InstructorRepository from '../repositories/instructorRepository/instructor.Repository'
 import IInstructorService from '../services/instructorServices/interfaces/IInstructorService'
 import InstructorService from '../services/instructorServices/Instructor.Service'
@@ -350,6 +350,136 @@ import { IStudentOrderService } from '../services/studentServices/interfaces/ISt
 import { StudentOrderService } from '../services/studentServices/StudentOrder.Service'
 import { IStudentOrderController } from '../controllers/studentControllers/interfaces/IStudentOrderController'
 import { StudentOrderController } from '../controllers/studentControllers/studentOrder.Controller'
+
+
+
+// =============================================================================
+// ADMIN MEMBERSHIP MANAGEMENT IMPORTS
+// Admin can create, update, and manage membership plans
+// =============================================================================
+import { IAdminMembershipRepository } from '../repositories/adminRepository/interfaces/IAdminMembershipRepository'
+import { AdminMembershipRepository } from '../repositories/adminRepository/adminMembership.Repository'
+import { IAdminMembershipService } from '../services/adminServices/interfaces/IAdminMembershipService'
+import { AdminMembershipService } from "../services/adminServices/AdminMembership.Service";
+import { IAdminMembershipController } from '../controllers/adminControllers/interfaces/IAdminMembershipController'
+import { AdminMembershipController } from '../controllers/adminControllers/adminMembership.Controller'
+
+// =============================================================================
+// INSTRUCTOR MEMBERSHIP MANAGEMENT IMPORTS
+// Instructors can view and subscribe to available membership plans
+// =============================================================================
+import { IInstructorMembershipRepository } from '../repositories/instructorRepository/interfaces/IInstructorMembershipRepository' 
+import { InstructorMembershipRepository } from '../repositories/instructorRepository/instructorMembership.Repository' 
+import { IInstructorMembershipService } from '../services/instructorServices/interfaces/IInstructorMembershipService' 
+import { InstructorMembershipService } from "../services/instructorServices/InstructorMembership.Service";
+import { IInstructorMembershipController } from '../controllers/instructorControllers/interfaces/IInstructorMembershipController' 
+import { InstructorMembershipController } from '../controllers/instructorControllers/instructorMembership.Controller' 
+
+// =============================================================================
+// INSTRUCTOR MEMBERSHIP ORDER IMPORTS
+// Handles instructor checkout and membership payment flows
+// =============================================================================
+import { IInstructorMembershipOrderRepository } from '../repositories/instructorRepository/interfaces/IInstructorMembershipOrderRepository' 
+import { InstructorMembershipOrderRepository } from '../repositories/instructorRepository/instructorMembershipOrder.Repository' 
+import { IInstructorMembershipOrderService } from '../services/instructorServices/interfaces/IInstructorMembershipOrderService' 
+import { InstructorMembershipOrderService } from '../services/instructorServices/InstructorMembershipOrder.Service' 
+import { IInstructorMembershipOrderController } from '../controllers/instructorControllers/interfaces/IInstructorMembershipOrderController'
+import { InstructorMembershipOrderController } from '../controllers/instructorControllers/instructorMembershipOrder.Controller'
+import { razorpay } from "../utils/razorpay";
+import { SendEmail } from "../utils/sendOtpEmail";
+import { IEmail } from "../types/Email";
+
+// =============================================================================
+// ADMIN MEMBERSHIP ORDER IMPORTS
+// Admin monitoring and handling of instructor membership orders
+// =============================================================================
+import { IAdminMembershipOrderRepository } from '../repositories/adminRepository/interfaces/IAdminMembershipOrderRepository' 
+import { AdminMembershipOrderRepository } from "../repositories/adminRepository/adminMembershipOrder.Repository";
+import { IAdminMembershipOrderService } from '../services/adminServices/interfaces/IAdminMembershipOrderService' 
+import { AdminMembershipOrderService } from '../services/adminServices/AdminMembershipOrder.Service' 
+import { IAdminMembershipOrderController } from '../controllers/adminControllers/interfaces/IAdminMembershipOrderController' 
+import { AdminMembershipOrderController } from "../controllers/adminControllers/adminMembershipOrder.Controller";
+
+// =============================================================================
+// INSTRUCTOR SLOT MANAGEMENT IMPORTS
+// Instructors manage availability slots for student bookings
+// =============================================================================
+import { IInstructorSlotRepository } from '../repositories/instructorRepository/interfaces/IInstructorSlotRepository' 
+import { InstructorSlotRepository } from '../repositories/instructorRepository/instructorSlot.Repository' 
+import { IInstructorSlotService } from '../services/instructorServices/interfaces/IInstructorSlotService'
+import { InstructorSlotService } from '../services/instructorServices/InstructorSlot.Service' 
+import { IInstructorSlotController } from '../controllers/instructorControllers/interfaces/IInstructorSlotController' 
+import { InstructorSlotController } from '../controllers/instructorControllers/instructorSlot.Controller' 
+
+// =============================================================================
+// STUDENT INSTRUCTOR LISTING IMPORTS
+// Students browse available instructors
+// =============================================================================
+import { IStudentInstructorListingRepository } from '../repositories/studentRepository/interfaces/IStudentInstructorListingRepository' 
+import { StudentInstructorListingRepository } from '../repositories/studentRepository/studentInstructorListing.Repository' 
+import { IStudentInstructorListingService } from '../services/studentServices/interfaces/IStudentInstructorListingService' 
+import { StudentInstructorListingService } from "../services/studentServices/StudentInstructorListing.Service";
+import { IStudentInstructorListingController } from "../controllers/studentControllers/interfaces/IStudentInstructorListingController";
+import { StudentInstructorListingController } from '../controllers/studentControllers/studentInstructorListing.Controller'
+
+// =============================================================================
+// STUDENT SLOT VIEWING IMPORTS
+// Students view instructor slot availability
+// =============================================================================
+import { IStudentSlotRepository } from '../repositories/studentRepository/interfaces/IStudentSlotRepository' 
+import { StudentSlotRepository } from '../repositories/studentRepository/StudentSlot.Repository' 
+import { IStudentSlotService } from '../services/studentServices/interfaces/IStudentSlotService' 
+import { StudentSlotService } from '../services/studentServices/StudentSlot.Service'
+import { IStudentSlotController } from '../controllers/studentControllers/interfaces/IStudentSlotController' 
+import { StudentSlotController } from '../controllers/studentControllers/studentSlot.Controller' 
+
+// =============================================================================
+// STUDENT SLOT BOOKING IMPORTS
+// Students book instructor slots and manage wallet payments
+// =============================================================================
+import { IStudentSlotBookingRepository } from '../repositories/studentRepository/interfaces/IStudentSlotBookingRepository' 
+import { StudentSlotBookingRepository } from '../repositories/studentRepository/studentSlotBooking.Repository'
+import { IStudentSlotBookingService } from '../services/studentServices/interfaces/IStudentSlotBookingService' 
+import { StudentSlotBookingService } from '../services/studentServices/StudentSlotBooking.Service' 
+import { IStudentSlotBookingController } from "../controllers/studentControllers/interfaces/IStudentSlotBookingController";
+import { StudentSlotBookingController } from '../controllers/studentControllers/studentSlotBooking.Controller' 
+
+// =============================================================================
+// INSTRUCTOR BOOKED SLOT IMPORTS
+// Instructors view and manage booked slots
+// =============================================================================
+import { IInstructorSlotBookingRepository } from '../repositories/studentRepository/interfaces/IInstructorSlotBookingRepository' 
+import { InstructorSlotBookingRepository } from '../repositories/studentRepository/instructorSlotBooking.Repository' 
+import { IInstructorSlotBookingService } from '../services/instructorServices/interfaces/IInstructorSlotBookingService' 
+import { InstructorSlotBookingService } from '../services/instructorServices/InstructorSlotBooking.Service'
+import { IInstructorSlotBookingController } from '../controllers/instructorControllers/interfaces/IInstructorSlotBookingController' 
+import { InstructorSlotBookingController } from '../controllers/instructorControllers/instructorSlotBooking.Controller' 
+
+// =============================================================================
+// ADMIN DASHBOARD IMPORTS
+// Admin dashboard with stats: courses, orders, instructors, memberships
+// =============================================================================
+import { IAdminDashboardRepository } from '../repositories/adminRepository/interfaces/IAdminDashboardRepository'
+import { AdminDashboardRepository } from '../repositories/adminRepository/adminDashboard.Repository' 
+import { IAdminDashboardService } from '../services/adminServices/interfaces/IAdminDashboardService' 
+import { AdminDashboardService } from '../services/adminServices/AdminDashboard.Service' 
+import { IAdminDashboardController } from '../controllers/adminControllers/interfaces/IAdminDashboardController' 
+import { AdminDashboardController } from '../controllers/adminControllers/adminDashboard.Controller' 
+import { InstructorMembershipOrder } from '../repositories/genericRepo/InstructorMemberShirpOrder.Repository' 
+
+// =============================================================================
+// STUDENT DASHBOARD IMPORTS
+// Student dashboard with enrolled courses, bookings, and orders
+// =============================================================================
+import { IStudentDashboardRepository } from '../repositories/studentRepository/interfaces/IStudentDashboardRepository' 
+import { StudentDashboardRepository } from '../repositories/studentRepository/studentDashboard.Repository'
+import { IStudentDashboardService } from '../services/studentServices/interfaces/IStudentDashboardService' 
+import { StudentDashboardService } from '../services/studentServices/StudentDashboard.Service' 
+import { IStudentDashboardController } from '../controllers/studentControllers/interfaces/IStudentDashboardController'
+import { StudentDashboardController } from "../controllers/studentControllers/studentDashboard.Controller";
+import { BookingRepository } from '../repositories/genericRepo/Booking.Repository' 
+
+
 
 // =============================================================================
 // GENERIC REPOSITORY IMPORTS
@@ -766,118 +896,102 @@ const studentOrderController: IStudentOrderController = new StudentOrderControll
 
 
 
+/**
+ * STEP 33: CREATE ADMIN MEMBERSHIP MANAGEMENT MODULE
+ */
+const adminMembershipRepository: IAdminMembershipRepository = new AdminMembershipRepository()
+const adminMembershipService: IAdminMembershipService = new AdminMembershipService(adminMembershipRepository)
+const adminMembershipController: IAdminMembershipController = new AdminMembershipController(adminMembershipService)
 
+/**
+ * STEP 34: CREATE INSTRUCTOR MEMBERSHIP MANAGEMENT MODULE
+ */
+const instructorMembershipRepository: IInstructorMembershipRepository = new InstructorMembershipRepository()
+const instructorMembershipService: IInstructorMembershipService = new InstructorMembershipService(instructorMembershipRepository, instructorRepository)
+const instructorMembershipController: IInstructorMembershipController = new InstructorMembershipController(instructorMembershipService)
 
-  
-/////////ADMIN MEMEBERSHIP MANAGEMENT///////////////////////////////////////////
+/**
+ * STEP 35: CREATE INSTRUCTOR MEMBERSHIP ORDER MODULE
+ */
+const emailService: IEmail = new SendEmail()
+const instructorMembershipOrderRepository: IInstructorMembershipOrderRepository = new InstructorMembershipOrderRepository()
+const instructorMembershipOrderService: IInstructorMembershipOrderService = new InstructorMembershipOrderService(
+  instructorMembershipOrderRepository,
+  instructorMembershipRepository,
+  instructorRepository,
+  razorpay,
+  walletService,
+  emailService
+)
+const instructorMembershipOrderController: IInstructorMembershipOrderController = new InstructorMembershipOrderController(
+  instructorMembershipOrderService,
+  instructorMembershipService
+)
 
-import { IAdminMembershipRepository } from '../repositories/adminRepository/interfaces/IAdminMembershipRepository'
-import { AdminMembershipRepository } from '../repositories/adminRepository/adminMembership.Repository' 
-import { IAdminMembershipService } from '../services/adminServices/interfaces/IAdminMembershipService'
-import { AdminMembershipService } from "../services/adminServices/AdminMembership.Service";
-import { IAdminMembershipController } from '../controllers/adminControllers/interfaces/IAdminMembershipController'
-import { AdminMembershipController } from '../controllers/adminControllers/adminMembership.Controller' 
+/**
+ * STEP 36: CREATE ADMIN MEMBERSHIP ORDER MODULE
+ */
+const adminMembershipOrderRepository: IAdminMembershipOrderRepository = new AdminMembershipOrderRepository()
+const adminMembershipOrderService: IAdminMembershipOrderService = new AdminMembershipOrderService(adminMembershipOrderRepository)
+const adminMembershipOrderController: IAdminMembershipOrderController = new AdminMembershipOrderController(adminMembershipOrderService)
 
-const adminMembershipRepository: IAdminMembershipRepository =
-  new AdminMembershipRepository();
+/**
+ * STEP 37: CREATE INSTRUCTOR SLOT MANAGEMENT MODULE
+ */
+const instructorSlotRepository: IInstructorSlotRepository = new InstructorSlotRepository()
+const instructorSlotService: IInstructorSlotService = new InstructorSlotService(instructorSlotRepository)
+const instructorSlotController: IInstructorSlotController = new InstructorSlotController(instructorSlotService)
 
-const adminMembershipService: IAdminMembershipService =
-  new AdminMembershipService(adminMembershipRepository);
+/**
+ * STEP 38: CREATE STUDENT INSTRUCTOR LISTING MODULE
+ */
+const studentInstructorListingRepository: IStudentInstructorListingRepository = new StudentInstructorListingRepository()
+const studentInstructorListingService: IStudentInstructorListingService = new StudentInstructorListingService(studentInstructorListingRepository)
+const studentInstructorListingController: IStudentInstructorListingController = new StudentInstructorListingController(studentInstructorListingService)
 
-const adminMembershipController: IAdminMembershipController =
-  new AdminMembershipController(adminMembershipService);
+/**
+ * STEP 39: CREATE STUDENT SLOT VIEWING MODULE
+ */
+const studentSlotRepository: IStudentSlotRepository = new StudentSlotRepository()
+const studentSlotService: IStudentSlotService = new StudentSlotService(studentSlotRepository)
+const studentSlotController: IStudentSlotController = new StudentSlotController(studentSlotService)
 
-////////////instructor membership page/////////////////////////////////////////////
+/**
+ * STEP 40: CREATE STUDENT SLOT BOOKING MODULE
+ */
+const studentSlotBookingRepository: IStudentSlotBookingRepository = new StudentSlotBookingRepository()
+const studentSlotBookingService: IStudentSlotBookingService = new StudentSlotBookingService(studentSlotBookingRepository, studentSlotRepository, walletService)
+const studentSlotBookingController: IStudentSlotBookingController = new StudentSlotBookingController(studentSlotBookingService)
 
-import { IInstructorMembershipRepository } from '../repositories/instructorRepository/interfaces/IInstructorMembershipRepository' 
-import { InstructorMembershipRepository } from '../repositories/instructorRepository/instructorMembership.Repository' 
+/**
+ * STEP 41: CREATE INSTRUCTOR BOOKED SLOT MODULE
+ */
+const instructorSlotBookingRepository: IInstructorSlotBookingRepository = new InstructorSlotBookingRepository()
+const instructorSlotBookingService: IInstructorSlotBookingService = new InstructorSlotBookingService(instructorSlotBookingRepository)
+const instructorSlotBookingController: IInstructorSlotBookingController = new InstructorSlotBookingController(instructorSlotBookingService)
 
-import { IInstructorMembershipService } from '../services/instructorServices/interfaces/IInstructorMembershipService' 
-import { InstructorMembershipService } from "../services/instructorServices/InstructorMembership.Service";
+/**
+ * STEP 42: CREATE ADMIN DASHBOARD MODULE
+ */
+const adminDashboardRepository: IAdminDashboardRepository = new AdminDashboardRepository(
+  instructorRepository,
+  new CourseRepository(),
+  new OrderRepository(),
+  new InstructorMembershipOrder()
+)
+const adminDashboardService: IAdminDashboardService = new AdminDashboardService(adminDashboardRepository)
+const adminDashboardController: IAdminDashboardController = new AdminDashboardController(adminDashboardService)
 
-import { IInstructorMembershipController } from '../controllers/instructorControllers/interfaces/IInstructorMembershipController' 
-import { InstructorMembershipController } from '../controllers/instructorControllers/instructorMembership.Controller' 
-
-const instructorMembershipRepository: IInstructorMembershipRepository =
-  new InstructorMembershipRepository();
-
-const instructorMembershipService: IInstructorMembershipService =
-  new InstructorMembershipService(
-    instructorMembershipRepository,
-    instructorRepository
-  );
-
-const instructorMembershipController: IInstructorMembershipController =
-  new InstructorMembershipController(instructorMembershipService);
-
-//buying membership or instructor checkout
-
-import { IInstructorMembershipOrderRepository } from '../repositories/instructorRepository/interfaces/IInstructorMembershipOrderRepository' 
-import { InstructorMembershipOrderRepository } from '../repositories/instructorRepository/instructorMembershipOrder.Repository' 
-
-import { IInstructorMembershipOrderService } from '../services/instructorServices/interfaces/IInstructorMembershipOrderService' 
-import { InstructorMembershipOrderService } from '../services/instructorServices/InstructorMembershipOrder.Service' 
-
-import { IInstructorMembershipOrderController } from '../controllers/instructorControllers/interfaces/IInstructorMembershipOrderController'
-import { InstructorMembershipOrderController } from '../controllers/instructorControllers/instructorMembershipOrder.Controller'
-import { razorpay } from "../utils/razorpay";
-import { SendEmail } from "../utils/sendOtpEmail";
-import { IEmail } from "../types/Email";
-
-const emailService: IEmail = new SendEmail();
-const instructorMembershipOrderRepository: IInstructorMembershipOrderRepository =
-  new InstructorMembershipOrderRepository();
-
-const instructorMembershipOrderService: IInstructorMembershipOrderService =
-  new InstructorMembershipOrderService(
-    instructorMembershipOrderRepository,
-    instructorMembershipRepository,
-    instructorRepository,
-    razorpay,
-    walletService,
-    emailService
-  );
-
-const instructorMembershipOrderController: IInstructorMembershipOrderController =
-  new InstructorMembershipOrderController(
-    instructorMembershipOrderService,
-    instructorMembershipService
-  );
-
-/////////////////////ADMIN MEMBERSHIP ORDER MANAGEMENT/////////////////////////////////////
-
-import { IAdminMembershipOrderRepository } from '../repositories/adminRepository/interfaces/IAdminMembershipOrderRepository' 
-import { AdminMembershipOrderRepository } from "../repositories/adminRepository/adminMembershipOrder.Repository";
-
-import { IAdminMembershipOrderService } from '../services/adminServices/interfaces/IAdminMembershipOrderService' 
-import { AdminMembershipOrderService } from '../services/adminServices/AdminMembershipOrder.Service' 
-
-import { IAdminMembershipOrderController } from '../controllers/adminControllers/interfaces/IAdminMembershipOrderController' 
-import { AdminMembershipOrderController } from "../controllers/adminControllers/adminMembershipOrder.Controller";
-
-const adminMembershipOrderRepository: IAdminMembershipOrderRepository =
-  new AdminMembershipOrderRepository();
-
-const adminMembershipOrderService: IAdminMembershipOrderService =
-  new AdminMembershipOrderService(adminMembershipOrderRepository);
-
-const adminMembershipOrderController: IAdminMembershipOrderController =
-  new AdminMembershipOrderController(adminMembershipOrderService);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/**
+ * STEP 43: CREATE STUDENT DASHBOARD MODULE
+ */
+const studentDashboardRepository: IStudentDashboardRepository = new StudentDashboardRepository(
+  new EnrollmentRepository(),
+  new BookingRepository(),
+  new OrderRepository()
+)
+const studentDashboardService: IStudentDashboardService = new StudentDashboardService(studentDashboardRepository)
+const studentDashboardController: IStudentDashboardController = new StudentDashboardController(studentDashboardService)
 
 
 // =============================================================================
@@ -900,55 +1014,104 @@ const adminMembershipOrderController: IAdminMembershipOrderController =
  * - Analytics: Dashboard and reporting functionality
  */
 export {
-  // Core User Management Controllers - Handle authentication and basic user operations
-  studentController, // Student login, registration, and basic account operations
-  instructorController, // Instructor login, registration, and basic account operations
-  adminController, // Admin operations and user management across the platform
+  // =============================================================================
+  // CORE USER MANAGEMENT CONTROLLERS
+  // Authentication, registration, and core account operations
+  // =============================================================================
+  studentController, // Student login, registration, and account operations
+  instructorController, // Instructor login, registration, and account operations
+  adminController, // Admin operations and user management
 
-  // Verification Workflow Controllers - Manage user verification and approval processes
-  adminVerificationController, // Admin side of verification: reviewing and approving applications
-  instructorVerificationController, // Instructor side of verification: submitting credentials and status tracking
+  // =============================================================================
+  // VERIFICATION WORKFLOW CONTROLLERS
+  // Manage application, approval, and verification flows
+  // =============================================================================
+  adminVerificationController, // Admin review and approval of applications
+  instructorVerificationController, // Instructor credential submission and verification status
 
-  // Profile Management Controllers - Handle user profile information and settings
-  studentProfileController, // Student personal profile: bio, preferences, account settings
-  instructorProfileController, // Instructor professional profile: qualifications, experience, bio
+  // =============================================================================
+  // PROFILE MANAGEMENT CONTROLLERS
+  // Handle profile creation, update, and settings
+  // =============================================================================
+  studentProfileController, // Student profile (bio, preferences, settings)
+  instructorProfileController, // Instructor profile (qualifications, bio, experience)
 
-  // Content Management Controllers - Manage educational content creation and organization
-  adminCategoryController, // Admin category management: create, edit, organize course categories
-  instructorCategoryController, // Instructor category browsing: select categories for courses
-  instructorChapterController, // Chapter management: create and organize course content
-  instructorQuizController, // Quiz management: create assessments and track results
-  instructorCourseController, // Complete course management: combine chapters, quizzes, and metadata
-  adminCourseController, // Admin course oversight: approve, monitor, and manage all courses
+  // =============================================================================
+  // CONTENT MANAGEMENT CONTROLLERS
+  // Creation, organization, and management of educational content
+  // =============================================================================
+  adminCategoryController, // Admin: create/edit/manage course categories
+  instructorCategoryController, // Instructor: select categories for courses
+  instructorChapterController, // Instructor: manage course chapters
+  instructorQuizController, // Instructor: create/manage quizzes and assessments
+  instructorCourseController, // Instructor: complete course creation & management
+  adminCourseController, // Admin: monitor, approve, and manage all courses
 
-  // Student Learning Controllers - Handle student interaction with educational content
-  studentCourseController, // Course consumption: watch videos, read content, take quizzes
-  categoryReadOnlyController, // Course discovery: browse categories and find relevant courses
-  studentCartController, // Shopping cart: add courses and manage pre-purchase selections
-  studentWishlistController, // Wishlist: save interesting courses for future consideration
-  studentCheckoutController, // Purchase processing: complete transactions and enroll in courses
+  // =============================================================================
+  // STUDENT LEARNING CONTROLLERS
+  // Handle discovery, enrollment, and consumption of courses
+  // =============================================================================
+  studentCourseController, // Student: consume course content (videos, quizzes)
+  categoryReadOnlyController, // Student: browse categories for discovery
+  studentCartController, // Student: shopping cart for course checkout
+  studentWishlistController, // Student: wishlist to save courses
+  studentCheckoutController, // Student: checkout & purchase processing
 
-  // Analytics and Reporting Controllers - Provide insights and performance tracking
-  instructorDashboardController, // Overall instructor analytics: total earnings, course performance
-  specificCourseDashboardController, // Individual course analytics: enrollment, completion rates, revenue
+  // =============================================================================
+  // ANALYTICS & REPORTING CONTROLLERS
+  // Provide performance tracking and insights
+  // =============================================================================
+  instructorDashboardController, // Instructor: overall analytics (earnings, performance)
+  specificCourseDashboardController, // Course-specific analytics (enrollment, revenue, etc.)
+  adminDashboardController, // Admin: global platform insights (courses, orders, memberships)
+  studentDashboardController, // Student: personal learning & booking dashboard
 
-  // Student Account Management Controllers - Handle student-specific account features
-  studentEnrollmentController, // Enrollment tracking: view enrolled courses and access history
-  studentOrderController, // Order history: view past purchases and transaction records
+  // =============================================================================
+  // STUDENT ACCOUNT MANAGEMENT CONTROLLERS
+  // Manage enrollment history and orders
+  // =============================================================================
+  studentEnrollmentController, // Student: track enrolled courses & access history
+  studentOrderController, // Student: view past orders & transactions
 
-  // Financial Management Controllers - Handle all monetary transactions and wallet operations
-  studentWalletController, // Student wallet: view balance, transaction history
-  studentWalletPaymentController, // Student payments: add funds, make purchases through wallet
-  instructorWalletController, // Instructor earnings: view revenue, balance, earning history
-  instructorWalletPaymentController, // Instructor payments: process earnings, handle financial operations
-  adminWalletController, // Admin financial oversight: monitor all wallet operations system-wide
-  adminWalletPaymentController, // Admin payment control: oversee and manage all financial transactions
+  // =============================================================================
+  // FINANCIAL MANAGEMENT CONTROLLERS
+  // Handle wallets, payments, and transactions
+  // =============================================================================
+  studentWalletController, // Student wallet: balance & transaction history
+  studentWalletPaymentController, // Student wallet payments (add funds, purchases)
+  instructorWalletController, // Instructor wallet: earnings & revenue
+  instructorWalletPaymentController, // Instructor payments: payouts & transactions
+  adminWalletController, // Admin: oversee all wallet operations
+  adminWalletPaymentController, // Admin: control platform-wide payment flows
 
-  // Withdrawal Management Controllers - Handle instructor earnings withdrawal workflow
-  instructorWithdrawalController, // Instructor withdrawal requests: submit and track withdrawal requests
-  adminWithdrawalController, // Admin withdrawal processing: review, approve, or reject withdrawal requests
-  adminMembershipController,
-  instructorMembershipController,
-  instructorMembershipOrderController,
-  adminMembershipOrderController,
+  // =============================================================================
+  // WITHDRAWAL MANAGEMENT CONTROLLERS
+  // Manage instructor withdrawal requests and admin approvals
+  // =============================================================================
+  instructorWithdrawalController, // Instructor withdrawal requests (submit & track)
+  adminWithdrawalController, // Admin processes withdrawal approvals/rejections
+
+  // =============================================================================
+  // MEMBERSHIP MANAGEMENT CONTROLLERS
+  // Handle admin & instructor memberships and orders
+  // =============================================================================
+  adminMembershipController, // Admin membership management
+  instructorMembershipController, // Instructor membership management
+  instructorMembershipOrderController, // Instructor membership purchase/checkout
+  adminMembershipOrderController, // Admin membership order monitoring
+
+  // =============================================================================
+  // SLOT MANAGEMENT CONTROLLERS
+  // Manage instructor availability and student booking
+  // =============================================================================
+  instructorSlotController, // Instructor creates and manages availability slots
+  instructorSlotBookingController, // Instructor views and manages booked slots
+  studentSlotController, // Student views available slots
+  studentSlotBookingController, // Student books slots with wallet/payment flow
+
+  // =============================================================================
+  // STUDENT-INSTRUCTOR DISCOVERY CONTROLLERS
+  // Enable students to discover and connect with instructors
+  // =============================================================================
+  studentInstructorListingController, // Student: browse/search instructor listings
 }

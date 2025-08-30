@@ -19,7 +19,7 @@ import {
 const navItems = [
   { name: "Dashboard", path: "/user/dashboard", icon: <FiHome /> },
   { name: "Courses", path: "/user/enrolled", icon: <FiBookOpen /> },
-  { name: "Meetings", path: "/user/meetings", icon: <FiVideo /> },
+  { name: "slotsHistory", path: "/user/slotsHistory", icon: <FiVideo /> },
   { name: "Wishlist", path: "/user/wishlist", icon: <FiHeart /> },
   { name: "Cart", path: "/user/cart", icon: <FiShoppingCart /> },
   { name: "Purchase History", path: "/user/order", icon: <FiClipboard /> },

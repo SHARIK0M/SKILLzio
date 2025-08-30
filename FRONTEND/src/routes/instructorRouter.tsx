@@ -36,6 +36,11 @@ import Membership from "../pages/instructor/membership/Membership";
 import MembershipCheckoutPage from "../pages/instructor/membership/MembershipCheckoutPage";
 import Orders from "../pages/instructor/purchaseHistory/Orders";
 import MembershipOrderDetail from "../pages/instructor/purchaseHistory/MembershipOrderDetail";
+import MentorRoute from "../protector/MentorRoute"; 
+import SlotPage from '../pages/instructor/slot/SlotPage'
+import SlotHistoryPage from '../pages/instructor/slot/SlotHistoryPage'
+import SlotDetailPage from '../pages/instructor/slot/SlotDetailPage'
+import NotFound from "../components/common/NotFound"; 
 
 const InstructorRouter = () => {
   return (
@@ -65,6 +70,7 @@ const InstructorRouter = () => {
           <Route path="dashboard" element={<InstructorDashboard />} />
           <Route path="profile" element={<InstructorProfilePage />} />
           <Route path="editProfile" element={<InstructorProfileEditPage />} />
+
           <Route path="courses" element={<CourseListPage />} />
           <Route path="createCourse" element={<CourseCreatePage />} />
           <Route path="editCourse/:courseId" element={<CourseEditPage />} />
@@ -101,6 +107,7 @@ const InstructorRouter = () => {
             path="course/:courseId/quiz/edit/:quizId"
             element={<EditQuizPage />}
           />
+
           <Route path="wallet" element={<InstructorWalletPage />} />
           <Route path="membership" element={<Membership />} />
           <Route
@@ -112,8 +119,17 @@ const InstructorRouter = () => {
             path="membershipOrders/:txnId"
             element={<MembershipOrderDetail />}
           />
+
+          {/* slot related */}
+          <Route element={<MentorRoute />}>
+            <Route path="slots" element={<SlotPage />} />
+            <Route path="slotsHistory" element={<SlotHistoryPage />} />
+            <Route path="slots/:slotId" element={<SlotDetailPage />} />
+          </Route>
         </Route>
       </Route>
+
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };
